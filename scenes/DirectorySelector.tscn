@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://16s375yxtc82"]
+
+[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_7uuti"]
+[ext_resource type="Script" uid="uid://cbw8unfm23y45" path="res://directory_display.gd" id="2_an3wj"]
+
+[node name="DirectorySelector" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DirectorySidePanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 400.0
+grow_vertical = 2
+theme = ExtResource("1_7uuti")
+theme_type_variation = &"DirectorySidebar"
+
+[node name="DirLocationHeader" type="Panel" parent="DirectorySidePanel"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 60.0
+theme = ExtResource("1_7uuti")
+theme_type_variation = &"DirLocHeader"
+
+[node name="Tree" type="Tree" parent="DirectorySidePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_top = 60.0
+offset_right = 400.0
+grow_vertical = 2
+theme = ExtResource("1_7uuti")
+theme_type_variation = &"DirectorySidebar"
+script = ExtResource("2_an3wj")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DirectorySidePanel"]
+visible = false
+layout_mode = 0
+offset_top = 60.0
+offset_right = 40.0
+offset_bottom = 100.0
