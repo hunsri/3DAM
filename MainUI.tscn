@@ -27,18 +27,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_guh61")
 
-[node name="LocationSelector" parent="Background" instance=ExtResource("1_guh61")]
+[node name="AssetExplorer2d" parent="Background" instance=ExtResource("3_j4ict")]
 layout_mode = 1
+anchors_preset = 15
+grow_horizontal = 2
 
 [node name="DirectorySelector" parent="Background" instance=ExtResource("2_skpw3")]
 layout_mode = 1
-offset_left = 100.0
-offset_right = 100.0
+anchors_preset = 9
+offset_right = 0.0
+grow_horizontal = 1
 
-[node name="AssetExplorer2d" parent="Background" instance=ExtResource("3_j4ict")]
+[node name="LocationSelector" parent="Background" instance=ExtResource("1_guh61")]
 layout_mode = 1
-offset_left = 500.0
-offset_right = 500.0
 
 [node name="LeftSidePanel" type="Panel" parent="."]
 visible = false
