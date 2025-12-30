@@ -21,6 +21,12 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
 
+[file_customization]
+
+folder_colors={
+"res://scripts/": "orange"
+}
+
 [gui]
 
 theme/custom="uid://koi0noce4p5b"

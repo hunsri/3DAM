@@ -1,14 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://16s375yxtc82"]
+[gd_scene load_steps=8 format=3 uid="uid://16s375yxtc82"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_7uuti"]
-[ext_resource type="Script" uid="uid://cbw8unfm23y45" path="res://directory_display.gd" id="2_an3wj"]
+[ext_resource type="Script" uid="uid://x7716fdxafas" path="res://scripts/DirectoryHandler.gd" id="1_ko0af"]
+[ext_resource type="Script" uid="uid://dqob5g2iy71ya" path="res://scripts/directory_explorer.gd" id="2_0f6le"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6ws4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ko0af"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ffvq7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nae47"]
 
 [node name="DirectorySelector" type="Control"]
 layout_mode = 3
+anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 500.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="DirectoryHandler" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_ko0af")
+metadata/_custom_type_script = "uid://x7716fdxafas"
 
 [node name="DirectorySidePanel" type="Panel" parent="."]
 custom_minimum_size = Vector2(100, 0)
@@ -28,6 +43,28 @@ offset_bottom = 60.0
 theme = ExtResource("1_7uuti")
 theme_type_variation = &"DirLocHeader"
 
+[node name="DirectoryName" type="Button" parent="DirectorySidePanel/DirLocationHeader"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -195.0
+offset_top = -11.5
+offset_right = 195.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_u6ws4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ko0af")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ffvq7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nae47")
+text_overrun_behavior = 3
+clip_text = true
+
 [node name="Tree" type="Tree" parent="DirectorySidePanel"]
 layout_mode = 1
 anchors_preset = -1
@@ -35,7 +72,10 @@ anchor_bottom = 1.0
 offset_top = 60.0
 offset_right = 400.0
 grow_vertical = 2
+focus_mode = 0
 theme = ExtResource("1_7uuti")
 theme_type_variation = &"DirectorySidebar"
-script = ExtResource("2_an3wj")
+script = ExtResource("2_0f6le")
 metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="DirectorySidePanel/DirLocationHeader/DirectoryName" to="DirectoryHandler" method="_on_directory_name_pressed"]
