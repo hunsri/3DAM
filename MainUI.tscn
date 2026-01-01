@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2no27480sc8"]
+[gd_scene load_steps=5 format=3 uid="uid://d2no27480sc8"]
 
 [ext_resource type="PackedScene" uid="uid://kfomt2xswri8" path="res://scenes/LocationSelector.tscn" id="1_guh61"]
-[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_vfs0v"]
 [ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/DirectorySelector.tscn" id="2_skpw3"]
 [ext_resource type="PackedScene" uid="uid://xa2j6v56168e" path="res://scenes/AssetView2D.tscn" id="3_j4ict"]
 
@@ -29,47 +28,20 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_guh61")
 
 [node name="AssetExplorer2d" parent="Background" instance=ExtResource("3_j4ict")]
 layout_mode = 1
-anchors_preset = 15
-grow_horizontal = 2
+
+[node name="AssetExplorerHandler" parent="Background/AssetExplorer2d" index="0" node_paths=PackedStringArray("dh")]
+dh = NodePath("../../DirectorySelector/DirectoryHandler")
 
 [node name="DirectorySelector" parent="Background" instance=ExtResource("2_skpw3")]
 layout_mode = 1
-anchors_preset = 9
 offset_right = 0.0
 grow_horizontal = 1
+
+[node name="DirectoryHandler" parent="Background/DirectorySelector" index="0" node_paths=PackedStringArray("explorer_handler")]
+explorer_handler = NodePath("../../AssetExplorer2d/AssetExplorerHandler")
 
 [node name="LocationSelector" parent="Background" instance=ExtResource("1_guh61")]
 layout_mode = 1
 
-[node name="LeftSidePanel" type="Panel" parent="."]
-visible = false
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-grow_vertical = 2
-theme = ExtResource("1_vfs0v")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="LeftSidePanel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.021000002
-anchor_bottom = 1.0
-offset_right = 40.0
-offset_bottom = -908.0
-
-[node name="Panel" type="Panel" parent="LeftSidePanel/VBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-
-[node name="Panel2" type="Panel" parent="LeftSidePanel/VBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-
-[node name="Panel3" type="Panel" parent="LeftSidePanel/VBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-
-[node name="Panel4" type="Panel" parent="LeftSidePanel/VBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
+[editable path="Background/AssetExplorer2d"]
+[editable path="Background/DirectorySelector"]

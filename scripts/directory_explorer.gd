@@ -5,6 +5,8 @@ var _dir
 var _show_only_directories: bool = true
 
 func _ready() -> void:
+	self.connect("item_selected", Callable(self, "_on_item_selected"))
+	
 	_dir = DirAccess.open(dh.default_asset_path)
 	draw_tree()
 

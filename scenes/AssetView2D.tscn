@@ -1,14 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://xa2j6v56168e"]
+[gd_scene load_steps=4 format=3 uid="uid://xa2j6v56168e"]
 
+[ext_resource type="Script" uid="uid://cgj5l2rao6e22" path="res://scripts/AssetExplorerHandler.gd" id="1_g2rem"]
 [ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/AssetInfoSidebar.tscn" id="1_txao4"]
+[ext_resource type="PackedScene" uid="uid://dg77jbtit2go" path="res://scenes/AssetView2DLine.tscn" id="2_ay0e2"]
 
 [node name="AssetExplorer2d" type="Control"]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 metadata/_edit_use_anchors_ = true
+
+[node name="AssetExplorerHandler" type="Node" parent="."]
+script = ExtResource("1_g2rem")
+metadata/_custom_type_script = "uid://cgj5l2rao6e22"
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
@@ -26,48 +34,15 @@ follow_focus = true
 draw_focus_border = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-
-[node name="Panel2" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-
-[node name="Panel3" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-
-[node name="Panel4" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-
-[node name="Panel5" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-
-[node name="Panel6" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-
-[node name="Panel7" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-
-[node name="Panel8" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-
-[node name="Panel9" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
+[node name="HBoxContainer" parent="HSplitContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_ay0e2")]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HSplitContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
@@ -107,6 +82,7 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HSplitContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
@@ -146,6 +122,7 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HSplitContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer4"]
@@ -185,6 +162,7 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="HSplitContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
@@ -224,6 +202,7 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="HSplitContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
@@ -263,6 +242,7 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="HSplitContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="HSplitContainer/ScrollContainer/VBoxContainer/HBoxContainer7"]

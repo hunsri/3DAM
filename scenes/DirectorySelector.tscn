@@ -65,7 +65,8 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_nae47")
 text_overrun_behavior = 3
 clip_text = true
 
-[node name="Tree" type="Tree" parent="DirectorySidePanel"]
+[node name="DirectoryTree" type="Tree" parent="DirectorySidePanel"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 1.0
@@ -79,3 +80,4 @@ script = ExtResource("2_0f6le")
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="DirectorySidePanel/DirLocationHeader/DirectoryName" to="DirectoryHandler" method="_on_directory_name_pressed"]
+[connection signal="item_selected" from="DirectorySidePanel/DirectoryTree" to="DirectoryHandler" method="_on_tree_item_selected"]
