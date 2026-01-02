@@ -5,6 +5,7 @@ class_name AssetExplorerHandler extends Node
 const ASSET_VIEW_2D_LINE = preload("uid://dg77jbtit2go")
 
 @export var dh: DirectoryHandler
+@export var ih: AssetInfoHandler
 
 var asset_infos: Array[AssetInfo] = []
 
@@ -16,6 +17,10 @@ func reload_explorer() -> void:
 	asset_infos = []
 	asset_infos = fetch_assets_in_directory(dh.get_currently_open_directory())
 	populate(asset_infos)
+
+func asset_clicked(file_name: String) -> void:
+	var asset_path = dh.get_currently_open_directory()+"/"+file_name
+	ih.load_model(asset_path)
 
 func fetch_assets_in_directory(directory: String) -> Array[AssetInfo]:
 	var ret: Array[AssetInfo] = []
@@ -38,6 +43,7 @@ func populate(assets: Array[AssetInfo]):
 
 func add_tile_line(assets: Array[AssetInfo]) -> void:
 	var tile_line:Asset_View_2D_Line = ASSET_VIEW_2D_LINE.instantiate()
+	tile_line.set_asset_explorer_handler(self)
 	tile_line.populate(assets)
 	v_box_container.add_child(tile_line)
 

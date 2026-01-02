@@ -1,7 +1,10 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://koi0noce4p5b"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://koi0noce4p5b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80ok1"]
 bg_color = Color(0.69411767, 0.69803923, 0.70980394, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qip5"]
+bg_color = Color(0.3254902, 0.3254902, 0.3254902, 0.2509804)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36jfa"]
 bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
@@ -22,6 +25,8 @@ bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
 [resource]
 AssetExplorer2d/base_type = &"Panel"
 AssetExplorer2d/styles/panel = SubResource("StyleBoxFlat_80ok1")
+AssetInfoSidebar/base_type = &"Panel"
+AssetInfoSidebar/styles/panel = SubResource("StyleBoxFlat_0qip5")
 DirLocHeader/base_type = &"Panel"
 DirLocHeader/styles/panel = SubResource("StyleBoxFlat_36jfa")
 DirectorySidebar/base_type = &"Tree"

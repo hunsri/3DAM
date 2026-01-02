@@ -14,7 +14,6 @@ func _ready() -> void:
 	directory_name.text = default_library_name
 	
 	if not is_instance_valid(explorer_handler):
-		print(explorer_handler)
 		push_error("No AssetExplorerHandler connected! Please connect one.")
 
 func _open_dir_in_explorer() -> void:
