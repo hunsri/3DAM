@@ -1,6 +1,8 @@
 class_name AssetInfoHandler extends Node
 
 @onready var spawn_point: Node3D = %SpawnPoint
+@onready var spring_arm_3d: SpringArm3D = %SpringArm3D
+
 
 func load_model(path_to_model: String):
 	
@@ -24,5 +26,7 @@ func _load_gltf(path_to_model: String) -> Node3D:
 
 func reset_model():
 	for child in spawn_point.get_children():
-		print("delete: " +child.name)
 		child.queue_free()
+	
+	spawn_point.rotation = Vector3(0,0,0)
+	spring_arm_3d.spring_length = 3 #arbitrary distance for now

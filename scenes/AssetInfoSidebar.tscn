@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cd5a0p23y433v"]
+[gd_scene load_steps=10 format=3 uid="uid://cd5a0p23y433v"]
 
 [ext_resource type="Script" uid="uid://bfqubijg7p3yh" path="res://scripts/AssetInfoHandler.gd" id="1_5565g"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_feb4m"]
+[ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/asset_spawn_point.gd" id="3_ik0vy"]
 
 [sub_resource type="Environment" id="Environment_feb4m"]
 background_color = Color(1, 1, 1, 0)
@@ -13,10 +14,10 @@ reflected_light_source = 1
 
 [sub_resource type="Compositor" id="Compositor_ik0vy"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_feb4m"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ik0vy"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_5565g"]
-material = SubResource("StandardMaterial3D_feb4m")
+material = SubResource("StandardMaterial3D_ik0vy")
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_feb4m"]
 
@@ -63,6 +64,7 @@ compositor = SubResource("Compositor_ik0vy")
 
 [node name="SpawnPoint" type="Node3D" parent="Panel/SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
+script = ExtResource("3_ik0vy")
 
 [node name="DemoObject" type="MeshInstance3D" parent="Panel/SubViewportContainer/SubViewport/SpawnPoint"]
 visible = false
@@ -70,7 +72,10 @@ mesh = SubResource("PrismMesh_5565g")
 skeleton = NodePath("../../SpringArm3D/Camera3D")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="Panel/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
 shape = SubResource("SeparationRayShape3D_feb4m")
-spring_length = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="Panel/SubViewportContainer/SubViewport/SpringArm3D"]
+
+[connection signal="mouse_entered" from="Panel/SubViewportContainer" to="Panel/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/SubViewportContainer" to="Panel/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_exited"]
