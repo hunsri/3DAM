@@ -33,6 +33,9 @@ layout_mode = 1
 dh = NodePath("../../DirectorySelector/DirectoryHandler")
 ih = NodePath("../HSplitContainer/AssetInfoSidebar/AssetInfoHandler")
 
+[node name="SubViewport" parent="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/Panel/SubViewportContainer" index="0"]
+size = Vector2i(368, 1080)
+
 [node name="DirectorySelector" parent="Background" instance=ExtResource("2_skpw3")]
 layout_mode = 1
 offset_right = 0.0
