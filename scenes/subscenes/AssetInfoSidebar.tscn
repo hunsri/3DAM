@@ -43,6 +43,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_feb4m")
+theme_type_variation = &"AssetInfoSidebar"
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Panel"]
 clip_contents = true

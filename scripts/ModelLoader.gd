@@ -11,7 +11,8 @@ static func load_attach_model(path_to_model: String, parent_node: Node3D) -> voi
 	for child in parent_node.get_children():
 		child.queue_free()
 	
-	var model: Node3D = (_load_model(path_to_model))
+	# RessourceLoader only accepts from within res:// so we have to use our own loader
+	var model: Node3D = _load_model(path_to_model)
 	
 	parent_node.add_child(model)
 
