@@ -83,5 +83,12 @@ shape = SubResource("SeparationRayShape3D_feb4m")
 
 [node name="Camera3D" type="Camera3D" parent="Panel/SubViewportContainer/SubViewport/SpringArm3D"]
 
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 4.0
+grow_vertical = 2
+
 [connection signal="mouse_entered" from="Panel/SubViewportContainer" to="Panel/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_entered"]
 [connection signal="mouse_exited" from="Panel/SubViewportContainer" to="Panel/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_exited"]

@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvb1345451o5v"]
+
+[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="2_3gexa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6ws4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ko0af"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ffvq7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nae47"]
+
+[node name="CategorySelector" type="Control"]
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 500.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CategorySidePanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_right = 500.0
+grow_vertical = 2
+theme = ExtResource("2_3gexa")
+theme_type_variation = &"DirectorySidebar"
+
+[node name="CategoryHeader" type="Panel" parent="CategorySidePanel"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 60.0
+theme = ExtResource("2_3gexa")
+theme_type_variation = &"DirLocHeader"
+
+[node name="ServerName" type="Button" parent="CategorySidePanel/CategoryHeader"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -195.0
+offset_top = -11.5
+offset_right = 195.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_u6ws4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ko0af")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ffvq7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nae47")
+disabled = true
+text_overrun_behavior = 3
+clip_text = true
+
+[node name="CategoryTree" type="Tree" parent="CategorySidePanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_top = 60.0
+offset_right = 400.0
+grow_vertical = 2
+focus_mode = 0
+theme = ExtResource("2_3gexa")
+theme_type_variation = &"DirectorySidebar"
+metadata/_edit_use_anchors_ = true

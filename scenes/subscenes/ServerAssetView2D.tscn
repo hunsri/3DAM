@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://6105aqmty783"]
+[gd_scene load_steps=7 format=3 uid="uid://6105aqmty783"]
 
 [ext_resource type="Script" uid="uid://cgj5l2rao6e22" path="res://scripts/AssetExplorerHandler.gd" id="1_p8e36"]
 [ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="2_c23qk"]
 [ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/AssetInfoSidebar.tscn" id="2_idkyg"]
+[ext_resource type="PackedScene" uid="uid://dvb1345451o5v" path="res://scenes/subscenes/CategorySelector.tscn" id="2_uw5gw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c23qk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_idkyg"]
 
@@ -32,6 +35,10 @@ touch_dragger_enabled = true
 
 [node name="VSplitContainer" type="VSplitContainer" parent="HSplitContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/split_bar_background = SubResource("StyleBoxEmpty_c23qk")
+split_offset = 512
+drag_area_highlight_in_editor = true
 metadata/_edit_use_anchors_ = true
 
 [node name="Server" type="Control" parent="HSplitContainer/VSplitContainer"]
@@ -48,6 +55,23 @@ metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/VSplitContainer/Server/ScrollContainerServer"]
 layout_mode = 2
+
+[node name="CategorySelector" parent="HSplitContainer/VSplitContainer/Server" instance=ExtResource("2_uw5gw")]
+layout_mode = 1
+offset_left = -500.0
+offset_right = 0.0
+
+[node name="ServerExchangeBar" type="Panel" parent="HSplitContainer/VSplitContainer/Server"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -52.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="Local" type="Control" parent="HSplitContainer/VSplitContainer"]
 layout_mode = 2
