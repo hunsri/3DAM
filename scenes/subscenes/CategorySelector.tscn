@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvb1345451o5v"]
+[gd_scene load_steps=7 format=3 uid="uid://dvb1345451o5v"]
 
+[ext_resource type="Script" uid="uid://e81eg7abhawm" path="res://scripts/CategoryHandler.gd" id="1_xsaw7"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="2_3gexa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6ws4"]
@@ -17,6 +18,10 @@ anchor_bottom = 1.0
 offset_right = 500.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CategoryHandler" type="Node" parent="."]
+script = ExtResource("1_xsaw7")
+metadata/_custom_type_script = "uid://e81eg7abhawm"
 
 [node name="CategorySidePanel" type="Panel" parent="."]
 custom_minimum_size = Vector2(100, 0)

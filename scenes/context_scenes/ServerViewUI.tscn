@@ -28,7 +28,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_guh61")
 [node name="ServerAssetView2D" parent="Background" instance=ExtResource("1_g1f48")]
 layout_mode = 1
 
-[node name="AssetExplorerHandler" parent="Background/ServerAssetView2D" index="2" node_paths=PackedStringArray("dh", "ih")]
+[node name="AssetExplorerHandler" parent="Background/ServerAssetView2D" index="1" node_paths=PackedStringArray("dh", "ih")]
 dh = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector/DirectoryHandler")
 ih = NodePath("../HSplitContainer/AssetInfoSidebar/AssetInfoHandler")
 
@@ -42,5 +42,6 @@ size = Vector2i(368, 1080)
 layout_mode = 1
 
 [editable path="Background/ServerAssetView2D"]
+[editable path="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector"]
 [editable path="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector"]
 [editable path="Background/ServerAssetView2D/HSplitContainer/AssetInfoSidebar"]

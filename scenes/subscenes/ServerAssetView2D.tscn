@@ -21,12 +21,12 @@ grow_vertical = 2
 size_flags_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-unique_name_in_owner = true
-
-[node name="ServerHandler" type="Node" parent="."]
+[node name="ServerHandler" type="Node" parent="." node_paths=PackedStringArray("http")]
 script = ExtResource("1_uw5gw")
+http = NodePath("HTTPRequest")
 metadata/_custom_type_script = "uid://8ty66il4fyso"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="ServerHandler"]
 
 [node name="AssetExplorerHandler" type="Node" parent="."]
 script = ExtResource("1_p8e36")
@@ -78,6 +78,9 @@ offset_right = 0.0
 offset_bottom = 8.0
 grow_horizontal = 1
 
+[node name="CategoryHandler" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector" index="0" node_paths=PackedStringArray("server_handler")]
+server_handler = NodePath("../../../../../../ServerHandler")
+
 [node name="Local" type="Control" parent="HSplitContainer/ExplorerArea/VSplitContainer"]
 layout_mode = 2
 
@@ -128,3 +131,5 @@ theme_type_variation = &"SeparatorBar"
 [node name="AssetInfoSidebar" parent="HSplitContainer" instance=ExtResource("2_idkyg")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[editable path="HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector"]
