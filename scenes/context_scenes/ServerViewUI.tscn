@@ -28,15 +28,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_guh61")
 [node name="ServerAssetView2D" parent="Background" instance=ExtResource("1_g1f48")]
 layout_mode = 1
 
-[node name="AssetExplorerHandler" parent="Background/ServerAssetView2D" index="0" node_paths=PackedStringArray("dh", "ih")]
-dh = NodePath("../HSplitContainer/VSplitContainer/Local/DirectorySelector/DirectoryHandler")
+[node name="AssetExplorerHandler" parent="Background/ServerAssetView2D" index="2" node_paths=PackedStringArray("dh", "ih")]
+dh = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector/DirectoryHandler")
 ih = NodePath("../HSplitContainer/AssetInfoSidebar/AssetInfoHandler")
 
-[node name="DirectorySelector" parent="Background/ServerAssetView2D/HSplitContainer/VSplitContainer/Local" index="0"]
-grow_vertical = 1
-
-[node name="DirectoryHandler" parent="Background/ServerAssetView2D/HSplitContainer/VSplitContainer/Local/DirectorySelector" index="0" node_paths=PackedStringArray("explorer_handler")]
-explorer_handler = NodePath("../../../../../AssetExplorerHandler")
+[node name="DirectoryHandler" parent="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector" index="0" node_paths=PackedStringArray("explorer_handler")]
+explorer_handler = NodePath("../../../../../../AssetExplorerHandler")
 
 [node name="SubViewport" parent="Background/ServerAssetView2D/HSplitContainer/AssetInfoSidebar/Panel/SubViewportContainer" index="0"]
 size = Vector2i(368, 1080)
@@ -45,5 +42,5 @@ size = Vector2i(368, 1080)
 layout_mode = 1
 
 [editable path="Background/ServerAssetView2D"]
-[editable path="Background/ServerAssetView2D/HSplitContainer/VSplitContainer/Local/DirectorySelector"]
+[editable path="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector"]
 [editable path="Background/ServerAssetView2D/HSplitContainer/AssetInfoSidebar"]

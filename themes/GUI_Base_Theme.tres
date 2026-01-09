@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://koi0noce4p5b"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://koi0noce4p5b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80ok1"]
 bg_color = Color(0.69411767, 0.69803923, 0.70980394, 1)
@@ -22,6 +22,12 @@ corner_radius_bottom_left = 40
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cv5wx"]
 bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfvdf"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bm2f"]
+bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
+
 [resource]
 AssetExplorer2d/base_type = &"Panel"
 AssetExplorer2d/styles/panel = SubResource("StyleBoxFlat_80ok1")
@@ -35,3 +41,7 @@ LocationButton/base_type = &"Button"
 LocationButton/styles/normal = SubResource("StyleBoxFlat_d4374")
 LocationSidebar/base_type = &"Panel"
 LocationSidebar/styles/panel = SubResource("StyleBoxFlat_cv5wx")
+SeparatorBar/base_type = &"Panel"
+SeparatorBar/styles/panel = SubResource("StyleBoxFlat_tfvdf")
+ServerExchangeBar/base_type = &"Panel"
+ServerExchangeBar/styles/panel = SubResource("StyleBoxFlat_0bm2f")

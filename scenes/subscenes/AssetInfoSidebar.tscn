@@ -31,6 +31,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="separator" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 4.0
+grow_vertical = 2
+theme = ExtResource("1_feb4m")
+theme_type_variation = &"SeparatorBar"
+
 [node name="AssetInfoHandler" type="Node" parent="."]
 script = ExtResource("1_5565g")
 metadata/_custom_type_script = "uid://bfqubijg7p3yh"
@@ -82,8 +91,10 @@ unique_name_in_owner = true
 shape = SubResource("SeparationRayShape3D_feb4m")
 
 [node name="Camera3D" type="Camera3D" parent="Panel/SubViewportContainer/SubViewport/SpringArm3D"]
+current = true
 
 [node name="VSeparator" type="VSeparator" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0

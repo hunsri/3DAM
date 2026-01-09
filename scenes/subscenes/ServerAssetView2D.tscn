@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://6105aqmty783"]
+[gd_scene load_steps=9 format=3 uid="uid://6105aqmty783"]
 
 [ext_resource type="Script" uid="uid://cgj5l2rao6e22" path="res://scripts/AssetExplorerHandler.gd" id="1_p8e36"]
+[ext_resource type="Script" uid="uid://8ty66il4fyso" path="res://scripts/ServerHandler.gd" id="1_uw5gw"]
 [ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="2_c23qk"]
 [ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/AssetInfoSidebar.tscn" id="2_idkyg"]
 [ext_resource type="PackedScene" uid="uid://dvb1345451o5v" path="res://scenes/subscenes/CategorySelector.tscn" id="2_uw5gw"]
+[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="4_4r40v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c23qk"]
 
@@ -19,6 +21,13 @@ grow_vertical = 2
 size_flags_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+
+[node name="ServerHandler" type="Node" parent="."]
+script = ExtResource("1_uw5gw")
+metadata/_custom_type_script = "uid://8ty66il4fyso"
+
 [node name="AssetExplorerHandler" type="Node" parent="."]
 script = ExtResource("1_p8e36")
 metadata/_custom_type_script = "uid://cgj5l2rao6e22"
@@ -33,18 +42,24 @@ grow_vertical = 2
 split_offset = 1040
 touch_dragger_enabled = true
 
-[node name="VSplitContainer" type="VSplitContainer" parent="HSplitContainer"]
+[node name="ExplorerArea" type="Control" parent="HSplitContainer"]
 layout_mode = 2
+
+[node name="VSplitContainer" type="VSplitContainer" parent="HSplitContainer/ExplorerArea"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0115385
+anchor_bottom = 1.0
 theme_override_constants/separation = 0
 theme_override_styles/split_bar_background = SubResource("StyleBoxEmpty_c23qk")
 split_offset = 512
 drag_area_highlight_in_editor = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Server" type="Control" parent="HSplitContainer/VSplitContainer"]
+[node name="Server" type="Control" parent="HSplitContainer/ExplorerArea/VSplitContainer"]
 layout_mode = 2
 
-[node name="ScrollContainerServer" type="ScrollContainer" parent="HSplitContainer/VSplitContainer/Server"]
+[node name="ScrollContainerServer" type="ScrollContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server"]
 layout_mode = 0
 offset_left = 516.0
 offset_right = 524.0
@@ -53,53 +68,62 @@ follow_focus = true
 draw_focus_border = true
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/VSplitContainer/Server/ScrollContainerServer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server/ScrollContainerServer"]
 layout_mode = 2
 
-[node name="CategorySelector" parent="HSplitContainer/VSplitContainer/Server" instance=ExtResource("2_uw5gw")]
+[node name="CategorySelector" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server" instance=ExtResource("2_uw5gw")]
 layout_mode = 1
 offset_left = -500.0
 offset_right = 0.0
-
-[node name="ServerExchangeBar" type="Panel" parent="HSplitContainer/VSplitContainer/Server"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -400.0
-offset_top = -52.0
 offset_bottom = 8.0
-grow_horizontal = 2
-grow_vertical = 0
+grow_horizontal = 1
 
-[node name="Local" type="Control" parent="HSplitContainer/VSplitContainer"]
+[node name="Local" type="Control" parent="HSplitContainer/ExplorerArea/VSplitContainer"]
 layout_mode = 2
 
-[node name="DirectorySelector" parent="HSplitContainer/VSplitContainer/Local" instance=ExtResource("2_c23qk")]
+[node name="ServerExchangeBar" type="Panel" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme = ExtResource("4_4r40v")
+theme_type_variation = &"ServerExchangeBar"
+
+[node name="DirectorySelector" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local" instance=ExtResource("2_c23qk")]
 layout_mode = 1
 offset_left = -500.0
 offset_right = -500.0
 grow_horizontal = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer/VSplitContainer/Local"]
+[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_idkyg")
 
-[node name="ScrollContainerLocal" type="ScrollContainer" parent="HSplitContainer/VSplitContainer/Local/PanelContainer"]
+[node name="ScrollContainerLocal" type="ScrollContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local/PanelContainer"]
 layout_mode = 2
 follow_focus = true
 draw_focus_border = true
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/VSplitContainer/Local/PanelContainer/ScrollContainerLocal"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local/PanelContainer/ScrollContainerLocal"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="HSplitContainer/ExplorerArea"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -4.0
+grow_vertical = 2
+theme = ExtResource("4_4r40v")
+theme_type_variation = &"SeparatorBar"
 
 [node name="AssetInfoSidebar" parent="HSplitContainer" instance=ExtResource("2_idkyg")]
 layout_mode = 2
