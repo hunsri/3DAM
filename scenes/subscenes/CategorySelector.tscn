@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvb1345451o5v"]
+[gd_scene load_steps=8 format=3 uid="uid://dvb1345451o5v"]
 
 [ext_resource type="Script" uid="uid://e81eg7abhawm" path="res://scripts/CategoryHandler.gd" id="1_xsaw7"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="2_3gexa"]
+[ext_resource type="Script" uid="uid://clwmset02pf26" path="res://scripts/CategoryExplorer.gd" id="3_txqc8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6ws4"]
 
@@ -19,8 +20,10 @@ offset_right = 500.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CategoryHandler" type="Node" parent="."]
+[node name="CategoryHandler" type="Node" parent="." node_paths=PackedStringArray("category_explorer")]
+unique_name_in_owner = true
 script = ExtResource("1_xsaw7")
+category_explorer = NodePath("../CategorySidePanel/CategoryExplorer")
 metadata/_custom_type_script = "uid://e81eg7abhawm"
 
 [node name="CategorySidePanel" type="Panel" parent="."]
@@ -64,7 +67,7 @@ disabled = true
 text_overrun_behavior = 3
 clip_text = true
 
-[node name="CategoryTree" type="Tree" parent="CategorySidePanel"]
+[node name="CategoryExplorer" type="Tree" parent="CategorySidePanel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -75,4 +78,8 @@ grow_vertical = 2
 focus_mode = 0
 theme = ExtResource("2_3gexa")
 theme_type_variation = &"DirectorySidebar"
+script = ExtResource("3_txqc8")
+metadata/_custom_type_script = "uid://clwmset02pf26"
 metadata/_edit_use_anchors_ = true
+
+[connection signal="item_selected" from="CategorySidePanel/CategoryExplorer" to="CategoryHandler" method="_on_category_explorer_item_selected"]

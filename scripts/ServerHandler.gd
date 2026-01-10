@@ -11,6 +11,8 @@ const HTTP_PRE = "http://"
 
 var address = "127.0.0.1:8000"
 var server_name: String
+var server_version: String
+var asset_categories: Array
 
 var has_fetched_data: bool = false
 
@@ -34,6 +36,8 @@ func _on_request_completed(_result, _response_code, _headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	
 	server_name = json["server_name"]
+	server_version = json["server_version"]
+	asset_categories = json["categories"]
 	
 	#print(json["server_name"])
 	#print(json["server_version"])
@@ -42,9 +46,14 @@ func _on_request_completed(_result, _response_code, _headers, body):
 	emit_signal("has_fetched_from_server")
 	has_fetched_data = true
 
+func get_asset_category() -> Array:
+	return asset_categories
+
 func get_server_name() -> String:
-	#TODO
-	# make call more independant from state
-	# risk of indefinite await if no request in background
-	await has_fetched_from_server
 	return server_name
+
+# TODO fix potential race condition when requesting data
+# this helper function isn't working, but we will need something like this!
+#func waiting_for_data() -> void:
+#	while not has_fetched_data:
+#		await has_fetched_from_server
