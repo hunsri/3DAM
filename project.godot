@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="3DAM"
-run/main_scene="uid://d2no27480sc8"
+run/main_scene="uid://bo8w8k6tnqxov"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 

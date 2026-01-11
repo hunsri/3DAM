@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbkbgf8jlopto"]
+
+[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_jf60t"]
+
+[node name="LocationButton" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="LocationButton" type="Button" parent="."]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+theme = ExtResource("1_jf60t")
+theme_type_variation = &"LocationButton"
+metadata/_edit_use_anchors_ = true
