@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://kfomt2xswri8"]
+[gd_scene load_steps=3 format=3 uid="uid://kfomt2xswri8"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_h5pmh"]
+[ext_resource type="PackedScene" uid="uid://cbkbgf8jlopto" path="res://scenes/subscenes/LocationButton.tscn" id="2_sw0j3"]
 
 [node name="LocationSelector" type="Control"]
 layout_mode = 3
@@ -31,20 +32,9 @@ offset_bottom = -858.0
 pivot_offset = Vector2(40, 0)
 theme = ExtResource("1_h5pmh")
 
-[node name="LocationButton" type="Button" parent="LeftSidePanel/VBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
+[node name="MyPC" parent="LeftSidePanel/VBoxContainer" instance=ExtResource("2_sw0j3")]
 layout_mode = 2
-theme = ExtResource("1_h5pmh")
-theme_type_variation = &"LocationButton"
+size_flags_horizontal = 0
 
-[node name="LocationButton2" type="Button" parent="LeftSidePanel/VBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
+[node name="Server1" parent="LeftSidePanel/VBoxContainer" instance=ExtResource("2_sw0j3")]
 layout_mode = 2
-theme = ExtResource("1_h5pmh")
-theme_type_variation = &"LocationButton"
-
-[node name="LocationButton3" type="Button" parent="LeftSidePanel/VBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme = ExtResource("1_h5pmh")
-theme_type_variation = &"LocationButton"

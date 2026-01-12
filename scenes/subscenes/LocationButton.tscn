@@ -1,17 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbkbgf8jlopto"]
+[gd_scene load_steps=3 format=3 uid="uid://cbkbgf8jlopto"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_jf60t"]
 
-[node name="LocationButton" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jf60t"]
+
+[node name="LocationButton" type="PanelContainer"]
+anchors_preset = -1
+anchor_bottom = 0.074
+offset_right = 80.0
+offset_bottom = 0.08000183
+pivot_offset = Vector2(40, 40)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jf60t")
 metadata/_edit_use_anchors_ = true
 
 [node name="LocationButton" type="Button" parent="."]
 custom_minimum_size = Vector2(80, 80)
-layout_mode = 0
+layout_mode = 2
 theme = ExtResource("1_jf60t")
 theme_type_variation = &"LocationButton"
 metadata/_edit_use_anchors_ = true
