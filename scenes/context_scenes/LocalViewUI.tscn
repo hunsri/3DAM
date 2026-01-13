@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://d2no27480sc8"]
 
-[ext_resource type="PackedScene" uid="uid://kfomt2xswri8" path="res://scenes/LocationSelector.tscn" id="1_guh61"]
-[ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/DirectorySelector.tscn" id="2_skpw3"]
-[ext_resource type="PackedScene" uid="uid://xa2j6v56168e" path="res://scenes/AssetView2D.tscn" id="3_j4ict"]
+[ext_resource type="PackedScene" uid="uid://kfomt2xswri8" path="res://scenes/subscenes/LocationSelector.tscn" id="1_guh61"]
+[ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="2_skpw3"]
+[ext_resource type="PackedScene" uid="uid://xa2j6v56168e" path="res://scenes/subscenes/AssetView2D.tscn" id="3_j4ict"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guh61"]
 bg_color = Color(1, 1, 1, 1)
@@ -45,6 +45,7 @@ grow_horizontal = 1
 explorer_handler = NodePath("../../AssetExplorer2d/AssetExplorerHandler")
 
 [node name="LocationSelector" parent="Background" instance=ExtResource("1_guh61")]
+visible = false
 layout_mode = 1
 
 [editable path="Background/AssetExplorer2d"]

@@ -39,6 +39,7 @@ explorer_handler = NodePath("../../../../../../AssetExplorerHandler")
 size = Vector2i(368, 1080)
 
 [node name="LocationSelector" parent="Background" instance=ExtResource("3_8orcu")]
+visible = false
 layout_mode = 1
 
 [editable path="Background/ServerAssetView2D"]
