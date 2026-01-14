@@ -1,13 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2no27480sc8"]
+[gd_scene load_steps=4 format=3 uid="uid://d2no27480sc8"]
 
-[ext_resource type="PackedScene" uid="uid://kfomt2xswri8" path="res://scenes/subscenes/LocationSelector.tscn" id="1_guh61"]
 [ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="2_skpw3"]
 [ext_resource type="PackedScene" uid="uid://xa2j6v56168e" path="res://scenes/subscenes/AssetView2D.tscn" id="3_j4ict"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guh61"]
 bg_color = Color(1, 1, 1, 1)
 
-[node name="MainUi" type="Control"]
+[node name="LocalViewUi" type="Control"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
@@ -43,10 +42,6 @@ grow_horizontal = 1
 
 [node name="DirectoryHandler" parent="Background/DirectorySelector" index="0" node_paths=PackedStringArray("explorer_handler")]
 explorer_handler = NodePath("../../AssetExplorer2d/AssetExplorerHandler")
-
-[node name="LocationSelector" parent="Background" instance=ExtResource("1_guh61")]
-visible = false
-layout_mode = 1
 
 [editable path="Background/AssetExplorer2d"]
 [editable path="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar"]

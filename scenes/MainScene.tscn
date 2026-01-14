@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dqgaslfy2x3y3"]
 
-[ext_resource type="PackedScene" uid="uid://kfomt2xswri8" path="res://scenes/subscenes/LocationSelector.tscn" id="1_f3bch"]
+[ext_resource type="PackedScene" uid="uid://kfomt2xswri8" path="res://scenes/subscenes/LocationSelector.tscn" id="1_echbf"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -20,5 +20,5 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="LocationSelector" parent="." instance=ExtResource("1_f3bch")]
+[node name="LocationSelector" parent="." instance=ExtResource("1_echbf")]
 layout_mode = 1

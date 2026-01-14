@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bo8w8k6tnqxov"]
+[gd_scene load_steps=3 format=3 uid="uid://bo8w8k6tnqxov"]
 
 [ext_resource type="PackedScene" uid="uid://6105aqmty783" path="res://scenes/subscenes/ServerAssetView2D.tscn" id="1_g1f48"]
-[ext_resource type="PackedScene" uid="uid://kfomt2xswri8" path="res://scenes/subscenes/LocationSelector.tscn" id="3_8orcu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guh61"]
 bg_color = Color(1, 1, 1, 1)
@@ -37,10 +36,6 @@ explorer_handler = NodePath("../../../../../../AssetExplorerHandler")
 
 [node name="SubViewport" parent="Background/ServerAssetView2D/HSplitContainer/AssetInfoSidebar/Panel/SubViewportContainer" index="0"]
 size = Vector2i(368, 1080)
-
-[node name="LocationSelector" parent="Background" instance=ExtResource("3_8orcu")]
-visible = false
-layout_mode = 1
 
 [editable path="Background/ServerAssetView2D"]
 [editable path="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector"]
