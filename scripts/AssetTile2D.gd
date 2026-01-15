@@ -1,4 +1,4 @@
-class_name AssetTile2D extends Panel
+class_name AssetTile2D extends AbstractAssetTile
 
 @export var asset_name_label: Label
 @export var spawn_point: Node3D

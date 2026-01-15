@@ -7,6 +7,8 @@ class_name CategoryHandler extends Node
 
 var server_categories: Array
 
+var _currently_selected_category: String
+
 func _ready() -> void:
 	#server_handler.waiting_for_data()
 	await server_handler.has_fetched_from_server
@@ -16,6 +18,8 @@ func _ready() -> void:
 	
 	category_explorer.draw_tree(server_categories)
 	
-	
+func get_currently_open_category() -> String:
+	return _currently_selected_category
+
 func _on_category_explorer_item_selected() -> void:
-	print(category_explorer.get_selected().get_text(0))
+	_currently_selected_category = category_explorer.get_selected().get_text(0)

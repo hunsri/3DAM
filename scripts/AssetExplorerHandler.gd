@@ -1,8 +1,6 @@
-class_name AssetExplorerHandler extends Node
+class_name AssetExplorerHandler extends AbstractExplorerHandler
 
 @onready var v_box_container: VBoxContainer = %VBoxContainer
-
-const ASSET_VIEW_2D_LINE = preload("uid://dg77jbtit2go")
 
 @export var dh: DirectoryHandler
 @export var ih: AssetInfoHandler
@@ -15,14 +13,14 @@ func _ready() -> void:
 func reload_explorer() -> void:
 	remove_all_tiles()
 	asset_infos = []
-	asset_infos = fetch_assets_in_directory(dh.get_currently_open_directory())
+	asset_infos = fetch_assets_info(dh.get_currently_open_directory())
 	populate(asset_infos)
 
 func asset_clicked(file_name: String) -> void:
 	var asset_path = dh.get_currently_open_directory()+"/"+file_name
 	ih.load_model(asset_path)
 
-func fetch_assets_in_directory(directory: String) -> Array[AssetInfo]:
+func fetch_assets_info(directory: String) -> Array[AssetInfo]:
 	var ret: Array[AssetInfo] = []
 	
 	var dir_access = DirAccess.open(directory)
@@ -42,8 +40,8 @@ func populate(assets: Array[AssetInfo]):
 	add_tile_line(assets)
 
 func add_tile_line(assets: Array[AssetInfo]) -> void:
-	var tile_line:Asset_View_2D_Line = ASSET_VIEW_2D_LINE.instantiate()
-	tile_line.set_asset_explorer_handler(self)
+	var tile_line = ResourceManager.create_tile_line()
+	tile_line.set_explorer_handler(self)
 	tile_line.populate(assets)
 	v_box_container.add_child(tile_line)
 

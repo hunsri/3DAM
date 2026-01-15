@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://6105aqmty783"]
+[gd_scene load_steps=10 format=3 uid="uid://6105aqmty783"]
 
 [ext_resource type="Script" uid="uid://cgj5l2rao6e22" path="res://scripts/AssetExplorerHandler.gd" id="1_p8e36"]
 [ext_resource type="Script" uid="uid://8ty66il4fyso" path="res://scripts/ServerHandler.gd" id="1_uw5gw"]
+[ext_resource type="Script" uid="uid://e2mtpotnr8x3" path="res://scripts/ServerExplorerHandler.gd" id="2_6xg4d"]
 [ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="2_c23qk"]
 [ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/AssetInfoSidebar.tscn" id="2_idkyg"]
 [ext_resource type="PackedScene" uid="uid://dvb1345451o5v" path="res://scenes/subscenes/CategorySelector.tscn" id="2_uw5gw"]
@@ -21,12 +22,17 @@ grow_vertical = 2
 size_flags_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="ServerHandler" type="Node" parent="." node_paths=PackedStringArray("http")]
+[node name="ServerHandler" type="Node" parent="."]
 script = ExtResource("1_uw5gw")
-http = NodePath("HTTPRequest")
 metadata/_custom_type_script = "uid://8ty66il4fyso"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="ServerHandler"]
+use_threads = true
+
+[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler")]
+script = ExtResource("2_6xg4d")
+server_handler = NodePath("../ServerHandler")
+metadata/_custom_type_script = "uid://e2mtpotnr8x3"
 
 [node name="AssetExplorerHandler" type="Node" parent="."]
 script = ExtResource("1_p8e36")
@@ -60,15 +66,17 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 
 [node name="ScrollContainerServer" type="ScrollContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server"]
-layout_mode = 0
-offset_left = 516.0
-offset_right = 524.0
-offset_bottom = 8.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 follow_focus = true
 draw_focus_border = true
-metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server/ScrollContainerServer"]
+[node name="VBoxContainerServer" type="VBoxContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server/ScrollContainerServer"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="CategorySelector" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server" instance=ExtResource("2_uw5gw")]

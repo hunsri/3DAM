@@ -12,6 +12,8 @@ ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="AssetTile" type="Panel" node_paths=PackedStringArray("asset_name_label", "spawn_point")]
 custom_minimum_size = Vector2(200, 200)
+offset_right = 200.0
+offset_bottom = 200.0
 script = ExtResource("1_r1mgh")
 asset_name_label = NodePath("AssetNameLabel")
 spawn_point = NodePath("SubViewportContainer/SubViewport/SpawnPoint")
@@ -32,7 +34,7 @@ transparent_bg = true
 handle_input_locally = false
 size = Vector2i(200, 200)
 render_target_clear_mode = 2
-render_target_update_mode = 3
+render_target_update_mode = 4
 
 [node name="SpawnPoint" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
