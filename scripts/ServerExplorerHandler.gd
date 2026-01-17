@@ -8,21 +8,18 @@ var asset_infos: Array[AssetInfo] = []
 
 func _ready() -> void:
 	reload_explorer()
-	asset_infos = await fetch_assets_info("objects") #placeholder for now
+	
+	server_handler.has_fetched_names_in_category.connect(on_fetch_assets_info)
 
-func fetch_assets_info(category: String) -> Array[AssetInfo]:
+func on_fetch_assets_info(asset_names) -> Array[AssetInfo]:
 	var ret: Array[AssetInfo] = []
 	
-	#TODO fix race condition, value gets pulled before response
-	var names = await server_handler._fetch_asset_names_in_category(category)
+	print(asset_names)
 	
-	#print(names)
-	
-	for i in names.size():
-		ret.append(AssetInfo.new(names))
+	for i in asset_names.size():
+		ret.append(AssetInfo.new(asset_names[i]))
 	
 	return ret
-	
 
 func reload_explorer() -> void:
 	remove_all_tiles()

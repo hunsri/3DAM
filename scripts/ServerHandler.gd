@@ -1,8 +1,7 @@
 class_name ServerHandler extends Node
 
-#@export var http: HTTPRequest
-
 signal has_fetched_from_server
+signal has_fetched_names_in_category
 
 var ws: WebSocketPeer = WebSocketPeer.new()
 const WS_PRE = "ws://"
@@ -15,10 +14,9 @@ var asset_categories: Array
 
 var has_fetched_data: bool = false
 
-var _current_category_assets_names: Array #not optimal to store it after each call, but will do for now
-
 func _ready():
 	_fetch_server_info()
+	
 	#ws.inbound_buffer_size = 20 * 1024 * 1024
 	#
 	#if ws.connect_to_url(WS_PRE+address) != OK:
@@ -47,8 +45,7 @@ func _on_request_completed_server_info(_result, _response_code, _headers, body):
 	emit_signal("has_fetched_from_server")
 	has_fetched_data = true
 
-func _fetch_asset_names_in_category(category_name: String):
-	#var ret:Array = []
+func fetch_asset_names_in_category(category_name: String):
 	
 	var sub_url = "/assets/categories/"+category_name+"/assets_list"
 	var request_address = HTTP_PRE+address+sub_url
@@ -59,12 +56,11 @@ func _fetch_asset_names_in_category(category_name: String):
 	http.request_completed.connect(_on_request_completed_asset_names_in_category)
 	
 	_cleanup_http_request_node(http)
-	return _current_category_assets_names
 
 func _on_request_completed_asset_names_in_category(_result, _response_code, _headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
+	has_fetched_names_in_category.emit(json["assets"])
 	
-	_current_category_assets_names = json["assets"]
 	
 func get_asset_category() -> Array:
 	return asset_categories
