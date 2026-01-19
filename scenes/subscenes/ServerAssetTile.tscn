@@ -4,9 +4,10 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1mgh"]
 
-[node name="ServerAssetTile" type="Panel"]
+[node name="ServerAssetTile" type="Panel" node_paths=PackedStringArray("asset_name_label")]
 custom_minimum_size = Vector2(200, 200)
 script = ExtResource("1_ao12s")
+asset_name_label = NodePath("AssetNameLabel")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

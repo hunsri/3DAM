@@ -11,19 +11,16 @@ func _ready() -> void:
 	
 	server_handler.has_fetched_names_in_category.connect(on_fetch_assets_info)
 
-func on_fetch_assets_info(asset_names) -> Array[AssetInfo]:
-	var ret: Array[AssetInfo] = []
-	
-	print(asset_names)
+func on_fetch_assets_info(asset_names):
+	asset_infos = [] #Clear all previous entries
 	
 	for i in asset_names.size():
-		ret.append(AssetInfo.new(asset_names[i]))
+		asset_infos.append(AssetInfo.new(asset_names[i]))
 	
-	return ret
+	reload_explorer()
 
 func reload_explorer() -> void:
 	remove_all_tiles()
-	asset_infos = []
 	populate(asset_infos)
 
 func populate(assets: Array[AssetInfo]):

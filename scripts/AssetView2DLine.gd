@@ -13,7 +13,13 @@ func populate(assets: Array[AssetInfo]) -> void:
 		add_tile(assets[i].asset_name)
 
 func add_tile(asset_name: String) -> void:
-	var tile:AssetTile2D = ASSET_TILE.instantiate()
+	var tile:AbstractAssetTile
+	
+	if is_instance_of(_explorer_handler, AssetExplorerHandler):
+		tile = ASSET_TILE.instantiate()
+	elif is_instance_of(_explorer_handler, ServerExplorerHandler):
+		tile = SERVER_ASSET_TILE.instantiate()
+	
 	add_child(tile)
 	tile.set_asset_label(asset_name)
 	tile.set_handler(_explorer_handler)

@@ -25,13 +25,10 @@ func _ready():
 
 func _fetch_server_info():
 	var request_address = HTTP_PRE+address+"/info"
-	print(request_address)
-	
 	var http = _create_http_request_node()
 	
 	http.request(request_address)
 	http.request_completed.connect(_on_request_completed_server_info)
-	http.request(request_address)
 	
 	_cleanup_http_request_node(http)
 
