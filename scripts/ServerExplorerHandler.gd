@@ -1,6 +1,7 @@
 class_name ServerExplorerHandler extends AbstractExplorerHandler
 
 @export var server_handler: ServerHandler
+@export var category_handler: CategoryHandler
 
 @onready var v_box_container: VBoxContainer = %VBoxContainerServer
 

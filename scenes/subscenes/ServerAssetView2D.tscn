@@ -29,9 +29,10 @@ metadata/_custom_type_script = "uid://8ty66il4fyso"
 [node name="HTTPRequest" type="HTTPRequest" parent="ServerHandler"]
 use_threads = true
 
-[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler")]
+[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler", "category_handler")]
 script = ExtResource("2_6xg4d")
 server_handler = NodePath("../ServerHandler")
+category_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategoryHandler")
 metadata/_custom_type_script = "uid://e2mtpotnr8x3"
 
 [node name="AssetExplorerHandler" type="Node" parent="."]

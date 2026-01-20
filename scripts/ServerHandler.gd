@@ -57,14 +57,24 @@ func fetch_asset_names_in_category(category_name: String):
 func _on_request_completed_asset_names_in_category(_result, _response_code, _headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	has_fetched_names_in_category.emit(json["assets"])
+
+func fetch_asset_preview(category_name: String, asset_name: String, tile: ServerAssetTile2D):
+	var sub_url = "/assets/categories/"+category_name+"/"+asset_name+"/preview"
+	var request_address = HTTP_PRE+address+sub_url
 	
+	var http = _create_http_request_node()
 	
+	http.request(request_address)
+	http.request_completed.connect(tile.on_request_completed_fetch_asset_preview)
+	
+	_cleanup_http_request_node(http)
+
+
 func get_asset_category() -> Array:
 	return asset_categories
 
 func get_server_name() -> String:
 	return server_name
-
 
 func _create_http_request_node() -> HTTPRequest:
 	var http_request = HTTPRequest.new()

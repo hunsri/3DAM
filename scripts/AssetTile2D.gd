@@ -8,6 +8,10 @@ var asset_handler: AssetExplorerHandler
 func _ready() -> void:
 	display_preview()
 
+func setup_tile(p_asset_handler: AbstractExplorerHandler, asset_info: AssetInfo):
+	set_handler(p_asset_handler)
+	set_asset_label(asset_info.asset_name)
+
 func set_handler(p_asset_handler: AssetExplorerHandler) -> void:
 	asset_handler = p_asset_handler
 
