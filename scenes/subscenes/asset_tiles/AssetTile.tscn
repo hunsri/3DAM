@@ -1,6 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dbn3bs55ug33l"]
 
-[ext_resource type="Script" uid="uid://drsci52sccyih" path="res://scripts/AssetTile2D.gd" id="1_r1mgh"]
+[ext_resource type="Script" uid="uid://drsci52sccyih" path="res://scripts/tiles/AssetTile2D.gd" id="1_kamay"]
+[ext_resource type="PackedScene" uid="uid://dj0b3331lwrff" path="res://scenes/subscenes/asset_tiles/TileBasics.tscn" id="2_htjxr"]
 
 [sub_resource type="World3D" id="World3D_r1mgh"]
 
@@ -8,14 +9,12 @@
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1mgh"]
-
 [node name="AssetTile" type="Panel" node_paths=PackedStringArray("asset_name_label", "spawn_point")]
 custom_minimum_size = Vector2(200, 200)
 offset_right = 200.0
 offset_bottom = 200.0
-script = ExtResource("1_r1mgh")
-asset_name_label = NodePath("AssetNameLabel")
+script = ExtResource("1_kamay")
+asset_name_label = NodePath("TileBasics/AssetNameLabel")
 spawn_point = NodePath("SubViewportContainer/SubViewport/SpawnPoint")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -45,29 +44,16 @@ spring_length = 3.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.0128515)
 environment = SubResource("Environment_0bf7n")
 
-[node name="AssetSelectionButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_r1mgh")
+[node name="TileBasics" parent="." instance=ExtResource("2_htjxr")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 1
+grow_vertical = 1
 
-[node name="AssetNameLabel" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -99.0
-offset_top = -23.0
-offset_right = 99.0
-grow_horizontal = 2
-grow_vertical = 0
-horizontal_alignment = 1
-clip_text = true
-text_overrun_behavior = 3
+[connection signal="pressed" from="TileBasics/AssetSelectionButton" to="." method="_on_asset_selection_button_pressed"]
 
-[connection signal="pressed" from="AssetSelectionButton" to="." method="_on_asset_selection_button_pressed"]
+[editable path="TileBasics"]
