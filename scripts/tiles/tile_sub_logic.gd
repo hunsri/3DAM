@@ -4,6 +4,8 @@ extends PanelContainer
 @export var selected_status_bar: Node
 @export var downloaded_status_bar: Node
 
+var _is_asset = false
+
 enum TileStatus {
 	NONE,
 	DEFAULT,
@@ -13,7 +15,10 @@ enum TileStatus {
 var tile_status: TileStatus = TileStatus.DEFAULT
 
 func _ready():
-	change_status(tile_status)
+	if _is_asset:
+		change_status(tile_status)
+	else:
+		change_status(TileStatus.NONE) 
 
 func change_status(status: TileStatus) -> void:
 	tile_status = status
@@ -49,4 +54,3 @@ func _on_check_box_pressed() -> void:
 		change_status(TileStatus.SELECTED)
 	else:
 		change_status(TileStatus.DEFAULT)
-		
