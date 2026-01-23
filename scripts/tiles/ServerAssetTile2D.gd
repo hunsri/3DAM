@@ -2,6 +2,7 @@ class_name ServerAssetTile2D extends AbstractAssetTile
 
 @export var asset_name_label: Label
 @export var asset_preview: TextureRect
+@export var tile_sub_logic: TileSubLogic
 
 var asset_handler: ServerExplorerHandler
 var asset_info: AssetInfo
@@ -10,6 +11,9 @@ func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInf
 	asset_handler = p_asset_handler
 	asset_info = p_asset_info
 	asset_name_label.text = asset_info.asset_name
+	
+	var is_supported = AssetUtils.is_file_supported(asset_info.asset_name)
+	tile_sub_logic.set_is_supported_asset(is_supported)
 	
 	asset_handler.server_handler.fetch_asset_preview(
 		asset_handler.category_handler.get_currently_open_category(),

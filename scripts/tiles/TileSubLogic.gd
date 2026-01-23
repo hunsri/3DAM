@@ -1,10 +1,10 @@
-extends PanelContainer
+class_name TileSubLogic extends PanelContainer
 
 @export var selected: CheckBox
 @export var selected_status_bar: Node
 @export var downloaded_status_bar: Node
 
-var _is_asset = false
+var _is_supported_asset = false
 
 enum TileStatus {
 	NONE,
@@ -12,11 +12,14 @@ enum TileStatus {
 	SELECTED,
 	DOWNLOADED,
 }
-var tile_status: TileStatus = TileStatus.DEFAULT
+var tile_status: TileStatus = TileStatus.NONE
 
 func _ready():
-	if _is_asset:
-		change_status(tile_status)
+	reload()
+
+func reload():
+	if _is_supported_asset:
+		change_status(TileStatus.DEFAULT)
 	else:
 		change_status(TileStatus.NONE) 
 
@@ -48,6 +51,10 @@ func change_status(status: TileStatus) -> void:
 			selected_status_bar.visible = false
 			downloaded_status_bar.visible = true
 			
+
+func set_is_supported_asset(is_supported: bool) -> void:
+	_is_supported_asset = is_supported
+	reload()
 
 func _on_check_box_pressed() -> void:
 	if selected.button_pressed:

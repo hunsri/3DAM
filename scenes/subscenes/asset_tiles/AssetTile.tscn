@@ -9,13 +9,14 @@
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 
-[node name="AssetTile" type="Panel" node_paths=PackedStringArray("asset_name_label", "spawn_point")]
+[node name="AssetTile" type="Panel" node_paths=PackedStringArray("asset_name_label", "spawn_point", "tile_sub_logic")]
 custom_minimum_size = Vector2(200, 200)
 offset_right = 200.0
 offset_bottom = 200.0
 script = ExtResource("1_kamay")
 asset_name_label = NodePath("TileBasics/AssetNameLabel")
 spawn_point = NodePath("SubViewportContainer/SubViewport/SpawnPoint")
+tile_sub_logic = NodePath("TileBasics")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 1

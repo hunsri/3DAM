@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dj0b3331lwrff"]
 
-[ext_resource type="Script" uid="uid://bco6w4yj8bulf" path="res://scripts/tiles/tile_sub_logic.gd" id="1_n7ni5"]
+[ext_resource type="Script" uid="uid://bco6w4yj8bulf" path="res://scripts/tiles/TileSubLogic.gd" id="1_n7ni5"]
 
 [sub_resource type="Theme" id="Theme_r4iii"]
 
