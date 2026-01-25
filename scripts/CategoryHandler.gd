@@ -23,4 +23,4 @@ func get_currently_open_category() -> String:
 
 func _on_category_explorer_item_selected() -> void:
 	_currently_selected_category = category_explorer.get_selected().get_text(0)
-	server_handler.fetch_asset_names_in_category(_currently_selected_category)
+	server_handler.fetch_package_names_in_category(_currently_selected_category)

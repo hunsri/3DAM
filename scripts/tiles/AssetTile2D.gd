@@ -11,9 +11,9 @@ func _ready() -> void:
 
 func setup_tile(p_asset_handler: AbstractExplorerHandler, asset_info: AssetInfo):
 	set_handler(p_asset_handler)
-	set_asset_label(asset_info.asset_name)
+	set_asset_label(asset_info.asset_file_name)
 	
-	var is_supported = AssetUtils.is_file_supported(asset_info.asset_name)
+	var is_supported = AssetUtils.is_file_supported(asset_info.asset_file_name)
 	tile_sub_logic.set_is_supported_asset(is_supported)
 
 func set_handler(p_asset_handler: AssetExplorerHandler) -> void:

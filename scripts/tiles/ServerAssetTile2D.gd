@@ -10,15 +10,24 @@ var asset_info: AssetInfo
 func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInfo):
 	asset_handler = p_asset_handler
 	asset_info = p_asset_info
-	asset_name_label.text = asset_info.asset_name
+	asset_name_label.text = asset_info.package_name
 	
-	var is_supported = AssetUtils.is_file_supported(asset_info.asset_name)
+	var is_supported = AssetUtils.is_file_supported(asset_info.package_name)
 	tile_sub_logic.set_is_supported_asset(is_supported)
 	
 	asset_handler.server_handler.fetch_asset_preview(
 		asset_handler.category_handler.get_currently_open_category(),
-		asset_info.asset_name, 
+		asset_info.package_name, 
 		self)
+
+func on_request_completed_fetch_asset_info(_result, _response_code, _headers, body):
+	if _response_code != 200:
+		return
+	
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	print(json["id"])
+	asset_info.id = json["id"]
+	#TODO filling out rest
 
 func on_request_completed_fetch_asset_preview(_result, _response_code, _headers, body):
 	if _response_code != 200:
@@ -31,3 +40,10 @@ func on_request_completed_fetch_asset_preview(_result, _response_code, _headers,
 		texture = ImageTexture.create_from_image(image)
 		
 		asset_preview.texture = texture
+
+func _on_asset_selection_button_pressed() -> void:
+	asset_handler.server_handler.fetch_asset_info(
+		asset_handler.category_handler.get_currently_open_category(),
+		asset_info.package_name,
+		self
+	)
