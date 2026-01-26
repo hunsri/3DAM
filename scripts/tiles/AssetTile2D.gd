@@ -28,3 +28,6 @@ func _on_asset_selection_button_pressed() -> void:
 func display_preview() -> void:
 	var full_path = asset_handler.dh.get_currently_open_directory() + "/" + asset_name_label.text
 	ModelLoader.load_attach_model(full_path, spawn_point)
+
+func is_selected() -> bool:
+	return tile_sub_logic.selected.button_pressed

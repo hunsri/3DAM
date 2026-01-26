@@ -5,12 +5,17 @@ var package_name: String = ""
 var id: String = ""
 var version: String = ""
 var asset_file_name: String = ""
-var authors: Array[String] = []
+var authors: Array = []
 var origin: String = ""
-var asset_history: Array[String]
-var keywords: Array[String]
-
+var origin_history: Array = []
+var keywords: Array = []
 
 func _init(p_package_name:String):
 	package_name = p_package_name
 	asset_file_name = p_package_name
+
+func get_file_extension() -> String:
+	if asset_file_name != null:
+		return asset_file_name.get_extension()
+	else:
+		return ""
