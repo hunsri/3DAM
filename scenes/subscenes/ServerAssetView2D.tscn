@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://6105aqmty783"]
+[gd_scene load_steps=11 format=3 uid="uid://6105aqmty783"]
 
 [ext_resource type="Script" uid="uid://cgj5l2rao6e22" path="res://scripts/AssetExplorerHandler.gd" id="1_p8e36"]
 [ext_resource type="Script" uid="uid://8ty66il4fyso" path="res://scripts/ServerHandler.gd" id="1_uw5gw"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/AssetInfoSidebar.tscn" id="2_idkyg"]
 [ext_resource type="PackedScene" uid="uid://dvb1345451o5v" path="res://scenes/subscenes/CategorySelector.tscn" id="2_uw5gw"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="4_4r40v"]
+[ext_resource type="PackedScene" uid="uid://djmadqb6fsp38" path="res://scenes/subscenes/ServerExchangeBar.tscn" id="5_mgk7m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c23qk"]
 
@@ -93,14 +94,8 @@ server_handler = NodePath("../../../../../../ServerHandler")
 [node name="Local" type="Control" parent="HSplitContainer/ExplorerArea/VSplitContainer"]
 layout_mode = 2
 
-[node name="ServerExchangeBar" type="Panel" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local"]
+[node name="ServerExchangeBar" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local" instance=ExtResource("5_mgk7m")]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 60.0
-grow_horizontal = 2
-theme = ExtResource("4_4r40v")
-theme_type_variation = &"ServerExchangeBar"
 
 [node name="DirectorySelector" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local" instance=ExtResource("2_c23qk")]
 layout_mode = 1

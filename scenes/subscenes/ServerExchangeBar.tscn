@@ -1,0 +1,129 @@
+[gd_scene load_steps=6 format=3 uid="uid://djmadqb6fsp38"]
+
+[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_rvwlk"]
+[ext_resource type="Texture2D" uid="uid://b4lqxqwdu8tud" path="res://icons/refresh-double.png" id="2_b40fk"]
+[ext_resource type="Texture2D" uid="uid://o5aigvrls7c2" path="res://icons/load-arrow.png" id="2_c7grb"]
+[ext_resource type="Script" uid="uid://b7373hovr781t" path="res://scenes/subscenes/server_load_changer.gd" id="2_goqtp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_goqtp"]
+
+[node name="ServerExchangeBar" type="Panel"]
+clip_contents = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme = ExtResource("1_rvwlk")
+theme_type_variation = &"ServerExchangeBar"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ModeChanger" type="PanelContainer" parent="HBoxContainer" node_paths=PackedStringArray("download_container", "upload_container")]
+layout_mode = 2
+script = ExtResource("2_goqtp")
+download_container = NodePath("../Loader/Download")
+upload_container = NodePath("../Loader/Upload")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ModeChanger"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ModeChanger/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/ModeChanger/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_b40fk")
+expand_mode = 2
+
+[node name="ModeSwitcher" type="Label" parent="HBoxContainer/ModeChanger/HBoxContainer"]
+layout_mode = 2
+text = "Switch Mode"
+
+[node name="Spacer" type="PanelContainer" parent="HBoxContainer/ModeChanger/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_goqtp")
+
+[node name="ModeChangerButton" type="Button" parent="HBoxContainer/ModeChanger"]
+layout_mode = 2
+focus_mode = 0
+flat = true
+
+[node name="Loader" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="Download" type="PanelContainer" parent="HBoxContainer/Loader"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Loader/Download"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Loader/Download/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_c7grb")
+expand_mode = 2
+stretch_mode = 3
+flip_v = true
+
+[node name="DownloadLabel" type="Label" parent="HBoxContainer/Loader/Download/HBoxContainer"]
+custom_minimum_size = Vector2(60, 40)
+layout_mode = 2
+text = "Download"
+vertical_alignment = 1
+
+[node name="Spacer" type="PanelContainer" parent="HBoxContainer/Loader/Download/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_goqtp")
+
+[node name="Upload" type="PanelContainer" parent="HBoxContainer/Loader"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Loader/Upload"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Loader/Upload/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_c7grb")
+expand_mode = 2
+stretch_mode = 3
+
+[node name="UploadLabel" type="Label" parent="HBoxContainer/Loader/Upload/HBoxContainer"]
+custom_minimum_size = Vector2(60, 40)
+layout_mode = 2
+text = "Upload"
+vertical_alignment = 1
+
+[node name="Spacer" type="PanelContainer" parent="HBoxContainer/Loader/Upload/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_goqtp")
+
+[node name="ModeChangerButton" type="Button" parent="HBoxContainer/Loader"]
+layout_mode = 2
+focus_mode = 0
+flat = true
+
+[node name="FileLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Assets:"
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/ModeChanger/ModeChangerButton" to="HBoxContainer/ModeChanger" method="_on_mode_changer_button_pressed"]
