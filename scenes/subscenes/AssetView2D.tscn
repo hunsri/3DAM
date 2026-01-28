@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://xa2j6v56168e"]
 
-[ext_resource type="Script" uid="uid://cgj5l2rao6e22" path="res://scripts/AssetExplorerHandler.gd" id="1_g2rem"]
+[ext_resource type="Script" uid="uid://cgj5l2rao6e22" path="res://scripts/explorers/AssetExplorerHandler.gd" id="1_g2rem"]
 [ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/AssetInfoSidebar.tscn" id="1_txao4"]
 
 [node name="AssetExplorer2d" type="Control"]

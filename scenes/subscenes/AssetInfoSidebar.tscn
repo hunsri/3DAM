@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bfqubijg7p3yh" path="res://scripts/AssetInfoHandler.gd" id="1_5565g"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_feb4m"]
-[ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/asset_spawn_point.gd" id="3_ik0vy"]
+[ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/tiles/asset_spawn_point.gd" id="3_ik0vy"]
 
 [sub_resource type="World3D" id="World3D_ik0vy"]
 

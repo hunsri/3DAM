@@ -13,5 +13,3 @@ func _on_mode_changer_button_pressed() -> void:
 	else:
 		upload_container.visible = false
 		download_container.visible = true
-		
-	pass # Replace with function body.

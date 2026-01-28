@@ -5,6 +5,8 @@ class_name AssetExplorerHandler extends AbstractExplorerHandler
 @export var dh: DirectoryHandler
 @export var ih: AssetInfoHandler
 
+@export var server_handler: ServerHandler
+
 var asset_infos: Array[AssetInfo] = []
 
 func _ready() -> void:

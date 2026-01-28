@@ -1,5 +1,7 @@
 class_name ServerHandler extends Node
 
+@export var server_exchange_manager: ServerExchangeManager
+
 signal has_fetched_from_server
 signal has_fetched_names_in_category
 
