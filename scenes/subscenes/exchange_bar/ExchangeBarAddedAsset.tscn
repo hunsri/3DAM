@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://lmanvmaaobvi"]
+
+[ext_resource type="Script" uid="uid://dh6a3s5lqrmql" path="res://scripts/exchange_bar/ExchangeBarAddedAsset.gd" id="1_0uxll"]
+
+[node name="ExchangeBarAddedAsset" type="PanelContainer" node_paths=PackedStringArray("asset_name")]
+custom_minimum_size = Vector2(200, 60)
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.055555556
+size_flags_horizontal = 3
+script = ExtResource("1_0uxll")
+asset_name = NodePath("MarginContainer/AssetNameLabel")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="AssetNameLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "text"
+
+[node name="AddedAssetClickedButton" type="Button" parent="."]
+layout_mode = 2

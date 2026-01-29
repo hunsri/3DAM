@@ -1,20 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://djmadqb6fsp38"]
+[gd_scene load_steps=8 format=3 uid="uid://djmadqb6fsp38"]
 
-[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_rvwlk"]
-[ext_resource type="Texture2D" uid="uid://b4lqxqwdu8tud" path="res://icons/refresh-double.png" id="2_b40fk"]
-[ext_resource type="Texture2D" uid="uid://o5aigvrls7c2" path="res://icons/load-arrow.png" id="2_c7grb"]
-[ext_resource type="Script" uid="uid://b7373hovr781t" path="res://scripts/server_load_changer.gd" id="2_goqtp"]
+[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_hm4ou"]
+[ext_resource type="Script" uid="uid://dehaxai5w18o8" path="res://scripts/exchange_bar/ServerExchangeBar.gd" id="2_m5n62"]
+[ext_resource type="Script" uid="uid://b7373hovr781t" path="res://scripts/server_load_changer.gd" id="2_yhuqo"]
+[ext_resource type="Texture2D" uid="uid://b4lqxqwdu8tud" path="res://icons/refresh-double.png" id="3_m5n62"]
+[ext_resource type="Texture2D" uid="uid://o5aigvrls7c2" path="res://icons/load-arrow.png" id="4_02vhf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_goqtp"]
 
-[node name="ServerExchangeBar" type="Panel"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_laos8"]
+
+[node name="ServerExchangeBar" type="Panel" node_paths=PackedStringArray("added_assets_container")]
 clip_contents = true
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 60.0
 grow_horizontal = 2
-theme = ExtResource("1_rvwlk")
+theme = ExtResource("1_hm4ou")
 theme_type_variation = &"ServerExchangeBar"
+script = ExtResource("2_m5n62")
+added_assets_container = NodePath("HBoxContainer/SelectedAssetsContainer/ScrollContainer/AddedAssetsContainer")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -28,7 +33,7 @@ grow_vertical = 2
 
 [node name="ModeChanger" type="PanelContainer" parent="HBoxContainer" node_paths=PackedStringArray("download_container", "upload_container")]
 layout_mode = 2
-script = ExtResource("2_goqtp")
+script = ExtResource("2_yhuqo")
 download_container = NodePath("../Loader/Download")
 upload_container = NodePath("../Loader/Upload")
 
@@ -43,7 +48,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/ModeChanger/HBoxContainer/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("2_b40fk")
+texture = ExtResource("3_m5n62")
 expand_mode = 2
 
 [node name="ModeSwitcher" type="Label" parent="HBoxContainer/ModeChanger/HBoxContainer"]
@@ -72,7 +77,7 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/Loader/Download/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_c7grb")
+texture = ExtResource("4_02vhf")
 expand_mode = 2
 stretch_mode = 3
 flip_v = true
@@ -97,7 +102,7 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/Loader/Upload/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_c7grb")
+texture = ExtResource("4_02vhf")
 expand_mode = 2
 stretch_mode = 3
 
@@ -117,13 +122,23 @@ layout_mode = 2
 focus_mode = 0
 flat = true
 
-[node name="FileLabel" type="Label" parent="HBoxContainer"]
+[node name="SelectedAssetsLabel" type="Label" parent="HBoxContainer"]
 layout_mode = 2
-text = "Assets:"
+text = "Selected Assets:"
 vertical_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+[node name="SelectedAssetsContainer" type="PanelContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_laos8")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/SelectedAssetsContainer"]
+layout_mode = 2
+
+[node name="AddedAssetsContainer" type="HBoxContainer" parent="HBoxContainer/SelectedAssetsContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [connection signal="pressed" from="HBoxContainer/ModeChanger/ModeChangerButton" to="HBoxContainer/ModeChanger" method="_on_mode_changer_button_pressed"]

@@ -34,12 +34,12 @@ grow_vertical = 2
 theme = SubResource("Theme_r4iii")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_n7ni5")
 script = ExtResource("1_n7ni5")
-selected = NodePath("TileStatusBar/CheckBox")
+selected = NodePath("TileStatusBar/SelectionCheckbox")
 selected_status_bar = NodePath("TileStatusBar/Selected")
 downloaded_status_bar = NodePath("TileStatusBar/Downloaded")
 metadata/_edit_use_anchors_ = true
 
-[node name="AssetSelectionButton" type="Button" parent="."]
+[node name="AssetClickedButton" type="Button" parent="."]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_pmtom")
 
@@ -83,11 +83,11 @@ horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="CheckBox" type="CheckBox" parent="TileStatusBar"]
+[node name="SelectionCheckbox" type="CheckBox" parent="TileStatusBar"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_r4iii")
 flat = true
 
-[connection signal="pressed" from="TileStatusBar/CheckBox" to="." method="_on_check_box_pressed"]
+[connection signal="pressed" from="TileStatusBar/SelectionCheckbox" to="." method="_on_check_box_pressed"]

@@ -55,6 +55,6 @@ offset_bottom = 200.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[connection signal="pressed" from="TileBasics/AssetSelectionButton" to="." method="_on_asset_selection_button_pressed"]
+[connection signal="pressed" from="TileBasics/AssetClickedButton" to="." method="_on_asset_clicked_button_pressed"]
 
 [editable path="TileBasics"]

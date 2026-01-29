@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dvb1345451o5v" path="res://scenes/subscenes/CategorySelector.tscn" id="2_uw5gw"]
 [ext_resource type="Script" uid="uid://bjjgsb0e668fs" path="res://scripts/explorers/ServerExchangeManager.gd" id="3_xf5sg"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="4_4r40v"]
-[ext_resource type="PackedScene" uid="uid://djmadqb6fsp38" path="res://scenes/subscenes/ServerExchangeBar.tscn" id="5_mgk7m"]
+[ext_resource type="PackedScene" uid="uid://djmadqb6fsp38" path="res://scenes/subscenes/exchange_bar/ServerExchangeBar.tscn" id="5_mgk7m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c23qk"]
 
@@ -38,8 +38,9 @@ server_handler = NodePath("../ServerHandler")
 category_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategoryHandler")
 metadata/_custom_type_script = "uid://e2mtpotnr8x3"
 
-[node name="ServerExchangeManager" type="Node" parent="."]
+[node name="ServerExchangeManager" type="Node" parent="." node_paths=PackedStringArray("server_exchange_bar")]
 script = ExtResource("3_xf5sg")
+server_exchange_bar = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/ServerExchangeBar")
 metadata/_custom_type_script = "uid://bjjgsb0e668fs"
 
 [node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler")]

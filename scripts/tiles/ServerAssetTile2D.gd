@@ -52,8 +52,14 @@ func on_request_completed_fetch_asset_preview(_result, _response_code, _headers,
 		self
 	)
 
-func _on_asset_selection_button_pressed() -> void:
-	pass
+func _on_asset_clicked_button_pressed() -> void:
+	pass # Replace with function body.
 
+func _on_selection_checkbox_pressed() -> void:
+	if is_selected():
+		asset_handler.server_handler.server_exchange_manager.add_to_selection(self)
+	else:
+		asset_handler.server_handler.server_exchange_manager.remove_from_selection(self)
+	
 func is_selected() -> bool:
 	return tile_sub_logic.selected.button_pressed
