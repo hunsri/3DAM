@@ -38,13 +38,16 @@ server_handler = NodePath("../ServerHandler")
 category_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategoryHandler")
 metadata/_custom_type_script = "uid://e2mtpotnr8x3"
 
-[node name="ServerExchangeManager" type="Node" parent="." node_paths=PackedStringArray("server_exchange_bar")]
+[node name="ServerExchangeManager" type="Node" parent="." node_paths=PackedStringArray("server_exchange_bar", "server_explorer_handler", "asset_explorer_handler")]
 script = ExtResource("3_xf5sg")
 server_exchange_bar = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/ServerExchangeBar")
+server_explorer_handler = NodePath("../ServerExplorerHandler")
+asset_explorer_handler = NodePath("../AssetExplorerHandler")
 metadata/_custom_type_script = "uid://bjjgsb0e668fs"
 
-[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler")]
+[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("directory_handler", "server_handler")]
 script = ExtResource("1_p8e36")
+directory_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector/DirectoryHandler")
 server_handler = NodePath("../ServerHandler")
 metadata/_custom_type_script = "uid://cgj5l2rao6e22"
 

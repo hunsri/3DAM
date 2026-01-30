@@ -2,8 +2,8 @@ class_name AssetExplorerHandler extends AbstractExplorerHandler
 
 @onready var v_box_container: VBoxContainer = %VBoxContainer
 
-@export var dh: DirectoryHandler
-@export var ih: AssetInfoHandler
+@export var directory_handler: DirectoryHandler
+@export var asset_info_handler: AssetInfoHandler
 
 @export var server_handler: ServerHandler
 
@@ -15,12 +15,12 @@ func _ready() -> void:
 func reload_explorer() -> void:
 	remove_all_tiles()
 	asset_infos = []
-	asset_infos = fetch_assets_info(dh.get_currently_open_directory())
+	asset_infos = fetch_assets_info(directory_handler.get_currently_open_directory())
 	populate(asset_infos)
 
 func asset_clicked(file_name: String) -> void:
-	var asset_path = dh.get_currently_open_directory()+"/"+file_name
-	ih.load_model(asset_path)
+	var asset_path = directory_handler.get_currently_open_directory()+"/"+file_name
+	asset_info_handler.load_model(asset_path)
 
 func fetch_assets_info(directory: String) -> Array[AssetInfo]:
 	var ret: Array[AssetInfo] = []

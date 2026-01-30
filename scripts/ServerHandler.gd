@@ -18,6 +18,7 @@ var has_fetched_data: bool = false
 
 func _ready():
 	_fetch_server_info()
+	server_exchange_manager.set_server_handler(self)
 	
 	#ws.inbound_buffer_size = 20 * 1024 * 1024
 	#
@@ -81,6 +82,14 @@ func fetch_asset_preview(category_name: String, asset_name: String, tile: Server
 	
 	_cleanup_http_request_node(http)
 
+func download_asset_from_server(category_name: String, asset_name: String, target_directory: String):
+	var sub_url = "/ws/assets/categories/"+category_name+"/"+asset_name+"/download"
+	var request_address = HTTP_PRE+address+sub_url
+	
+	print(request_address)
+	print("to: " + target_directory)
+	
+	pass
 
 func get_asset_category() -> Array:
 	return asset_categories

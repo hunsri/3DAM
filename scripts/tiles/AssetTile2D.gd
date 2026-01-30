@@ -26,7 +26,7 @@ func _on_asset_clicked_button_pressed() -> void:
 	asset_handler.asset_clicked(asset_name_label.text)
 
 func display_preview() -> void:
-	var full_path = asset_handler.dh.get_currently_open_directory() + "/" + asset_name_label.text
+	var full_path = asset_handler.directory_handler.get_currently_open_directory() + "/" + asset_name_label.text
 	ModelLoader.load_attach_model(full_path, spawn_point)
 
 func is_selected() -> bool:
