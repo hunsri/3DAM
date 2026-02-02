@@ -10,6 +10,9 @@ var origin: String = ""
 var origin_history: Array = []
 var keywords: Array = []
 
+# utf-8 based json
+var raw_json: String = ""
+
 func _init(p_package_name:String):
 	package_name = p_package_name
 	asset_file_name = p_package_name

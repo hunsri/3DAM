@@ -9,6 +9,9 @@ var _selected_assets_for_upload: Dictionary[AbstractAssetTile, ExchangeBarAddedA
 
 var _server_handler: ServerHandler
 
+# workaround to remember asset_info after download
+var asset_info_of_current_download: AssetInfo
+
 func _ready() -> void:
 	server_exchange_bar.set_server_exchange_manager(self)
 
@@ -42,11 +45,67 @@ func download_selected_assets() -> void:
 		return #TODO for now only first asset for testing
 
 func download_single_asset(server_asset: ServerAssetTile2D) -> void:
-	var target_directory := asset_explorer_handler.directory_handler.get_currently_open_directory()
 	var category := server_asset.asset_handler.category_handler.get_currently_open_category()
 	var asset_name := server_asset.asset_info.package_name
 	
-	_server_handler.download_asset_from_server(category, asset_name, target_directory)
+	_server_handler.download_asset_from_server(category, asset_name)
+	asset_info_of_current_download = server_asset.asset_info
+
+func on_request_completed_download_asset_from_server(_result, _response_code, _headers, body):
+	if _response_code != 200:
+		print("download failed")
+		return
+	else:
+		print("download successful")
+	
+	saving_file(body)
+
+## Returns true if saving was successful
+func saving_file(data: PackedByteArray) -> bool:	
+	var target_directory := _create_package_directory(asset_explorer_handler.directory_handler.get_currently_open_directory())
+	if target_directory == "":
+		return false
+	
+	print("saving location: "+ target_directory)
+	var file = FileAccess.open(target_directory+"/"+asset_info_of_current_download.package_name+".zip", FileAccess.WRITE)
+	if file == null:
+		return false
+	
+	print("start saving")
+	
+	for i in data.size():
+		file.store_8(data.get(i))
+	
+	file.close()
+	print("done saving")
+	
+	print("start unpacking")
+	AssetUtils.extract_assets_zip_archive(target_directory, asset_info_of_current_download.package_name)
+	print("done unpacking")
+	
+	var abs_path: String = ProjectSettings.globalize_path(target_directory)
+	if abs_path != "":
+		OS.shell_open(abs_path)
+	
+	return true
+
+## Creates a package directory with asset_info.json
+## Returns the path to the package, or an empty string upon failure
+func _create_package_directory(target_directory: String) -> String:
+	var dir = DirAccess.open(target_directory)
+	dir.make_dir(asset_info_of_current_download.package_name)
+	
+	var package_path = target_directory+"/"+asset_info_of_current_download.package_name
+	
+	var info_file_path = package_path+"/"+AssetUtils.INFO_FILE_NAME
+	var file = FileAccess.open(info_file_path, FileAccess.WRITE)
+	
+	if file:
+		file.store_string(asset_info_of_current_download.raw_json)
+		file.close()
+		return package_path
+	else:
+		return ""
 
 func set_server_handler(p_server_handler: ServerHandler) -> void:
 	_server_handler = p_server_handler

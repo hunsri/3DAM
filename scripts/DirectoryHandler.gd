@@ -23,7 +23,8 @@ func _open_dir_in_explorer() -> void:
 
 func _on_directory_name_pressed() -> void:
 	_open_dir_in_explorer()
-	
+
+## Returns the currently open path in globalized form
 func get_currently_open_directory() -> String:
 	return ProjectSettings.globalize_path(_currently_open_directory)
 
