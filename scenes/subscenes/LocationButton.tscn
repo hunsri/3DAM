@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbkbgf8jlopto"]
+[gd_scene load_steps=8 format=3 uid="uid://cbkbgf8jlopto"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_jf60t"]
 [ext_resource type="Script" uid="uid://dx4t35kw6s1mm" path="res://scripts/LocationHandler.gd" id="1_tu3rn"]
+[ext_resource type="Texture2D" uid="uid://cmtmcvhouhq4g" path="res://icons/computer.png" id="3_ecbgw"]
+[ext_resource type="Texture2D" uid="uid://dl2y2w80beo25" path="res://icons/cloud.png" id="4_uq3o6"]
+[ext_resource type="Texture2D" uid="uid://bj4gvd3dsehyr" path="res://icons/thunderstorm.png" id="5_ino1y"]
+[ext_resource type="Texture2D" uid="uid://cy37ce6sj3qyk" path="res://icons/plus-circle.png" id="6_1dtc7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jf60t"]
 
@@ -23,5 +27,53 @@ layout_mode = 2
 theme = ExtResource("1_jf60t")
 theme_type_variation = &"LocationButton"
 metadata/_edit_use_anchors_ = true
+
+[node name="LocalIcon" type="TextureRect" parent="LocationButton"]
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_ecbgw")
+
+[node name="ServerIcon" type="TextureRect" parent="LocationButton"]
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_uq3o6")
+
+[node name="ConnectionIssueIcon" type="TextureRect" parent="LocationButton"]
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_ino1y")
+expand_mode = 2
+stretch_mode = 3
+
+[node name="AddServerIcon" type="TextureRect" parent="LocationButton"]
+visible = false
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_1dtc7")
+expand_mode = 2
+stretch_mode = 3
 
 [connection signal="pressed" from="LocationButton" to="." method="_on_location_button_pressed"]

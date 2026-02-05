@@ -39,3 +39,7 @@ size_flags_horizontal = 0
 [node name="Server1" parent="LeftSidePanel/VBoxContainer" instance=ExtResource("2_sw0j3")]
 layout_mode = 2
 scene_type = 1
+
+[node name="AddServer" parent="LeftSidePanel/VBoxContainer" instance=ExtResource("2_sw0j3")]
+layout_mode = 2
+scene_type = 2

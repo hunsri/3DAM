@@ -1,4 +1,4 @@
-class_name AssetUtils
+class_name AssetUtils extends Node
 
 const INFO_FILE_NAME: String = "asset_info.json"
 
