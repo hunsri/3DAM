@@ -11,6 +11,7 @@ const CATEGORY_SELECTOR = preload("uid://dvb1345451o5v")
 @onready var server_icon: TextureRect = $LocationButton/ServerIcon
 @onready var connection_issue_icon: TextureRect = $LocationButton/ConnectionIssueIcon
 @onready var add_server_icon: TextureRect = $LocationButton/AddServerIcon
+@onready var location_button: Button = $LocationButton
 
 var current_icon: TextureRect
 
@@ -21,6 +22,7 @@ enum SceneType {
 }
 
 func _ready():
+	location_button.button_group = ResourceManager.LOCATION_BUTTON_GROUP
 	SCENE_NODE.add_child(LOCAL_VIEW_UI.instantiate())
 	
 	match scene_type:
@@ -34,6 +36,13 @@ func _ready():
 	current_icon.visible = true
 
 func _on_location_button_pressed() -> void:
+	
+	var group_buttons :=  location_button.button_group.get_buttons()
+	
+	# ensures only one button is marked as pressed at a time
+	for button in group_buttons:
+		if button != location_button:
+			button.button_pressed = false
 	
 	match scene_type:
 		SceneType.Local:
