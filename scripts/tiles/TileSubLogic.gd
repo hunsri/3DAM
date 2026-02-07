@@ -5,6 +5,7 @@ class_name TileSubLogic extends PanelContainer
 @export var downloaded_status_bar: Node
 
 var _is_supported_asset = false
+var selection_disabled = false
 
 enum TileStatus {
 	NONE,
@@ -18,7 +19,7 @@ func _ready():
 	reload()
 
 func reload():
-	if _is_supported_asset:
+	if _is_supported_asset && !selection_disabled:
 		change_status(TileStatus.DEFAULT)
 	else:
 		change_status(TileStatus.NONE) 
@@ -51,6 +52,10 @@ func change_status(status: TileStatus) -> void:
 			selected_status_bar.visible = false
 			downloaded_status_bar.visible = true
 			
+
+func set_selection_disabled(p_selection_disabled: bool) -> void:
+	selection_disabled = p_selection_disabled
+	reload()
 
 func set_is_supported_asset(is_supported: bool) -> void:
 	_is_supported_asset = is_supported

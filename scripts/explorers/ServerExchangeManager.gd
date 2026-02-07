@@ -12,8 +12,19 @@ var _server_handler: ServerHandler
 # workaround to remember asset_info after download
 var asset_info_of_current_download: AssetInfo
 
+enum ExchangeMode {NONE, UPLOAD, DOWNLOAD}
+var current_exchange_mode: ExchangeMode = ExchangeMode.NONE
+
 func _ready() -> void:
 	server_exchange_bar.set_server_exchange_manager(self)
+
+func set_exchange_mode(exchange_mode: ExchangeMode) -> void:
+	if exchange_mode == current_exchange_mode:
+		return
+	
+	current_exchange_mode = exchange_mode
+	server_explorer_handler.set_overlay_status(current_exchange_mode)
+	asset_explorer_handler.set_overlay_status(current_exchange_mode)	
 
 func add_to_selection(asset_tile: AbstractAssetTile) -> void:
 	var added_asset: ExchangeBarAddedAsset = ServerExchangeBar.create_exchange_bar_asset()

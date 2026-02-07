@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://csxkrfjg0nwe4"]
+
+[ext_resource type="Script" uid="uid://w7l4y4st010d" path="res://scripts/ExplorerStatusOverlay.gd" id="1_qrm20"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rmpnx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qrm20"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrm20"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_gvwuj"]
+font_size = 40
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gvwuj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqdhl"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_detail = 5
+
+[node name="ExplorerStatusOverlay" type="PanelContainer" node_paths=PackedStringArray("server_asset_selection_disabled", "local_asset_selection_disabled")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rmpnx")
+script = ExtResource("1_qrm20")
+server_asset_selection_disabled = NodePath("ServerAssetSelectionDisabled")
+local_asset_selection_disabled = NodePath("LocalAssetSelectionDisabled")
+
+[node name="ServerAssetSelectionDisabled" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qrm20")
+
+[node name="PanelContainer" type="PanelContainer" parent="ServerAssetSelectionDisabled"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qrm20")
+
+[node name="Label" type="Label" parent="ServerAssetSelectionDisabled"]
+layout_mode = 2
+text = "Selecting Server-Assets is disabled in Upload Mode"
+label_settings = SubResource("LabelSettings_gvwuj")
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 4
+
+[node name="LocalAssetSelectionDisabled" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gvwuj")
+
+[node name="PanelContainer" type="PanelContainer" parent="LocalAssetSelectionDisabled"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jqdhl")
+
+[node name="Label" type="Label" parent="LocalAssetSelectionDisabled"]
+layout_mode = 2
+text = "Selecting Local-Assets is disabled in Download Mode"
+label_settings = SubResource("LabelSettings_gvwuj")
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 4

@@ -5,12 +5,18 @@ class_name ServerExplorerHandler extends AbstractExplorerHandler
 
 @onready var v_box_container: VBoxContainer = %VBoxContainerServer
 
+@export var status_overlay: ExplorerStatusOverlay
+
 var asset_infos: Array[AssetInfo] = []
 
 func _ready() -> void:
 	reload_explorer()
 	
 	server_handler.has_fetched_names_in_category.connect(on_fetch_assets_info)
+
+func set_overlay_status(exchange_mode: ServerExchangeManager.ExchangeMode) -> void:
+	if status_overlay != null:
+		status_overlay.set_overlay(exchange_mode)
 
 func on_fetch_assets_info(asset_names):
 	asset_infos = [] #Clear all previous entries

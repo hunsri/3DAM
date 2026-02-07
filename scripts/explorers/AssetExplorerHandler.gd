@@ -7,6 +7,8 @@ class_name AssetExplorerHandler extends AbstractExplorerHandler
 
 @export var server_handler: ServerHandler
 
+@export var status_overlay: ExplorerStatusOverlay
+
 var asset_infos: Array[AssetInfo] = []
 
 func _ready() -> void:
@@ -21,6 +23,10 @@ func reload_explorer() -> void:
 func asset_clicked(file_name: String) -> void:
 	var asset_path = directory_handler.get_currently_open_directory()+"/"+file_name
 	asset_info_handler.load_model(asset_path)
+
+func set_overlay_status(exchange_mode: ServerExchangeManager.ExchangeMode) -> void:
+	if status_overlay != null:
+		status_overlay.set_overlay(exchange_mode)
 
 func fetch_assets_info(directory: String) -> Array[AssetInfo]:
 	var ret: Array[AssetInfo] = []

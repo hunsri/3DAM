@@ -8,6 +8,9 @@ var _exchange_manager: ServerExchangeManager
 ## a false value represents upload mode
 var is_in_download_mode = true
 
+func _ready() -> void:
+	update_exchange_mode()
+
 static func create_exchange_bar_asset() -> ExchangeBarAddedAsset:
 	return EXCHANGE_BAR_ADDED_ASSET.instantiate()
 
@@ -21,11 +24,19 @@ func clear_bar() -> void:
 	for child in added_assets_container.get_children():
 		child.queue_free()
 
+func update_exchange_mode() -> void:
+	if is_in_download_mode:
+		_exchange_manager.set_exchange_mode(ServerExchangeManager.ExchangeMode.DOWNLOAD)
+	else:
+		_exchange_manager.set_exchange_mode(ServerExchangeManager.ExchangeMode.UPLOAD)
+
 func _on_upload_mode_button_pressed() -> void:
 	is_in_download_mode = false
+	update_exchange_mode()
 
 func _on_download_mode_button_pressed() -> void:
 	is_in_download_mode = true
+	update_exchange_mode()
 
 func _on_load_action_button_pressed() -> void:
 	if is_in_download_mode:
