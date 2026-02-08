@@ -5,15 +5,18 @@ class_name AssetTile2D extends AbstractAssetTile
 @export var tile_sub_logic: TileSubLogic
 
 var asset_handler: AssetExplorerHandler
+var asset_info: AssetInfo
 
 func _ready() -> void:
 	display_preview()
 
-func setup_tile(p_asset_handler: AbstractExplorerHandler, asset_info: AssetInfo):
-	set_handler(p_asset_handler)
-	set_asset_label(asset_info.asset_file_name)
+func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInfo):
+	asset_info = p_asset_info
 	
-	var is_supported = AssetUtils.is_file_supported(asset_info.asset_file_name)
+	set_handler(p_asset_handler)
+	set_asset_label(p_asset_info.asset_file_name)
+	
+	var is_supported = AssetUtils.is_file_supported(p_asset_info.asset_file_name)
 	tile_sub_logic.set_is_supported_asset(is_supported)
 	
 	# disable selection for exchange if no server is present in the view
@@ -32,6 +35,12 @@ func _on_asset_clicked_button_pressed() -> void:
 func display_preview() -> void:
 	var full_path = asset_handler.directory_handler.get_currently_open_directory() + "/" + asset_name_label.text
 	ModelLoader.load_attach_model(full_path, spawn_point)
+
+func _on_selection_checkbox_pressed() -> void:
+	if is_selected():
+		asset_handler.server_handler.server_exchange_manager.add_to_selection(self)
+	else:
+		asset_handler.server_handler.server_exchange_manager.remove_from_selection(self)
 
 func is_selected() -> bool:
 	return tile_sub_logic.selected.button_pressed

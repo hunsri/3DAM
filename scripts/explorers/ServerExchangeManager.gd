@@ -27,33 +27,38 @@ func set_exchange_mode(exchange_mode: ExchangeMode) -> void:
 	asset_explorer_handler.set_overlay_status(current_exchange_mode)	
 
 func add_to_selection(asset_tile: AbstractAssetTile) -> void:
-	var added_asset: ExchangeBarAddedAsset = ServerExchangeBar.create_exchange_bar_asset()
+	var added_asset: ExchangeBarAddedAsset = ServerExchangeBar.create_exchange_bar_asset(asset_tile)
 	
 	if asset_tile is ServerAssetTile2D:
 		added_asset.set_asset_name(asset_tile.asset_info.package_name)
 		_selected_assets_for_download.set(asset_tile, added_asset)
 		server_exchange_bar.add_to_bar(added_asset)
 	elif asset_tile is AssetTile2D:
+		added_asset.set_asset_name(asset_tile.asset_info.package_name)
 		_selected_assets_for_upload.set(asset_tile, added_asset)
-		#TODO add for upload
+		server_exchange_bar.add_to_bar(added_asset)
 
 func remove_from_selection(asset_tile: AbstractAssetTile) -> bool:
 	
 	if asset_tile is ServerAssetTile2D:
 		server_exchange_bar.remove_from_bar(_selected_assets_for_download.get(asset_tile))
+		return _selected_assets_for_download.erase(asset_tile)
 	elif asset_tile is AssetTile2D:
 		server_exchange_bar.remove_from_bar(_selected_assets_for_upload.get(asset_tile))
+		return _selected_assets_for_upload.erase(asset_tile)
 	
-	return _selected_assets_for_download.erase(asset_tile)
+	return false #for the unexpected case that the asset_tile class couldn't be matched
 
 func get_selected_assets_for_download() -> Dictionary:
 	return _selected_assets_for_download
 
 func download_selected_assets() -> void:
 	
+	print("download assets: ")
 	for key in _selected_assets_for_download:
-		download_single_asset(key)
-		return #TODO for now only first asset for testing
+		print(key)
+		#download_single_asset(key)
+		#return #TODO for now only first asset for testing
 
 func download_single_asset(server_asset: ServerAssetTile2D) -> void:
 	var category := server_asset.asset_handler.category_handler.get_currently_open_category()
@@ -61,6 +66,13 @@ func download_single_asset(server_asset: ServerAssetTile2D) -> void:
 	
 	_server_handler.download_asset_from_server(category, asset_name)
 	asset_info_of_current_download = server_asset.asset_info
+
+func upload_selected_assets() -> void:
+	#TODO upload implementation
+	
+	print("upload assets: ")
+	for key in _selected_assets_for_upload:
+		print(key)
 
 func on_request_completed_download_asset_from_server(_result, _response_code, _headers, body):
 	if _response_code != 200:

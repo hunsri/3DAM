@@ -50,7 +50,7 @@ expand_mode = 2
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 16
-text = "Upload Mode"
+text = "Upload"
 vertical_alignment = 1
 
 [node name="Spacer" type="PanelContainer" parent="HBoxContainer/LoadSelect/Upload/HBoxContainer"]
@@ -58,7 +58,7 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_goqtp")
 
-[node name="UploadModeButton" type="Button" parent="HBoxContainer/LoadSelect/Upload"]
+[node name="UploadButton" type="Button" parent="HBoxContainer/LoadSelect/Upload"]
 layout_mode = 2
 flat = true
 
@@ -77,7 +77,7 @@ flip_v = true
 
 [node name="DownloadLabel" type="Label" parent="HBoxContainer/LoadSelect/Download/HBoxContainer"]
 layout_mode = 2
-text = "Download Mode"
+text = "Download"
 vertical_alignment = 1
 
 [node name="Spacer" type="PanelContainer" parent="HBoxContainer/LoadSelect/Download/HBoxContainer"]
@@ -85,7 +85,7 @@ custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_goqtp")
 
-[node name="DownloadModeButton" type="Button" parent="HBoxContainer/LoadSelect/Download"]
+[node name="DownloadButton" type="Button" parent="HBoxContainer/LoadSelect/Download"]
 layout_mode = 2
 flat = true
 
@@ -94,6 +94,7 @@ z_as_relative = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Mode-Upload-Connectors"]
+visible = false
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -117,24 +118,6 @@ layout_mode = 2
 size_flags_vertical = 6
 size_flags_stretch_ratio = 9.94
 
-[node name="LoadAction" type="PanelContainer" parent="HBoxContainer"]
-layout_mode = 2
-
-[node name="SelectedAssetsLabel" type="Label" parent="HBoxContainer/LoadAction"]
-visible = false
-layout_mode = 2
-text = "{mode} {amount} Asset{plural}"
-vertical_alignment = 1
-
-[node name="SelectedAssetsLabel2" type="Label" parent="HBoxContainer/LoadAction"]
-layout_mode = 2
-text = "upload 1 Asset"
-vertical_alignment = 1
-
-[node name="LoadActionButton" type="Button" parent="HBoxContainer/LoadAction"]
-layout_mode = 2
-flat = true
-
 [node name="SelectedAssetsContainer" type="PanelContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
@@ -149,6 +132,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[connection signal="pressed" from="HBoxContainer/LoadSelect/Upload/UploadModeButton" to="." method="_on_upload_mode_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/LoadSelect/Download/DownloadModeButton" to="." method="_on_download_mode_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/LoadAction/LoadActionButton" to="." method="_on_load_action_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/LoadSelect/Upload/UploadButton" to="." method="_on_upload_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/LoadSelect/Download/DownloadButton" to="." method="_on_download_button_pressed"]

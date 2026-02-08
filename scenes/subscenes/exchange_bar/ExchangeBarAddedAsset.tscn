@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dh6a3s5lqrmql" path="res://scripts/exchange_bar/ExchangeBarAddedAsset.gd" id="1_0uxll"]
 
-[node name="ExchangeBarAddedAsset" type="PanelContainer" node_paths=PackedStringArray("asset_name")]
+[node name="ExchangeBarAddedAsset" type="PanelContainer" node_paths=PackedStringArray("_asset_name")]
 custom_minimum_size = Vector2(200, 60)
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.055555556
 size_flags_horizontal = 3
 script = ExtResource("1_0uxll")
-asset_name = NodePath("MarginContainer/AssetNameLabel")
+_asset_name = NodePath("MarginContainer/AssetNameLabel")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
