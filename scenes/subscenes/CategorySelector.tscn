@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvb1345451o5v"]
+[gd_scene load_steps=9 format=3 uid="uid://dvb1345451o5v"]
 
 [ext_resource type="Script" uid="uid://e81eg7abhawm" path="res://scripts/CategoryHandler.gd" id="1_xsaw7"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="2_3gexa"]
 [ext_resource type="Script" uid="uid://clwmset02pf26" path="res://scripts/CategoryExplorer.gd" id="3_txqc8"]
+[ext_resource type="PackedScene" uid="uid://cb2g5aviktllm" path="res://scenes/subscenes/overlays/SelectorStatusOverlay.tscn" id="4_3gexa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6ws4"]
 
@@ -81,5 +82,9 @@ theme_type_variation = &"DirectorySidebar"
 script = ExtResource("3_txqc8")
 metadata/_custom_type_script = "uid://clwmset02pf26"
 metadata/_edit_use_anchors_ = true
+
+[node name="CategorySelectorStatusOverlay" parent="CategorySidePanel" instance=ExtResource("4_3gexa")]
+layout_mode = 1
+offset_top = 60.0
 
 [connection signal="item_selected" from="CategorySidePanel/CategoryExplorer" to="CategoryHandler" method="_on_category_explorer_item_selected"]

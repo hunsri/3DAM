@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb2g5aviktllm"]
+
+[ext_resource type="Script" uid="uid://cv8otaboj1k0v" path="res://scripts/overlays/SelectorStatusOverlay.gd" id="1_l4c3y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x3nns"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_x3nns"]
+font_size = 20
+
+[node name="SelectorStatusOverlay" type="PanelContainer" node_paths=PackedStringArray("directory_disabled_for_upload", "category_disabled_for_download")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_x3nns")
+script = ExtResource("1_l4c3y")
+directory_disabled_for_upload = NodePath("DirectoryDisabledForUpload")
+category_disabled_for_download = NodePath("CategoryDisabledForDownload")
+
+[node name="DirectoryDisabledForUpload" type="Panel" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DirectoryDisabledForUpload"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Disabled during upload
+Assets will be placed in location above"
+label_settings = SubResource("LabelSettings_x3nns")
+horizontal_alignment = 1
+
+[node name="CategoryDisabledForDownload" type="Panel" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CategoryDisabledForDownload"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Disabled during download
+Assets will be placed in location below"
+label_settings = SubResource("LabelSettings_x3nns")
+horizontal_alignment = 1

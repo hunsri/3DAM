@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://csxkrfjg0nwe4"]
 
-[ext_resource type="Script" uid="uid://w7l4y4st010d" path="res://scripts/ExplorerStatusOverlay.gd" id="1_qrm20"]
+[ext_resource type="Script" uid="uid://w7l4y4st010d" path="res://scripts/overlays/ExplorerStatusOverlay.gd" id="1_rh4xl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rmpnx"]
 
@@ -35,7 +35,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_rmpnx")
-script = ExtResource("1_qrm20")
+script = ExtResource("1_rh4xl")
 server_asset_selection_disabled = NodePath("ServerAssetSelectionDisabled")
 local_asset_selection_disabled = NodePath("LocalAssetSelectionDisabled")
 

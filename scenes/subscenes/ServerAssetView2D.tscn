@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bjjgsb0e668fs" path="res://scripts/explorers/ServerExchangeManager.gd" id="3_xf5sg"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="4_4r40v"]
 [ext_resource type="PackedScene" uid="uid://djmadqb6fsp38" path="res://scenes/subscenes/exchange_bar/ServerExchangeBar.tscn" id="5_mgk7m"]
-[ext_resource type="PackedScene" uid="uid://csxkrfjg0nwe4" path="res://scenes/subscenes/ExplorerStatusOverlay.tscn" id="8_qq5yn"]
+[ext_resource type="PackedScene" uid="uid://csxkrfjg0nwe4" path="res://scenes/subscenes/overlays/ExplorerStatusOverlay.tscn" id="8_qq5yn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c23qk"]
 
@@ -33,11 +33,12 @@ metadata/_custom_type_script = "uid://8ty66il4fyso"
 [node name="HTTPRequest" type="HTTPRequest" parent="ServerHandler"]
 use_threads = true
 
-[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler", "category_handler", "status_overlay")]
+[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler", "category_handler", "status_overlay", "selector_overlay")]
 script = ExtResource("2_6xg4d")
 server_handler = NodePath("../ServerHandler")
 category_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategoryHandler")
 status_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/ServerExplorerStatusOverlay")
+selector_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategorySidePanel/CategorySelectorStatusOverlay")
 metadata/_custom_type_script = "uid://e2mtpotnr8x3"
 
 [node name="ServerExchangeManager" type="Node" parent="." node_paths=PackedStringArray("server_exchange_bar", "server_explorer_handler", "asset_explorer_handler")]
@@ -47,11 +48,12 @@ server_explorer_handler = NodePath("../ServerExplorerHandler")
 asset_explorer_handler = NodePath("../AssetExplorerHandler")
 metadata/_custom_type_script = "uid://bjjgsb0e668fs"
 
-[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("directory_handler", "server_handler", "status_overlay")]
+[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("directory_handler", "server_handler", "status_overlay", "selector_overlay")]
 script = ExtResource("1_p8e36")
 directory_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector/DirectoryHandler")
 server_handler = NodePath("../ServerHandler")
 status_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/LocalExplorerContainer/LocalExplorerStatusOverlay")
+selector_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector/DirectorySidePanel/CategorySelectorStatusOverlay")
 metadata/_custom_type_script = "uid://cgj5l2rao6e22"
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]

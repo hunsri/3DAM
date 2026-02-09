@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://16s375yxtc82"]
+[gd_scene load_steps=9 format=3 uid="uid://16s375yxtc82"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_7uuti"]
 [ext_resource type="Script" uid="uid://x7716fdxafas" path="res://scripts/DirectoryHandler.gd" id="1_ko0af"]
 [ext_resource type="Script" uid="uid://dqob5g2iy71ya" path="res://scripts/directory_explorer.gd" id="2_0f6le"]
+[ext_resource type="PackedScene" uid="uid://cb2g5aviktllm" path="res://scenes/subscenes/overlays/SelectorStatusOverlay.tscn" id="4_qcwdl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6ws4"]
 
@@ -78,6 +79,11 @@ theme = ExtResource("1_7uuti")
 theme_type_variation = &"DirectorySidebar"
 script = ExtResource("2_0f6le")
 metadata/_edit_use_anchors_ = true
+
+[node name="CategorySelectorStatusOverlay" parent="DirectorySidePanel" instance=ExtResource("4_qcwdl")]
+layout_mode = 1
+offset_top = 60.0
+overlay_type = 1
 
 [connection signal="pressed" from="DirectorySidePanel/DirLocationHeader/DirectoryName" to="DirectoryHandler" method="_on_directory_name_pressed"]
 [connection signal="item_selected" from="DirectorySidePanel/DirectoryTree" to="DirectoryHandler" method="_on_tree_item_selected"]
