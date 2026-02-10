@@ -22,7 +22,7 @@ func on_request_completed_fetch_asset_info(_result, _response_code, _headers, bo
 		return
 	
 	var json = JSON.parse_string(body.get_string_from_utf8())
-	asset_info.id = json["id"]
+	asset_info.package_name = json["package_name"]
 	asset_info.version = json["version"]
 	asset_info.asset_file_name = json["asset_file_name"]
 	asset_info.authors = json["authors"]

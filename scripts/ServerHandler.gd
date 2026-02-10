@@ -41,22 +41,22 @@ func _on_request_completed_server_info(_result, _response_code, _headers, body):
 
 func fetch_package_names_in_category(category_name: String):
 	
-	var sub_url = "/assets/categories/"+category_name+"/assets_list"
+	var sub_url = "/assets/categories/"+category_name+"/package_list"
 	var request_address = HTTP_PRE+address+sub_url
 	
 	var http = _create_http_request_node()
 	
 	http.request(request_address)
-	http.request_completed.connect(_on_request_completed_asset_names_in_category)
+	http.request_completed.connect(_on_request_completed_package_names_in_category)
 	
 	_cleanup_http_request_node(http)
 
-func _on_request_completed_asset_names_in_category(_result, _response_code, _headers, body):
+func _on_request_completed_package_names_in_category(_result, _response_code, _headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
-	has_fetched_names_in_category.emit(json["assets"])
+	has_fetched_names_in_category.emit(json["packages"])
 
-func fetch_asset_info(category_name: String, asset_name: String, tile: ServerAssetTile2D):
-	var sub_url = "/assets/categories/"+category_name+"/"+asset_name+"/asset_info"
+func fetch_asset_info(category_name: String, package_name: String, tile: ServerAssetTile2D):
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/asset_info"
 	var request_address = HTTP_PRE+address+sub_url
 	
 	var http = _create_http_request_node()
@@ -65,8 +65,8 @@ func fetch_asset_info(category_name: String, asset_name: String, tile: ServerAss
 	
 	_cleanup_http_request_node(http)
 
-func fetch_asset_preview(category_name: String, asset_name: String, tile: ServerAssetTile2D):
-	var sub_url = "/assets/categories/"+category_name+"/"+asset_name+"/preview"
+func fetch_asset_preview(category_name: String, package_name: String, tile: ServerAssetTile2D):
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/preview"
 	var request_address = HTTP_PRE+address+sub_url
 	
 	var http = _create_http_request_node()
@@ -76,8 +76,8 @@ func fetch_asset_preview(category_name: String, asset_name: String, tile: Server
 	
 	_cleanup_http_request_node(http)
 
-func download_asset_from_server(category_name: String, asset_name: String):
-	var sub_url = "/assets/categories/"+category_name+"/"+asset_name+"/download"
+func download_asset_from_server(category_name: String, package_name: String):
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/download"
 	var request_address = HTTP_PRE+address+sub_url
 	
 	var http = _create_http_request_node()
