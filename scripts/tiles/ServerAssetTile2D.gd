@@ -12,10 +12,18 @@ func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInf
 	asset_info = p_asset_info
 	asset_name_label.text = asset_info.package_name
 	
+	# Fetching the rest of the asset_info, since it is not complete at this point
+	asset_handler.server_handler.fetch_asset_info(
+		asset_handler.category_handler.get_currently_open_category(),
+		asset_info.package_name,
+		self
+	)
+	
 	asset_handler.server_handler.fetch_asset_preview(
 		asset_handler.category_handler.get_currently_open_category(),
 		asset_info.package_name, 
 		self)
+	
 
 func on_request_completed_fetch_asset_info(_result, _response_code, _headers, body):
 	if _response_code != 200:
@@ -26,7 +34,6 @@ func on_request_completed_fetch_asset_info(_result, _response_code, _headers, bo
 	asset_info.version = json["version"]
 	asset_info.asset_file_name = json["asset_file_name"]
 	asset_info.authors = json["authors"]
-	asset_info.origin = json["origin"]
 	asset_info.origin_history = json["origin_history"]
 	asset_info.keywords = json["keywords"]
 	
@@ -46,13 +53,6 @@ func on_request_completed_fetch_asset_preview(_result, _response_code, _headers,
 		texture = ImageTexture.create_from_image(image)
 		
 		asset_preview.texture = texture
-	
-	# Fetching remaining meta information
-	asset_handler.server_handler.fetch_asset_info(
-		asset_handler.category_handler.get_currently_open_category(),
-		asset_info.package_name,
-		self
-	)
 
 func _on_asset_clicked_button_pressed() -> void:
 	pass # Replace with function body.

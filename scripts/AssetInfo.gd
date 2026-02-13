@@ -6,7 +6,6 @@ var id: String = ""
 var version: String = ""
 var asset_file_name: String = ""
 var authors: Array = []
-var origin: String = ""
 var origin_history: Array = []
 var keywords: Array = []
 

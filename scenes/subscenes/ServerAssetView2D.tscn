@@ -109,8 +109,9 @@ offset_right = 0.0
 offset_bottom = 8.0
 grow_horizontal = 1
 
-[node name="CategoryHandler" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector" index="0" node_paths=PackedStringArray("server_handler")]
+[node name="CategoryHandler" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector" index="0" node_paths=PackedStringArray("server_handler", "category_selector")]
 server_handler = NodePath("../../../../../../ServerHandler")
+category_selector = NodePath("../CategorySidePanel/CategorySelectorTree")
 
 [node name="Local" type="Control" parent="HSplitContainer/ExplorerArea/VSplitContainer"]
 layout_mode = 2

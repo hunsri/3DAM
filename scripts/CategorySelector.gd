@@ -1,4 +1,4 @@
-class_name CategoryExplorer extends Tree
+class_name CategorySelector extends Tree
 
 func draw_tree(categories: Array) -> void:
 	var root_item: TreeItem = create_item()
