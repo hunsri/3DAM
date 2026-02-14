@@ -94,6 +94,38 @@ func get_asset_category() -> Array:
 func get_server_name() -> String:
 	return server_name
 
+func upload_asset_info(category_name: String, asset_info: AssetInfo):
+	
+	var sub_url = "/assets/categories/"+category_name+"/upload_asset_info"
+	var request_address = HTTP_PRE+address+sub_url
+	var headers = ["Content-Type: application/json"]
+	
+	var http = _create_http_request_node()
+	
+	var json_body:String = JSON.stringify(asset_info.to_dict())
+	print(json_body)
+	
+	var error = http.request(
+		request_address,
+		headers,
+		HTTPClient.METHOD_POST,
+		json_body
+	)
+	
+	if error != OK:
+		print("Request error:", error)
+	
+	http.request_completed.connect(server_exchange_manager.on_request_completed_upload_asset_info)
+	
+	_cleanup_http_request_node(http)
+
+func upload_asset_archive_to_server(category_name: String, archive_location: String):
+	#TODO implement upload to POST endpoint
+	pass
+
+func _on_request_completed_upload_asset_archive_to_server(result, response_code, headers, body):
+	print("Code:", response_code, "Body:", body.get_string_from_utf8())
+
 func _create_http_request_node() -> HTTPRequest:
 	var http_request = HTTPRequest.new()
 	

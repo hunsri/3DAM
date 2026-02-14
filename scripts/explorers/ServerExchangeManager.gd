@@ -12,6 +12,9 @@ var _server_handler: ServerHandler
 # workaround to remember asset_info after download
 var asset_info_of_current_download: AssetInfo
 
+# and the same for upload
+var asset_info_of_current_upload: AssetInfo
+
 enum ExchangeMode {NONE, UPLOAD, DOWNLOAD}
 var current_exchange_mode: ExchangeMode = ExchangeMode.NONE
 
@@ -49,6 +52,37 @@ func remove_from_selection(asset_tile: AbstractAssetTile) -> bool:
 	
 	return false #for the unexpected case that the asset_tile class couldn't be matched
 
+func upload_selected_assets() -> void:
+	#TODO upload implementation
+	
+	print("upload assets: ")
+	for key in _selected_assets_for_upload:
+		upload_single_asset(key)
+		print(key)
+		return
+
+		
+func upload_single_asset(asset: AssetTile2D) -> void:
+	
+	asset_info_of_current_upload = asset.asset_info
+	
+	var category_name := server_explorer_handler.category_handler.get_currently_open_category()
+	#var package_name := asset.asset_info.package_name
+	
+	_server_handler.upload_asset_info(category_name, asset.asset_info)
+	
+
+func on_request_completed_upload_asset_info(result, response_code, headers, body):
+	print("Response code:", response_code)
+	print("Response body:", body.get_string_from_utf8())
+	
+	if response_code == 200:
+		print("uploading archive!")
+		var category_name := server_explorer_handler.category_handler.get_currently_open_category()
+		var directory_name := asset_explorer_handler.directory_handler.get_currently_open_directory()
+		var archive_location = ZipUtils.create_zip_from_asset_info(directory_name, asset_info_of_current_upload)
+		_server_handler.upload_asset_archive_to_server(category_name, archive_location)
+
 func get_selected_assets_for_download() -> Dictionary:
 	return _selected_assets_for_download
 
@@ -66,13 +100,7 @@ func download_single_asset(server_asset: ServerAssetTile2D) -> void:
 	
 	_server_handler.download_asset_from_server(category, asset_name)
 	asset_info_of_current_download = server_asset.asset_info
-
-func upload_selected_assets() -> void:
-	#TODO upload implementation
-	
-	print("upload assets: ")
-	for key in _selected_assets_for_upload:
-		print(key)
+		
 
 func on_request_completed_download_asset_from_server(_result, _response_code, _headers, body):
 	if _response_code != 200:

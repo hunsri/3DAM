@@ -1,9 +1,7 @@
 class_name AssetInfo extends Node
 
 var package_name: String = ""
-
-var id: String = ""
-var version: String = ""
+var version: String = "0.0.0"
 var asset_file_name: String = ""
 var authors: Array = []
 var origin_history: Array = []
@@ -21,3 +19,13 @@ func get_file_extension() -> String:
 		return asset_file_name.get_extension()
 	else:
 		return ""
+
+func to_dict() -> Dictionary:
+	return {
+		"package_name": package_name,
+		"version": version,
+		"asset_file_name": asset_file_name,
+		"authors": authors,
+		"keywords": keywords,
+		"origin_history": origin_history
+	}
