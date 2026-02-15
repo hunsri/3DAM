@@ -47,14 +47,11 @@ static func create_zip_from_asset_info(currently_open_directory: String, asset_i
 	var target := ProjectSettings.globalize_path(currently_open_directory +"/"+ asset_info.package_name)
 	
 	#TODO check if target is a package
-	#TODO check for dependencies
-	print(target)
+	#TODO check for asset dependencies
 	
 	# This could create a potential collision if we aren't careful, best to delete the cache after upload
 	var destination = TEMP_ZIP_DIR +"/"+ asset_info.package_name
-	create_zip_archive(target, destination)
-	
-	return destination
+	return create_zip_archive(target, destination)
 
 static func create_zip_archive(path_to_target: String, path_to_destination: String) -> String:
 	var zipper := ZIPPacker.new()

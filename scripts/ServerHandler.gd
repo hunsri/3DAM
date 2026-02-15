@@ -119,12 +119,39 @@ func upload_asset_info(category_name: String, asset_info: AssetInfo):
 	
 	_cleanup_http_request_node(http)
 
-func upload_asset_archive_to_server(category_name: String, archive_location: String):
-	#TODO implement upload to POST endpoint
-	pass
-
-func _on_request_completed_upload_asset_archive_to_server(result, response_code, headers, body):
-	print("Code:", response_code, "Body:", body.get_string_from_utf8())
+func upload_asset_archive_to_server(category_name: String, package_name: String, version: String, asset_archive_path: String):
+	
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+version+"/upload_asset_archive"
+	var request_address = HTTP_PRE+address+sub_url
+	
+	var http = _create_http_request_node()
+	
+	var file: FileAccess = null
+	
+	file = FileAccess.open(asset_archive_path, FileAccess.READ)
+	if file == null:
+		return {"success": false, "status_code": 0, "body": "Failed to open file"}
+	var data: PackedByteArray = file.get_buffer(file.get_length())
+	file.close()
+	
+	var body: Array = []
+	for b in data:
+		body.append(b)
+	
+	var headers: Array = ["Content-Type: application/zip", "Content-Length: %d" % data.size()]
+	
+	var error = http.request_raw(
+		request_address,
+		headers,
+		HTTPClient.METHOD_POST,
+		body)
+	
+	if error != OK:
+		print("Request error:", error)
+	
+	http.request_completed.connect(server_exchange_manager.on_request_completed_upload_asset_archive_to_server)
+	
+	_cleanup_http_request_node(http)
 
 func _create_http_request_node() -> HTTPRequest:
 	var http_request = HTTPRequest.new()
