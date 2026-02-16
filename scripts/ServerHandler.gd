@@ -152,6 +152,34 @@ func upload_asset_archive_to_server(category_name: String, package_name: String,
 	http.request_completed.connect(server_exchange_manager.on_request_completed_upload_asset_archive_to_server)
 	
 	_cleanup_http_request_node(http)
+	
+func upload_asset_preview_image(category_name: String, package_name: String, version: String, image: Image):
+	
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+version+"/upload_asset_preview"
+	var request_address = HTTP_PRE+address+sub_url
+	
+	var http = _create_http_request_node()
+	
+	var png_bytes : PackedByteArray = image.save_png_to_buffer()
+	
+	var body: Array = []
+	for b in png_bytes:
+		body.append(b)
+	
+	var headers: Array = ["Content-Type: image/png", "Content-Length: %d" % png_bytes.size()]
+	
+	var error = http.request_raw(
+		request_address,
+		headers,
+		HTTPClient.METHOD_POST,
+		body)
+	
+	if error != OK:
+		print("Request error:", error)
+	
+	http.request_completed.connect(server_exchange_manager.on_request_completed_upload_asset_preview_image)
+	
+	_cleanup_http_request_node(http)
 
 func _create_http_request_node() -> HTTPRequest:
 	var http_request = HTTPRequest.new()

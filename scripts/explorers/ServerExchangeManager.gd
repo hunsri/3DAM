@@ -41,6 +41,13 @@ func add_to_selection(asset_tile: AbstractAssetTile) -> void:
 		_selected_assets_for_upload.set(asset_tile, added_asset)
 		server_exchange_bar.add_to_bar(added_asset)
 
+func get_from_upload_selection(asset_info: AssetInfo) -> AssetTile2D:
+	for asset_tile in _selected_assets_for_upload.keys():
+		var local_asset_tile: AssetTile2D = asset_tile
+		if local_asset_tile.asset_info.package_name == asset_info.package_name:
+			return local_asset_tile
+	return null
+
 func remove_from_upload_selection(asset_info: AssetInfo) -> bool:
 	for asset_tile in _selected_assets_for_upload.keys():
 		var local_asset_tile: AssetTile2D = asset_tile
@@ -98,6 +105,25 @@ func on_request_completed_upload_asset_info(_result, response_code, _headers, bo
 
 func on_request_completed_upload_asset_archive_to_server(_result, response_code, _headers, body):
 	print("ARCHIVE UPLOAD SERVER RESPONSE")
+	print("Code:", response_code, "Body:", body.get_string_from_utf8())
+	
+	if response_code == 200:
+		var version: String = asset_info_of_current_upload.version
+		
+		# We prefer to use the version we just declared when we requested the asset_info POST to the server 
+		var res = JSON.parse_string(body.get_string_from_utf8())
+		if res != null:
+			version = res.version
+	
+		var tile: AssetTile2D = get_from_upload_selection(asset_info_of_current_upload)
+		var image = tile.get_preview_image()
+		
+		var category_name := server_explorer_handler.category_handler.get_currently_open_category()
+		_server_handler.upload_asset_preview_image(category_name, asset_info_of_current_upload.package_name, version, image)
+	
+
+func on_request_completed_upload_asset_preview_image(_result, response_code, _headers, body):
+	print("PREVIEW UPLOAD SERVER RESPONSE")
 	print("Code:", response_code, "Body:", body.get_string_from_utf8())
 	remove_from_upload_selection(asset_info_of_current_upload)
 

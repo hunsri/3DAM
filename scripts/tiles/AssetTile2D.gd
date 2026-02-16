@@ -3,6 +3,7 @@ class_name AssetTile2D extends AbstractAssetTile
 @export var asset_name_label: Label
 @export var spawn_point: Node3D
 @export var tile_sub_logic: TileSubLogic
+@export var sub_viewport: SubViewport
 
 var asset_handler: AssetExplorerHandler
 var asset_info: AssetInfo
@@ -22,6 +23,9 @@ func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInf
 	# disable selection for exchange if no server is present in the view
 	if asset_handler.server_handler == null:
 		tile_sub_logic.set_selection_disabled(true)
+
+func get_preview_image() -> Image:
+	return sub_viewport.get_texture().get_image()
 
 func set_handler(p_asset_handler: AssetExplorerHandler) -> void:
 	asset_handler = p_asset_handler
