@@ -65,6 +65,18 @@ func fetch_asset_info(category_name: String, package_name: String, tile: ServerA
 	
 	_cleanup_http_request_node(http)
 
+func download_package_info_for_saving(category_name: String, package_name: String):
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/package_info"
+	var request_address = HTTP_PRE+address+sub_url
+	
+	var http = _create_http_request_node()
+	http.request(request_address)
+	http.request_completed.connect(server_exchange_manager.on_request_completed_download_package_info_for_saving)
+	
+	_cleanup_http_request_node(http)
+
+
+
 func fetch_asset_preview(category_name: String, package_name: String, tile: ServerAssetTile2D):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/preview"
 	var request_address = HTTP_PRE+address+sub_url

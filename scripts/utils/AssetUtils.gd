@@ -1,6 +1,7 @@
 class_name AssetUtils extends Node
 
 const INFO_FILE_NAME: String = "asset_info.json"
+const ASSET_ZIP_FILE_NAME: String = "assets.zip"
 
 static var supported_asset_file_extensions = {
 	"gltf": true,
@@ -9,6 +10,7 @@ static var supported_asset_file_extensions = {
 	"fbx": false
 }
 
+# TODO is file check
 static func is_file_supported(filename: String) -> bool:
 	return supported_asset_file_extensions.get(filename.get_extension(), false)
 
@@ -45,3 +47,18 @@ static func _extract_all_from_zip(path_to_archive: String, path_to_destination: 
 		var buffer = reader.read_file(file_path)
 		file.store_buffer(buffer)
 		file.close()
+
+static func place_asset_zip(version_path: String, zip_archive_data: PackedByteArray, unpack: bool, keep_zip: bool) -> bool:
+	var target_directory := version_path
+	if target_directory == "":
+		return false
+	
+	var file = FileAccess.open(target_directory+"/"+ASSET_ZIP_FILE_NAME, FileAccess.WRITE)
+	if file == null:
+		return false
+	
+	for i in zip_archive_data.size():
+		file.store_8(zip_archive_data.get(i))
+	
+	file.close()
+	return true

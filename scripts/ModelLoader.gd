@@ -24,7 +24,9 @@ static func _load_model(path_to_model: String) -> Node3D:
 		model = _load_from_disk(path_to_model)
 		model_map.set(_model_hash(path_to_model), model)
 	
-	return model.duplicate(true)
+	if model != null:
+		return model.duplicate(true)
+	return null
 
 static func _load_from_disk(path_to_model: String) -> Node3D:
 	var file_extension = path_to_model.get_extension()
@@ -56,6 +58,10 @@ static func _load_gltf(path_to_model: String) -> Node3D:
 	var gltf := GLTFDocument.new()
 	var gltf_state := GLTFState.new()
 	var snd_file = FileAccess.open(path_to_model, FileAccess.READ)
+	if snd_file == null:
+		push_error("Failed to read model %s" % [path_to_model])
+		return null
+		
 	var fileBytes = PackedByteArray()
 	fileBytes = snd_file.get_buffer(snd_file.get_length())
 	gltf.append_from_buffer(fileBytes, path_to_model, gltf_state, 8)

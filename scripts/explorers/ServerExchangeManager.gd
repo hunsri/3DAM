@@ -120,7 +120,6 @@ func on_request_completed_upload_asset_archive_to_server(_result, response_code,
 		
 		var category_name := server_explorer_handler.category_handler.get_currently_open_category()
 		_server_handler.upload_asset_preview_image(category_name, asset_info_of_current_upload.package_name, version, image)
-	
 
 func on_request_completed_upload_asset_preview_image(_result, response_code, _headers, body):
 	print("PREVIEW UPLOAD SERVER RESPONSE")
@@ -135,67 +134,52 @@ func download_selected_assets() -> void:
 	print("download assets: ")
 	for key in _selected_assets_for_download:
 		print(key)
-		#download_single_asset(key)
-		#return #TODO for now only first asset for testing
+
+		download_single_asset(key)
+		#TODO for now only first asset for testing
 
 func download_single_asset(server_asset: ServerAssetTile2D) -> void:
 	var category := server_asset.asset_handler.category_handler.get_currently_open_category()
-	var asset_name := server_asset.asset_info.package_name
+	var package_name := server_asset.asset_info.package_name
 	
-	_server_handler.download_asset_from_server(category, asset_name)
+	# First we make sure that the package structure exists
+	_server_handler.download_package_info_for_saving(category, package_name)
+	#_server_handler.download_asset_from_server(category, asset_name)
 	asset_info_of_current_download = server_asset.asset_info
+
+func on_request_completed_download_package_info_for_saving(_result, response_code, _headers, body):
+	print("PACKAGE_INFO REQUEST RESPONSE")
+	print("Response code:", response_code)
+	print("Response body:", body.get_string_from_utf8())
+	
+	if response_code == 200:
+		var json = JSON.parse_string(body.get_string_from_utf8())
+		print(json)
 		
+		var package_path := PackageUtils.create_new_package(
+			PackageInfo.new(json.package_uuid, json.package_name, json.versions),
+			asset_explorer_handler.directory_handler.get_currently_open_directory()
+		)
+		
+		if package_path == "":
+			return
+		
+		#request asset archive
+		_server_handler.download_asset_from_server(
+			server_explorer_handler.category_handler.get_currently_open_category(),
+			json.package_name
+			)
 
 func on_request_completed_download_asset_from_server(_result, _response_code, _headers, body):
 	if _response_code != 200:
-		print("download failed")
 		return
-	else:
-		print("download successful")
 	
-	saving_file(body)
-
-## Returns true if saving was successful
-func saving_file(data: PackedByteArray) -> bool:	
-	var target_directory := _create_package_directory(asset_explorer_handler.directory_handler.get_currently_open_directory())
-	if target_directory == "":
-		return false
+	# A bit crazy but it works
+	var package_path = asset_explorer_handler.directory_handler.get_currently_open_directory() + "/" + asset_info_of_current_download.package_name
+	PackageUtils.insert_asset_version_assets(package_path, asset_info_of_current_download, body)
 	
-	print("saving location: "+ target_directory)
-	var file = FileAccess.open(target_directory+"/"+asset_info_of_current_download.package_name+".zip", FileAccess.WRITE)
-	if file == null:
-		return false
+	print("saving under:")
+	print(package_path)
 	
-	for i in data.size():
-		file.store_8(data.get(i))
-	
-	file.close()
-	
-	AssetUtils.extract_assets_zip_archive(target_directory, asset_info_of_current_download.package_name)
-	
-	var abs_path: String = ProjectSettings.globalize_path(target_directory)
-	if abs_path != "":
-		OS.shell_open(abs_path)
-	
-	return true
-
-## Creates a package directory with asset_info.json
-## Returns the path to the package, or an empty string upon failure
-func _create_package_directory(target_directory: String) -> String:
-	var dir = DirAccess.open(target_directory)
-	dir.make_dir(asset_info_of_current_download.package_name)
-	
-	var package_path = target_directory+"/"+asset_info_of_current_download.package_name
-	
-	var info_file_path = package_path+"/"+AssetUtils.INFO_FILE_NAME
-	var file = FileAccess.open(info_file_path, FileAccess.WRITE)
-	
-	if file:
-		file.store_string(asset_info_of_current_download.raw_json)
-		file.close()
-		return package_path
-	else:
-		return ""
-
 func set_server_handler(p_server_handler: ServerHandler) -> void:
 	_server_handler = p_server_handler
