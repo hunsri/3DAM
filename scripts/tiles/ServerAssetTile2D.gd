@@ -39,7 +39,7 @@ func on_request_completed_fetch_asset_info(_result, _response_code, _headers, bo
 	
 	asset_info.raw_json = body.get_string_from_utf8()
 	
-	var is_supported = AssetUtils.is_file_supported(asset_info.asset_file_name)
+	var is_supported = AssetUtils.is_file_name_supported(asset_info.asset_file_name)
 	tile_sub_logic.set_is_supported_asset(is_supported)
 
 func on_request_completed_fetch_asset_preview(_result, _response_code, _headers, body):

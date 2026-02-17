@@ -17,7 +17,7 @@ func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInf
 	set_handler(p_asset_handler)
 	set_asset_label(p_asset_info.asset_file_name)
 	
-	var is_supported = AssetUtils.is_file_supported(p_asset_info.asset_file_name)
+	var is_supported = AssetUtils.is_file_name_supported(p_asset_info.asset_file_name)
 	tile_sub_logic.set_is_supported_asset(is_supported)
 	
 	# disable selection for exchange if no server is present in the view

@@ -4,7 +4,10 @@ static var model_map: Dictionary[int, Node3D] = {}
 
 static func load_attach_model(path_to_model: String, parent_node: Node3D) -> void:
 	
-	if not path_to_model.get_extension() in ["gltf", "glb"]:
+	if not AssetUtils.is_file_3D_model(path_to_model):
+		return
+	
+	if not AssetUtils.is_file_name_supported(path_to_model.get_file()):
 		return
 	
 	# clearing the existing model from the previous view

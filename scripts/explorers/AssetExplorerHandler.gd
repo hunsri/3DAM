@@ -38,11 +38,11 @@ func fetch_assets_info(directory: String) -> Array[AssetInfo]:
 	
 	if dir_access == null:
 		return []
-	
+		
 	dir_access.list_dir_begin()
 	var asset_file_name = dir_access.get_next()
 	while asset_file_name != "":
-		ret.append(AssetInfo.new(asset_file_name))
+		ret.append(AssetInfo.new(asset_file_name, directory+"/"+asset_file_name))
 		asset_file_name = dir_access.get_next()
 	
 	return ret

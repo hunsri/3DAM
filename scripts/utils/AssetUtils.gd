@@ -10,8 +10,21 @@ static var supported_asset_file_extensions = {
 	"fbx": false
 }
 
-# TODO is file check
-static func is_file_supported(filename: String) -> bool:
+# a very basic check that should improved later on
+static func is_file_3D_model(file_path: String) -> bool:
+	
+	# in case path leads to a directory
+	var dir := DirAccess.open(file_path)
+	if dir != null:
+		return false
+	
+	var file_name = file_path.get_file()
+	if supported_asset_file_extensions.has(file_name.get_extension()):
+		return true
+	
+	return false
+
+static func is_file_name_supported(filename: String) -> bool:
 	return supported_asset_file_extensions.get(filename.get_extension(), false)
 
 ## Extracts all contents of the zip archive into an "Assets" directory in the same path

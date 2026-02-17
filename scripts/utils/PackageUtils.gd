@@ -62,5 +62,18 @@ static func insert_asset_version_assets(package_path: String, asset_info: AssetI
 	if result != OK:
 		push_error("Failed to create Version %s for Package %s" % [asset_info.version, package_path])
 		return false
-	
+
 	return AssetUtils.place_asset_zip(package_path +"/"+ asset_info.version, zip_archive_data, true, true)
+
+## Checks whether the given target is a package
+## Returns bool - true if a package_info can be found within the path
+static func is_target_package(target_path: String) -> bool:
+	var dir := DirAccess.open(target_path)
+	
+	if dir == null:
+		return false
+	
+	if dir.file_exists(PACKAGE_INFO_FILE_NAME):
+		return true
+	
+	return false
