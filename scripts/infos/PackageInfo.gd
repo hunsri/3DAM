@@ -21,6 +21,15 @@ func to_json_string() -> String:
 	var json_string := JSON.stringify(dict, "\t")
 	return json_string
 	
+static func from_json_string(json_string: String) -> PackageInfo:
+	var parsed_json:Dictionary = JSON.parse_string(json_string)
+	
+	if parsed_json == null:
+		push_error("Failed to parse JSON for reading in package_info")
+		return null
+	
+	var ret := PackageInfo.new(parsed_json.package_uuid, parsed_json.package_name, parsed_json.versions)
+	return ret
 	
 func is_given_package_newer(package: PackageInfo) -> bool:
 	
