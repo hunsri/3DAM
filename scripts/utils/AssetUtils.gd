@@ -2,6 +2,7 @@ class_name AssetUtils extends Node
 
 const INFO_FILE_NAME: String = "asset_info.json"
 const ASSET_ZIP_FILE_NAME: String = "assets.zip"
+const ASSET_DIR_NAME: String = "assets"
 
 static var supported_asset_file_extensions = {
 	"gltf": true,
@@ -26,6 +27,21 @@ static func is_file_3D_model(file_path: String) -> bool:
 
 static func is_file_name_supported(filename: String) -> bool:
 	return supported_asset_file_extensions.get(filename.get_extension(), false)
+
+## Creates an asset info file into the given asset directory
+## [param target_path] - usually the directory of the package version
+## Returns bool - true on success
+static func create_asset_info_file(asset_info: AssetInfo, target_path: String) -> bool:
+	var asset_info_path = target_path +"/"+ INFO_FILE_NAME
+	var file := FileAccess.open(asset_info_path, FileAccess.WRITE)
+	
+	if file == null:
+		push_error("Failed to open file for writing: %s" % [asset_info_path])
+		return false
+	
+	file.store_string(asset_info.to_json_string())
+	file.close()
+	return true
 
 ## Extracts all contents of the zip archive into an "Assets" directory in the same path
 static func extract_assets_zip_archive(path: String, archive_name: String):
@@ -61,12 +77,16 @@ static func _extract_all_from_zip(path_to_archive: String, path_to_destination: 
 		file.store_buffer(buffer)
 		file.close()
 
-static func place_asset_zip(version_path: String, zip_archive_data: PackedByteArray, unpack: bool, keep_zip: bool) -> bool:
+## Inserts the given archive into the provided version [br]
+## By default inserts and unpacks the archive and deletes it afterwards
+static func place_asset_zip(version_path: String, zip_archive_data: PackedByteArray, unpack: bool = true, keep_zip: bool = false) -> bool:
 	var target_directory := version_path
 	if target_directory == "":
 		return false
 	
-	var file = FileAccess.open(target_directory+"/"+ASSET_ZIP_FILE_NAME, FileAccess.WRITE)
+	var zip_path := target_directory+"/"+ASSET_ZIP_FILE_NAME
+	
+	var file = FileAccess.open(zip_path, FileAccess.WRITE)
 	if file == null:
 		return false
 	
@@ -74,4 +94,12 @@ static func place_asset_zip(version_path: String, zip_archive_data: PackedByteAr
 		file.store_8(zip_archive_data.get(i))
 	
 	file.close()
+	
+	if unpack:
+		ZipUtils.extract_all_from_zip(zip_path, target_directory+"/"+ASSET_DIR_NAME)
+	
+	if not keep_zip:
+		var dir = DirAccess.open(target_directory)
+		dir.remove(zip_path)
+	
 	return true

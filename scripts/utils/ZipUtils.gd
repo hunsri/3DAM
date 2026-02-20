@@ -44,7 +44,7 @@ static func extract_all_from_zip(path_to_archive: String, path_to_destination: S
 		file.store_buffer(buffer)
 
 static func create_zip_from_asset_info(currently_open_directory: String, asset_info: AssetInfo) -> String:
-	var target := ProjectSettings.globalize_path(currently_open_directory +"/"+ asset_info.package_name)
+	var target := ProjectSettings.globalize_path(currently_open_directory +"/"+ asset_info.asset_file_name)
 	
 	#TODO check if target is a package
 	#TODO check for asset dependencies
@@ -62,7 +62,6 @@ static func create_zip_archive(path_to_target: String, path_to_destination: Stri
 	if err != OK:
 		push_error("Failed to create a zip archive")
 	
-	#_add_dir_recursive(zipper, path_to_target, path_to_target)
 	_add_file(zipper, path_to_target)
 	
 	zipper.close()

@@ -69,7 +69,6 @@ func remove_from_selection(asset_tile: AbstractAssetTile) -> bool:
 	return false #for the unexpected case that the asset_tile class couldn't be matched
 
 func upload_selected_assets() -> void:
-	#TODO upload implementation
 	
 	print("upload assets: ")
 	for key in _selected_assets_for_upload:
@@ -101,6 +100,7 @@ func on_request_completed_upload_asset_info(_result, response_code, _headers, bo
 		var category_name := server_explorer_handler.category_handler.get_currently_open_category()
 		var directory_name := asset_explorer_handler.directory_handler.get_currently_open_directory()
 		var archive_location = ZipUtils.create_zip_from_asset_info(directory_name, asset_info_of_current_upload)
+		
 		_server_handler.upload_asset_archive_to_server(category_name, asset_info_of_current_upload.package_name, version, archive_location)
 
 func on_request_completed_upload_asset_archive_to_server(_result, response_code, _headers, body):
@@ -142,10 +142,10 @@ func download_single_asset(server_asset: ServerAssetTile2D) -> void:
 	var category := server_asset.asset_handler.category_handler.get_currently_open_category()
 	var package_name := server_asset.asset_info.package_name
 	
+	asset_info_of_current_download = server_asset.asset_info
+	
 	# First we make sure that the package structure exists
 	_server_handler.download_package_info_for_saving(category, package_name)
-	#_server_handler.download_asset_from_server(category, asset_name)
-	asset_info_of_current_download = server_asset.asset_info
 
 func on_request_completed_download_package_info_for_saving(_result, response_code, _headers, body):
 	print("PACKAGE_INFO REQUEST RESPONSE")
@@ -174,12 +174,10 @@ func on_request_completed_download_asset_from_server(_result, _response_code, _h
 	if _response_code != 200:
 		return
 	
-	# A bit crazy but it works
 	var package_path = asset_explorer_handler.directory_handler.get_currently_open_directory() + "/" + asset_info_of_current_download.package_name
-	PackageUtils.insert_asset_version_assets(package_path, asset_info_of_current_download, body)
+	var package_version_path = PackageUtils.insert_package_version_assets(package_path, asset_info_of_current_download, body)
 	
-	print("saving under:")
-	print(package_path)
+	AssetUtils.create_asset_info_file(asset_info_of_current_download, package_version_path)
 	
 func set_server_handler(p_server_handler: ServerHandler) -> void:
 	_server_handler = p_server_handler

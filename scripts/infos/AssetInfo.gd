@@ -42,6 +42,10 @@ func to_dict() -> Dictionary:
 		"origin_history": origin_history
 	}
 
+func to_json_string() -> String:
+	var dict = to_dict()
+	var json_string := JSON.stringify(dict, "\t")
+	return json_string
 
 func check_asset_type(file_path: String) -> AssetType:
 	if file_path == "":

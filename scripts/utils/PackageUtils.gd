@@ -45,27 +45,32 @@ static func _create_package_info_file_in_package(package_info: PackageInfo, pack
 
 ## Creates the asset version as directory into a package
 ## The directory name is the version provided in [param asset_info] [br]
-## Returns bool - true if successful, false upon failure
-static func insert_asset_version_assets(package_path: String, asset_info: AssetInfo, zip_archive_data: PackedByteArray) -> bool:
+## Returns String - path to the asset version, empty String "" upon failure
+static func insert_package_version_assets(package_path: String, asset_info: AssetInfo, zip_archive_data: PackedByteArray) -> String:
 	var dir := DirAccess.open(package_path)
 	
 	if asset_info == null:
 		push_error("Provided asset info doesn't exist")
-		return false
+		return ""
 	
 	if dir == null:
 		push_error("Failed to open package at %s" % [package_path])
-		return false
+		return ""
 	
 	var result := dir.make_dir(asset_info.version)
 	if result == ERR_ALREADY_EXISTS:
 		push_error("Version %s already exists for Package %s" % [asset_info.version, package_path])
-		return false
+		return ""
 	if result != OK:
 		push_error("Failed to create Version %s for Package %s" % [asset_info.version, package_path])
-		return false
-
-	return AssetUtils.place_asset_zip(package_path +"/"+ asset_info.version, zip_archive_data, true, true)
+		return ""
+	
+	var asset_version_path := package_path +"/"+ asset_info.version
+	
+	if AssetUtils.place_asset_zip(asset_version_path, zip_archive_data):
+		return asset_version_path
+	
+	return ""
 
 ## Checks whether the given target is a package
 ## Returns bool - true if a package_info can be found within the path
