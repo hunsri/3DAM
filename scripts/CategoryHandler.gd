@@ -1,7 +1,6 @@
 class_name CategoryHandler extends Node
 
 @onready var server_name: Button = %ServerName
-@onready var category_tree: Tree = %CategoryTree
 @export var server_handler: ServerHandler
 @export var category_selector: CategorySelector
 

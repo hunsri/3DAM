@@ -1,13 +1,14 @@
-extends Tree
-@onready var dh: DirectoryHandler = %DirectoryHandler
+class_name DirectorySelector extends Node
+@export var directory_handler: DirectoryHandler
+@export var directory_tree: Tree
 
 var _dir
 var _show_only_directories: bool = true
 
 func _ready() -> void:
-	self.connect("item_selected", Callable(self, "_on_item_selected"))
+	#self.connect("item_selected", Callable(self, "_on_item_selected"))
 	
-	_dir = DirAccess.open(dh.default_asset_path)
+	_dir = DirAccess.open(directory_handler.default_asset_path)
 	draw_tree()
 
 func draw_tree() -> void:
@@ -17,13 +18,13 @@ func draw_tree() -> void:
 func _populate_tree() -> void:
 	if not _dir:
 		return
-	clear()
-	hide_root = false
+	directory_tree.clear()
+	directory_tree.hide_root = false
 
-	var root_item: TreeItem = create_item()
-	root_item.set_text(0, dh.default_library_name)
+	var root_item: TreeItem = directory_tree.create_item()
+	root_item.set_text(0, directory_handler.default_library_name)
 
-	_populate_tree_recursive(_dir, root_item, dh.default_asset_path)
+	_populate_tree_recursive(_dir, root_item, directory_handler.default_asset_path)
 
 
 func _populate_tree_recursive(dir_access: DirAccess, parent_item: TreeItem, current_path: String) -> void:
@@ -37,7 +38,7 @@ func _populate_tree_recursive(dir_access: DirAccess, parent_item: TreeItem, curr
 		# Check whether this entry is a directory (uses DirAccess's current entry flag)
 		if dir_access.current_is_dir():
 			# Create a new TreeItem for the node
-			var dir_item: TreeItem = create_item(parent_item)
+			var dir_item: TreeItem = directory_tree.create_item(parent_item)
 			dir_item.set_text(0, node_name)
 
 			# if node is a directory, use recursion to get its children
@@ -46,7 +47,7 @@ func _populate_tree_recursive(dir_access: DirAccess, parent_item: TreeItem, curr
 				_populate_tree_recursive(child_dir, dir_item, full_path)
 		else:
 			if not _show_only_directories:
-				var file_item: TreeItem = create_item(parent_item)
+				var file_item: TreeItem = directory_tree.create_item(parent_item)
 				file_item.set_text(0, node_name)
 
 		node_name = dir_access.get_next()
@@ -56,8 +57,8 @@ func _populate_tree_recursive(dir_access: DirAccess, parent_item: TreeItem, curr
 
 func _create_dir() -> void:
 	if not _dir:
-		var root = DirAccess.open(dh.default_root_dir)
+		var root = DirAccess.open(directory_handler.default_root_dir)
 		if root:
-			if not root.dir_exists(dh.default_library_name):
-				root.make_dir(dh.default_library_name)
-		_dir = DirAccess.open(dh.default_asset_path)
+			if not root.dir_exists(directory_handler.default_library_name):
+				root.make_dir(directory_handler.default_library_name)
+		_dir = DirAccess.open(directory_handler.default_asset_path)

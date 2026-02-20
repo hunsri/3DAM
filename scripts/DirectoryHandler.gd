@@ -6,7 +6,7 @@ var default_asset_path:String = default_root_dir + default_library_name
 @export var explorer_handler: AssetExplorerHandler
 
 @onready var directory_name: Button = %DirectoryName
-@onready var directory_tree: Tree = %DirectoryTree
+@export var directory_tree: Tree
 
 var _currently_open_directory = default_asset_path
 
