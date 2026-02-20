@@ -1,6 +1,6 @@
 class_name AssetUtils extends Node
 
-const INFO_FILE_NAME: String = "asset_info.json"
+const ASSET_INFO_FILE_NAME: String = "asset_info.json"
 const ASSET_ZIP_FILE_NAME: String = "assets.zip"
 const ASSET_DIR_NAME: String = "assets"
 
@@ -32,7 +32,7 @@ static func is_file_name_supported(filename: String) -> bool:
 ## [param target_path] - usually the directory of the package version
 ## Returns bool - true on success
 static func create_asset_info_file(asset_info: AssetInfo, target_path: String) -> bool:
-	var asset_info_path = target_path +"/"+ INFO_FILE_NAME
+	var asset_info_path = target_path +"/"+ ASSET_INFO_FILE_NAME
 	var file := FileAccess.open(asset_info_path, FileAccess.WRITE)
 	
 	if file == null:

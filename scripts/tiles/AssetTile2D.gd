@@ -8,14 +8,25 @@ class_name AssetTile2D extends AbstractAssetTile
 var asset_handler: AssetExplorerHandler
 var asset_info: AssetInfo
 var package_info: PackageInfo = null #only present if asset_tile is a package
+var asset_info_of_current_package_version: AssetInfo = null #same here
 
 func _ready() -> void:
 	
 	if asset_info.asset_type == AssetInfo.AssetType.MODEL_3D:
 		display_model_preview()
+		tile_sub_logic.set_is_package(false)
+		tile_sub_logic.set_file_extension(asset_info.asset_file_name.get_extension())
 	if asset_info.asset_type == AssetInfo.AssetType.ASSET_PACKAGE:
-		display_package_preview() #maybe package preview image
-
+		display_package_preview()
+		tile_sub_logic.set_is_package(true)
+		
+		var package_path = asset_info.get_path_to_local_asset()
+		var package_version = PackageUtils.get_latest_available_package_version(package_path, false)
+		asset_info_of_current_package_version = PackageUtils.load_package_version_asset_info_from_root(package_path, package_version)
+		
+		if asset_info_of_current_package_version != null:
+			tile_sub_logic.set_file_extension(asset_info_of_current_package_version.asset_file_name.get_extension())
+		
 func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInfo):
 	asset_info = p_asset_info
 	
@@ -54,7 +65,7 @@ func display_package_preview() -> void:
 	if package_info == null:
 		return
 	
-	var asset_path = PackageUtils.get_latest_available_package_version(asset_info.get_path_to_local_asset())
+	var asset_path = PackageUtils.get_latest_available_package_version(asset_info.get_path_to_local_asset(), true)
 
 	var model_asset_path := PackageUtils.get_path_to_model_asset(asset_path)
 	
@@ -68,3 +79,4 @@ func _on_selection_checkbox_pressed() -> void:
 
 func is_selected() -> bool:
 	return tile_sub_logic.selected.button_pressed
+	

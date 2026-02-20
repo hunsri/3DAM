@@ -63,6 +63,35 @@ func check_asset_type(file_path: String) -> AssetType:
 		
 	return AssetType.NONE
 
+static func from_json_string(json_string: String, asset_path: String) -> AssetInfo:
+	var parsed_json:Dictionary = JSON.parse_string(json_string)
+	
+	if parsed_json == null:
+		push_error("Failed to parse JSON for reading in asset_info")
+		return null
+	
+	if !_is_json_valid(parsed_json):
+		return null
+	
+	var ret := AssetInfo.new(parsed_json.package_name, asset_path)
+	
+	ret.version = parsed_json.version
+	ret.asset_file_name = parsed_json.asset_file_name
+	ret.authors = parsed_json.authors
+	ret.keywords = parsed_json.keywords
+	ret.origin_history = parsed_json.origin_history
+	
+	return ret
+
+static func _is_json_valid(json: Dictionary) -> bool:
+	var keys: Array = ["package_name", "version", "asset_file_name", "authors", "keywords", "origin_history"]
+	
+	for key in keys:
+		if !json.has(key):
+			push_error("Couldn't find key %s in json" % key)
+			return false
+	return true
+
 ## Returns the globalized path to the asset, as long as it is a local asset
 func get_path_to_local_asset() -> String:
 	return ProjectSettings.globalize_path(_path_to_asset)

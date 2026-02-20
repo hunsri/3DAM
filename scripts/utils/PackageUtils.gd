@@ -100,27 +100,45 @@ static func load_package_info_from_root(package_root_path: String) -> PackageInf
 	
 	return PackageInfo.from_json_string(package_info_string)
 
+static func load_package_version_asset_info_from_root(package_root_path: String, package_version: String) -> AssetInfo:
+	var file := FileAccess.open(package_root_path +"/"+ package_version +"/"+ AssetUtils.ASSET_INFO_FILE_NAME, FileAccess.READ)
+	
+	if file == null:
+		push_error("Failed to load asset info from package %s in version %s" % [package_root_path, package_version])
+		return null
+	
+	var asset_info_string: String = file.get_as_text()
+	file.close()
+	
+	return AssetInfo.from_json_string(asset_info_string, package_root_path +"/"+ package_version)
+
 ## Returns true if the version directory and the asset_info inside it can be found
 static func does_package_version_exist(package_root_path: String, version_name: String):
-	var suspected_asset_info_file_path = package_root_path + "/"+ version_name +"/"+ AssetUtils.INFO_FILE_NAME
+	var suspected_asset_info_file_path = package_root_path + "/"+ version_name +"/"+ AssetUtils.ASSET_INFO_FILE_NAME
 	return FileAccess.file_exists(suspected_asset_info_file_path)
 
 ## Returns the path to the latest version that is available within the package
-static func get_latest_available_package_version(package_root_path: String) -> String:
+static func get_latest_available_package_version(package_root_path: String, as_full_path: bool) -> String:
+	if not PackageUtils.is_target_package(package_root_path):
+		return ""
+	
 	var available_versions = load_package_info_from_root(package_root_path).versions
 	
 	available_versions.reverse() # so that latest version is at index 0
 	
 	for version in available_versions:
 		if does_package_version_exist(package_root_path, version):
-			return package_root_path +"/"+ version
+			if as_full_path:
+				return package_root_path +"/"+ version
+			else:
+				return version
 	
 	return "" # in case no package version can be found
 
 ## [param path_to_version_directory] - the path to the specific version of a package [br]
 ## Returns the path to the main model asset of the package version
 static func get_path_to_model_asset(path_to_version_directory: String) -> String:
-	var asset_info_path := path_to_version_directory + "/" + AssetUtils.INFO_FILE_NAME 
+	var asset_info_path := path_to_version_directory + "/" + AssetUtils.ASSET_INFO_FILE_NAME 
 	var file_access = FileAccess.open(asset_info_path, FileAccess.READ)
 	
 	if file_access == null:

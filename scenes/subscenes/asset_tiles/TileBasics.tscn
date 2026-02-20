@@ -1,14 +1,34 @@
-[gd_scene load_steps=10 format=3 uid="uid://dj0b3331lwrff"]
+[gd_scene load_steps=16 format=3 uid="uid://dj0b3331lwrff"]
 
 [ext_resource type="Script" uid="uid://bco6w4yj8bulf" path="res://scripts/tiles/TileSubLogic.gd" id="1_n7ni5"]
+[ext_resource type="Texture2D" uid="uid://crft068yt3nnh" path="res://icons/package.png" id="2_pmtom"]
 
 [sub_resource type="Theme" id="Theme_r4iii"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n7ni5"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmtom"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 25
+border_width_top = 25
+border_width_right = 25
+border_width_bottom = 25
+border_color = Color(1, 1, 0.98039216, 0.39215687)
+border_blend = true
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pmtom"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fukmf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rg3qm"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_r4iii"]
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jcqa4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pmtom"]
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
@@ -22,7 +42,7 @@ bg_color = Color(0.3019608, 0.58431375, 0.36078432, 0.47058824)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r4iii"]
 
-[node name="TileBasics" type="PanelContainer" node_paths=PackedStringArray("selected", "selected_status_bar", "downloaded_status_bar")]
+[node name="TileBasics" type="PanelContainer" node_paths=PackedStringArray("selected", "selected_status_bar", "downloaded_status_bar", "package_indicator", "extension_indicator", "extension_indicator_color")]
 custom_minimum_size = Vector2(200, 200)
 anchors_preset = -1
 anchor_right = 0.104
@@ -37,19 +57,77 @@ script = ExtResource("1_n7ni5")
 selected = NodePath("TileStatusBar/SelectionCheckbox")
 selected_status_bar = NodePath("TileStatusBar/Selected")
 downloaded_status_bar = NodePath("TileStatusBar/Downloaded")
+package_indicator = NodePath("TypeIndicator/bottom_bar/left/PackageIcon")
+extension_indicator = NodePath("TypeIndicator/bottom_bar/right/FileExtensionIndicator")
+extension_indicator_color = NodePath("TypeIndicator/bottom_bar/right/FileExtensionIndicator/ColorRect")
 metadata/_edit_use_anchors_ = true
+
+[node name="PackageFrame" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pmtom")
 
 [node name="AssetClickedButton" type="Button" parent="."]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_pmtom")
 
-[node name="AssetNameLabel" type="Label" parent="."]
+[node name="TypeIndicator" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fukmf")
+
+[node name="bottom_bar" type="HBoxContainer" parent="TypeIndicator"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="left" type="PanelContainer" parent="TypeIndicator/bottom_bar"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rg3qm")
+
+[node name="PackageIcon" type="TextureRect" parent="TypeIndicator/bottom_bar/left"]
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Package"
+texture = ExtResource("2_pmtom")
+expand_mode = 2
+
+[node name="middle" type="ScrollContainer" parent="TypeIndicator/bottom_bar"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_horizontal = 3
+vertical_scroll_mode = 0
+
+[node name="AssetNameLabel" type="Label" parent="TypeIndicator/bottom_bar/middle"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "<NAME>"
 label_settings = SubResource("LabelSettings_r4iii")
 horizontal_alignment = 1
-clip_text = true
-text_overrun_behavior = 3
+vertical_alignment = 1
+
+[node name="right" type="PanelContainer" parent="TypeIndicator/bottom_bar"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jcqa4")
+
+[node name="FileExtensionIndicator" type="Label" parent="TypeIndicator/bottom_bar/right"]
+layout_mode = 2
+size_flags_vertical = 1
+label_settings = SubResource("LabelSettings_pmtom")
+vertical_alignment = 1
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="TypeIndicator/bottom_bar/right/FileExtensionIndicator"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "File Extension"
+color = Color(0, 0, 0, 0)
 
 [node name="TileStatusBar" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(200, 0)
@@ -58,7 +136,6 @@ size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_yub0l")
 
 [node name="Selected" type="PanelContainer" parent="TileStatusBar"]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_r4iii")
 

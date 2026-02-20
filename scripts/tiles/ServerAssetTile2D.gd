@@ -24,6 +24,8 @@ func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInf
 		asset_info.package_name, 
 		self)
 	
+	# all assets on a server are packages 
+	tile_sub_logic.set_is_package(true)
 
 func on_request_completed_fetch_asset_info(_result, _response_code, _headers, body):
 	if _response_code != 200:
@@ -41,6 +43,7 @@ func on_request_completed_fetch_asset_info(_result, _response_code, _headers, bo
 	
 	var is_supported = AssetUtils.is_file_name_supported(asset_info.asset_file_name)
 	tile_sub_logic.set_is_supported_asset(is_supported)
+	tile_sub_logic.set_file_extension(asset_info.asset_file_name.get_extension())
 
 func on_request_completed_fetch_asset_preview(_result, _response_code, _headers, body):
 	if _response_code != 200:

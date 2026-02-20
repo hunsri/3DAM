@@ -5,9 +5,7 @@ class_name DirectorySelector extends Node
 var _dir
 var _show_only_directories: bool = true
 
-func _ready() -> void:
-	#self.connect("item_selected", Callable(self, "_on_item_selected"))
-	
+func _ready() -> void:	
 	_dir = DirAccess.open(directory_handler.default_asset_path)
 	draw_tree()
 
@@ -35,8 +33,11 @@ func _populate_tree_recursive(dir_access: DirAccess, parent_item: TreeItem, curr
 
 		var full_path: String = current_path + "/" + node_name
 
+		if PackageUtils.is_target_package(full_path):
+			break
 		# Check whether this entry is a directory (uses DirAccess's current entry flag)
-		if dir_access.current_is_dir():
+		elif dir_access.current_is_dir():
+			
 			# Create a new TreeItem for the node
 			var dir_item: TreeItem = directory_tree.create_item(parent_item)
 			dir_item.set_text(0, node_name)
