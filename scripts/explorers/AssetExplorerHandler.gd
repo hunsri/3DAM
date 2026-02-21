@@ -23,7 +23,12 @@ func reload_explorer() -> void:
 
 func asset_clicked(file_name: String) -> void:
 	var asset_path = directory_handler.get_currently_open_directory()+"/"+file_name
-	asset_info_handler.load_model(asset_path)
+	
+	if PackageUtils.is_target_package(asset_path):
+		var version_path = PackageUtils.get_latest_available_package_version(asset_path, true)
+		asset_info_handler.load_model(PackageUtils.get_path_to_model_asset(version_path))
+	else:
+		asset_info_handler.load_model(asset_path)
 
 func set_overlay_status(exchange_mode: ServerExchangeManager.ExchangeMode) -> void:
 	if status_overlay != null:
