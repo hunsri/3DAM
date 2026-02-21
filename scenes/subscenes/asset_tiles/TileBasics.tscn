@@ -116,7 +116,6 @@ layout_mode = 2
 size_flags_vertical = 1
 label_settings = SubResource("LabelSettings_pmtom")
 vertical_alignment = 1
-uppercase = true
 
 [node name="ColorRect" type="ColorRect" parent="TypeIndicator/bottom_bar/right/FileExtensionIndicator"]
 show_behind_parent = true

@@ -77,9 +77,10 @@ environment = SubResource("Environment_feb4m")
 camera_attributes = SubResource("CameraAttributesPractical_5565g")
 compositor = SubResource("Compositor_ik0vy")
 
-[node name="SpawnPoint" type="Node3D" parent="Panel/SubViewportContainer/SubViewport"]
+[node name="SpawnPoint" type="Node3D" parent="Panel/SubViewportContainer/SubViewport" node_paths=PackedStringArray("spring_arm_3d")]
 unique_name_in_owner = true
 script = ExtResource("3_ik0vy")
+spring_arm_3d = NodePath("../SpringArm3D")
 
 [node name="DemoObject" type="MeshInstance3D" parent="Panel/SubViewportContainer/SubViewport/SpawnPoint"]
 visible = false
@@ -89,6 +90,7 @@ skeleton = NodePath("../../SpringArm3D/Camera3D")
 [node name="SpringArm3D" type="SpringArm3D" parent="Panel/SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
 shape = SubResource("SeparationRayShape3D_feb4m")
+spring_length = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="Panel/SubViewportContainer/SubViewport/SpringArm3D"]
 current = true
