@@ -36,6 +36,9 @@ theme = ExtResource("1_h5pmh")
 layout_mode = 2
 size_flags_horizontal = 0
 
+[node name="LocationButton" parent="LeftSidePanel/VBoxContainer/MyPC" index="0"]
+button_pressed = true
+
 [node name="Server1" parent="LeftSidePanel/VBoxContainer" instance=ExtResource("2_sw0j3")]
 layout_mode = 2
 scene_type = 1
@@ -43,3 +46,5 @@ scene_type = 1
 [node name="AddServer" parent="LeftSidePanel/VBoxContainer" instance=ExtResource("2_sw0j3")]
 layout_mode = 2
 scene_type = 2
+
+[editable path="LeftSidePanel/VBoxContainer/MyPC"]

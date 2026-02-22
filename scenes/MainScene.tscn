@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dqgaslfy2x3y3"]
+[gd_scene load_steps=3 format=3 uid="uid://dqgaslfy2x3y3"]
 
 [ext_resource type="PackedScene" uid="uid://kfomt2xswri8" path="res://scenes/subscenes/LocationSelector.tscn" id="1_echbf"]
+[ext_resource type="Script" uid="uid://16fge0gnc4lp" path="res://scripts/Startup.gd" id="1_ibiss"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -9,6 +10,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Startup" type="Node" parent="." node_paths=PackedStringArray("SCENE_NODE")]
+script = ExtResource("1_ibiss")
+SCENE_NODE = NodePath("../ContextScene")
+metadata/_custom_type_script = "uid://16fge0gnc4lp"
 
 [node name="ContextScene" type="Control" parent="."]
 unique_name_in_owner = true

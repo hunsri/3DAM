@@ -23,7 +23,7 @@ enum SceneType {
 
 func _ready():
 	location_button.button_group = ResourceManager.LOCATION_BUTTON_GROUP
-	SCENE_NODE.add_child(LOCAL_VIEW_UI.instantiate())
+	#SCENE_NODE.add_child(LOCAL_VIEW_UI.instantiate())
 	
 	match scene_type:
 		SceneType.Local:
