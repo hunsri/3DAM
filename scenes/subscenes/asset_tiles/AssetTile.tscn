@@ -1,13 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbn3bs55ug33l"]
+[gd_scene load_steps=4 format=3 uid="uid://dbn3bs55ug33l"]
 
 [ext_resource type="Script" uid="uid://drsci52sccyih" path="res://scripts/tiles/AssetTile2D.gd" id="1_kamay"]
 [ext_resource type="PackedScene" uid="uid://dj0b3331lwrff" path="res://scenes/subscenes/asset_tiles/TileBasics.tscn" id="2_htjxr"]
-
-[sub_resource type="World3D" id="World3D_r1mgh"]
-
-[sub_resource type="Environment" id="Environment_0bf7n"]
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
+[ext_resource type="Environment" uid="uid://btn86veyhcnqh" path="res://resources/StandardEnvironment.tres" id="2_j6nw2"]
 
 [node name="AssetTile" type="Panel" node_paths=PackedStringArray("asset_name_label", "spawn_point", "tile_sub_logic", "sub_viewport")]
 custom_minimum_size = Vector2(200, 200)
@@ -29,7 +24,6 @@ grow_vertical = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 own_world_3d = true
-world_3d = SubResource("World3D_r1mgh")
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(200, 200)
@@ -43,7 +37,7 @@ spring_length = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.0128515)
-environment = SubResource("Environment_0bf7n")
+environment = ExtResource("2_j6nw2")
 
 [node name="TileBasics" parent="." instance=ExtResource("2_htjxr")]
 layout_mode = 0

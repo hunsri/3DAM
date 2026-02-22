@@ -2,15 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bfqubijg7p3yh" path="res://scripts/AssetInfoHandler.gd" id="1_5565g"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_feb4m"]
+[ext_resource type="Environment" uid="uid://btn86veyhcnqh" path="res://resources/StandardEnvironment.tres" id="3_db4q4"]
 [ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/tiles/asset_spawn_point.gd" id="3_ik0vy"]
 
 [sub_resource type="World3D" id="World3D_ik0vy"]
-
-[sub_resource type="Environment" id="Environment_feb4m"]
-background_color = Color(1, 1, 1, 0)
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-reflected_light_source = 1
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_5565g"]
 
@@ -73,7 +68,7 @@ size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Panel/SubViewportContainer/SubViewport"]
-environment = SubResource("Environment_feb4m")
+environment = ExtResource("3_db4q4")
 camera_attributes = SubResource("CameraAttributesPractical_5565g")
 compositor = SubResource("Compositor_ik0vy")
 
