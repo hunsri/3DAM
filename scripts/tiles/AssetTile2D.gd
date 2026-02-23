@@ -79,4 +79,7 @@ func _on_selection_checkbox_pressed() -> void:
 
 func is_selected() -> bool:
 	return tile_sub_logic.selected.button_pressed
+
+func get_asset_info() -> AssetInfo:
+	return asset_info
 	

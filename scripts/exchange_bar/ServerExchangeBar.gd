@@ -23,18 +23,26 @@ func add_to_bar(added_asset: ExchangeBarAddedAsset) -> void:
 		_exchange_manager.set_exchange_mode(ServerExchangeManager.ExchangeMode.UPLOAD)
 
 func remove_from_bar(added_asset: ExchangeBarAddedAsset) -> void:
-	added_assets_container.remove_child(added_asset)
+	var tile: AbstractAssetTile = added_asset.asset_tile
+	var sub_logic: TileSubLogic = tile.tile_sub_logic
+	if sub_logic != null:
+		sub_logic.change_status(TileSubLogic.TileStatus.DEFAULT)
 	
+	added_assets_container.remove_child(added_asset)
 	if added_assets_container.get_children().size() == 0:
 		_exchange_manager.set_exchange_mode(ServerExchangeManager.ExchangeMode.NONE)
-
+	
 func clear_bar() -> void:
 	for child in added_assets_container.get_children():
+		var tile: AbstractAssetTile = child.asset_tile
+		var sub_logic: TileSubLogic = tile.tile_sub_logic
+		if sub_logic != null:
+			sub_logic.change_status(TileSubLogic.TileStatus.DEFAULT)
+		
 		child.queue_free()
-
+	
 func set_server_exchange_manager(server_exchange_manager: ServerExchangeManager):
 	_exchange_manager = server_exchange_manager
-
 
 func _on_upload_button_pressed() -> void:
 	_exchange_manager.upload_selected_assets()

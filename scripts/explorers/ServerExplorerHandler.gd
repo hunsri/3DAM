@@ -33,6 +33,12 @@ func reload_explorer() -> void:
 	remove_all_tiles()
 	populate(asset_infos)
 
+## Like reload_explorer, but with fetching new information first
+func reload_explorer_from_server() -> void:
+	var category := category_handler.get_currently_open_category()
+	if category != "":
+		server_handler.fetch_package_names_in_category(category)
+
 func populate(assets: Array[AssetInfo]):
 	add_tile_line(assets)
 

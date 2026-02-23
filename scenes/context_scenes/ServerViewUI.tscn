@@ -30,7 +30,7 @@ layout_mode = 1
 [node name="AssetExplorerHandler" parent="Background/ServerAssetView2D" index="3" node_paths=PackedStringArray("asset_info_handler")]
 asset_info_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetInfoHandler")
 
-[node name="DirectoryHandler" parent="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector" index="0" node_paths=PackedStringArray("explorer_handler")]
+[node name="DirectoryHandler" parent="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector" index="1" node_paths=PackedStringArray("explorer_handler")]
 explorer_handler = NodePath("../../../../../../AssetExplorerHandler")
 
 [node name="SubViewport" parent="Background/ServerAssetView2D/HSplitContainer/AssetInfoSidebar/Panel/SubViewportContainer" index="0"]

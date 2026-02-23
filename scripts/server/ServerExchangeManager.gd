@@ -55,6 +55,13 @@ func remove_from_upload_selection(asset_info: AssetInfo) -> bool:
 			return remove_from_selection(asset_tile)
 	return false
 
+func remove_from_download_selection(asset_info: AssetInfo) -> bool:
+	for asset_tile in _selected_assets_for_download.keys():
+		var server_asset_tile: ServerAssetTile2D = asset_tile
+		if server_asset_tile.asset_info.package_name == asset_info.package_name:
+			return remove_from_selection(asset_tile)
+	return false
+
 func remove_from_selection(asset_tile: AbstractAssetTile) -> bool:
 	
 	#TODO remove selection status from explorer as well!
@@ -69,13 +76,9 @@ func remove_from_selection(asset_tile: AbstractAssetTile) -> bool:
 	return false #for the unexpected case that the asset_tile class couldn't be matched
 
 func upload_selected_assets() -> void:
-	
-	print("upload assets: ")
 	for key in _selected_assets_for_upload:
 		upload_single_asset(key)
-		print(key)
 		return
-
 		
 func upload_single_asset(asset: AssetTile2D) -> void:
 	
@@ -86,8 +89,8 @@ func upload_single_asset(asset: AssetTile2D) -> void:
 	_server_handler.upload_asset_info(category_name, asset.asset_info)
 
 func on_request_completed_upload_asset_info(_result, response_code, _headers, body):
-	print("Response code:", response_code)
-	print("Response body:", body.get_string_from_utf8())
+	#print("Response code:", response_code)
+	#print("Response body:", body.get_string_from_utf8())
 	
 	if response_code == 200:
 		var version: String = asset_info_of_current_upload.version
@@ -104,8 +107,8 @@ func on_request_completed_upload_asset_info(_result, response_code, _headers, bo
 		_server_handler.upload_asset_archive_to_server(category_name, asset_info_of_current_upload.package_name, version, archive_location)
 
 func on_request_completed_upload_asset_archive_to_server(_result, response_code, _headers, body):
-	print("ARCHIVE UPLOAD SERVER RESPONSE")
-	print("Code:", response_code, "Body:", body.get_string_from_utf8())
+	#print("ARCHIVE UPLOAD SERVER RESPONSE")
+	#print("Code:", response_code, "Body:", body.get_string_from_utf8())
 	
 	if response_code == 200:
 		var version: String = asset_info_of_current_upload.version
@@ -121,20 +124,18 @@ func on_request_completed_upload_asset_archive_to_server(_result, response_code,
 		var category_name := server_explorer_handler.category_handler.get_currently_open_category()
 		_server_handler.upload_asset_preview_image(category_name, asset_info_of_current_upload.package_name, version, image)
 
-func on_request_completed_upload_asset_preview_image(_result, response_code, _headers, body):
-	print("PREVIEW UPLOAD SERVER RESPONSE")
-	print("Code:", response_code, "Body:", body.get_string_from_utf8())
+func on_request_completed_upload_asset_preview_image(_result, _response_code, _headers, _body):
+	#print("PREVIEW UPLOAD SERVER RESPONSE")
+	#print("Code:", _response_code, "Body:", _body.get_string_from_utf8())
 	remove_from_upload_selection(asset_info_of_current_upload)
+	server_explorer_handler.reload_explorer_from_server()
 
 func get_selected_assets_for_download() -> Dictionary:
 	return _selected_assets_for_download
 
 func download_selected_assets() -> void:
 	
-	print("download assets: ")
 	for key in _selected_assets_for_download:
-		print(key)
-
 		download_single_asset(key)
 		#TODO for now only first asset for testing
 
@@ -148,13 +149,12 @@ func download_single_asset(server_asset: ServerAssetTile2D) -> void:
 	_server_handler.download_package_info_for_saving(category, package_name)
 
 func on_request_completed_download_package_info_for_saving(_result, response_code, _headers, body):
-	print("PACKAGE_INFO REQUEST RESPONSE")
-	print("Response code:", response_code)
-	print("Response body:", body.get_string_from_utf8())
+	#print("PACKAGE_INFO REQUEST RESPONSE")
+	#print("Response code:", response_code)
+	#print("Response body:", body.get_string_from_utf8())
 	
 	if response_code == 200:
 		var json = JSON.parse_string(body.get_string_from_utf8())
-		print(json)
 		
 		var package_path := PackageUtils.create_new_package(
 			PackageInfo.new(json.package_uuid, json.package_name, json.versions),
@@ -178,6 +178,8 @@ func on_request_completed_download_asset_from_server(_result, _response_code, _h
 	var package_version_path = PackageUtils.insert_package_version_assets(package_path, asset_info_of_current_download, body)
 	
 	AssetUtils.create_asset_info_file(asset_info_of_current_download, package_version_path)
+	remove_from_download_selection(asset_info_of_current_download)
+	asset_explorer_handler.reload_explorer()
 	
 func set_server_handler(p_server_handler: ServerHandler) -> void:
 	_server_handler = p_server_handler
