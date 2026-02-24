@@ -1,8 +1,12 @@
 extends Object
 class_name ZipUtils
+## A class to helps handling zip archives
+##
+## The provided functions are intended for compressing and decompressing assets
+## in the preparation of the exchange of data with asset-servers
 
-static var TEMP_ZIP_DIR = "user://temp/upload_cache"
-static var STANDARD_ARCHIVE_NAME: String = "assets.zip"
+const TEMP_ZIP_DIR = "user://temp/upload_cache"
+const STANDARD_ARCHIVE_NAME: String = "assets.zip"
 
 # Read a single file from a ZIP archive.
 static func read_zip_file(path_to_archive: String, path_in_archive:String):
@@ -15,7 +19,6 @@ static func read_zip_file(path_to_archive: String, path_in_archive:String):
 	return res
 
 # Extract all files from a ZIP archive, preserving the directories within.
-# This acts like the "Extract all" functionality from most archive managers.
 static func extract_all_from_zip(path_to_archive: String, path_to_destination: String):
 	var reader = ZIPReader.new()
 	reader.open(path_to_archive)
@@ -43,17 +46,23 @@ static func extract_all_from_zip(path_to_archive: String, path_to_destination: S
 		var buffer = reader.read_file(file_path)
 		file.store_buffer(buffer)
 
+## Creates a zip-archive of a given asset to be used to upload it to an asset-server [br]
+## The zip-archive is placed under [constant ZipUtils.TEMP_ZIP_DIR]
+## Returns the path to the created zip-archive
 static func create_zip_from_asset_info(currently_open_directory: String, asset_info: AssetInfo) -> String:
 	var target := ProjectSettings.globalize_path(currently_open_directory +"/"+ asset_info.asset_file_name)
 	
 	#TODO check if target is a package
-	#TODO check for asset dependencies
+	#TODO delete cache entry after upload
 	
 	# This could create a potential collision if we aren't careful, best to delete the cache after upload
 	var destination = TEMP_ZIP_DIR +"/"+ asset_info.package_name
-	return create_zip_archive(target, destination)
+	return create_zip_archive(target, destination, asset_info)
 
-static func create_zip_archive(path_to_target: String, path_to_destination: String) -> String:
+## Creates a zip archive [br]
+## Created archive will always be of the name [constant ZipUtils.STANDARD_ARCHIVE_NAME] [br]
+## Returns the path to the created archive
+static func create_zip_archive(path_to_target: String, path_to_destination: String, asset_info: AssetInfo) -> String:
 	var zipper := ZIPPacker.new()
 	var zip_path := path_to_destination +"/"+ STANDARD_ARCHIVE_NAME
 	
@@ -64,14 +73,25 @@ static func create_zip_archive(path_to_target: String, path_to_destination: Stri
 	
 	_add_file(zipper, path_to_target)
 	
+	var global_paths := asset_info.get_path_to_local_dependencies_globalized()
+	var relative_paths := asset_info.get_path_to_local_dependencies_relative()
+	
+	for i in asset_info.get_path_to_local_dependencies_relative().size():
+		_add_file(
+			zipper,
+			global_paths[i],
+			relative_paths[i]
+		)
+	
 	zipper.close()
 	return ProjectSettings.globalize_path(zip_path)
 
-static func _add_file(zipper: ZIPPacker, file_path: String):
-	var relative_path = file_path.get_file()
+static func _add_file(zipper: ZIPPacker, source_file_path: String, target_path_in_zip: String = ""):
+	if target_path_in_zip == "":
+		target_path_in_zip = source_file_path.get_file()
 	
-	zipper.start_file(relative_path)
-	zipper.write_file(_get_packed_bytes(file_path))
+	zipper.start_file(target_path_in_zip)
+	zipper.write_file(_get_packed_bytes(source_file_path))
 	zipper.close_file()
 
 static func _add_dir_recursive(zipper: ZIPPacker, root: String, current: String) -> void:

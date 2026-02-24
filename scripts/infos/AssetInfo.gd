@@ -11,8 +11,9 @@ var keywords: Array = []
 var raw_json: String = ""
 
 enum AssetType {NONE, MODEL_3D, MATERIAL, FOLDER, ASSET_PACKAGE}
-var asset_type: AssetType
-var _path_to_asset: String
+var asset_type: AssetType = AssetType.NONE
+var _path_to_asset: String = ""
+var _paths_to_dependencies: Array[String] = []
 
 ## Initializer for AssetInfo [br]
 ## [param asset_path] can be ommitted if asset is on a server and no path is available
@@ -24,6 +25,8 @@ func _init(p_asset_file_name:String, asset_path: String = ""):
 	asset_file_name = p_asset_file_name
 	
 	_path_to_asset = asset_path
+	if asset_path != "":
+		_paths_to_dependencies = ModelLoader.get_dependencies(asset_path)
 
 func get_file_extension() -> String:
 	if asset_file_name != null:
@@ -95,3 +98,15 @@ static func _is_json_valid(json: Dictionary) -> bool:
 ## Returns the globalized path to the asset, as long as it is a local asset
 func get_path_to_local_asset() -> String:
 	return ProjectSettings.globalize_path(_path_to_asset)
+
+## Returns the dependencies as relative path to the main asset
+func get_path_to_local_dependencies_relative() -> Array[String]:
+	return _paths_to_dependencies.duplicate(true)
+
+## Returns the dependencies as globalized path
+func get_path_to_local_dependencies_globalized() -> Array[String]:
+	var ret = get_path_to_local_dependencies_relative().duplicate(true)
+	
+	for i in ret.size():
+		ret[i] = _path_to_asset.get_base_dir() + "/" + ret[i] # converting from relative to global
+	return ret
