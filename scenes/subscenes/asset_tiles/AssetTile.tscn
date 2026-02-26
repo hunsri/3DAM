@@ -9,7 +9,7 @@ custom_minimum_size = Vector2(200, 200)
 offset_right = 200.0
 offset_bottom = 200.0
 script = ExtResource("1_kamay")
-asset_name_label = NodePath("TileBasics/TypeIndicator/bottom_bar/middle/AssetNameLabel")
+asset_name_label = NodePath("TileBasics/FootBar/TypeIndicator/type_bar/middle/AssetNameLabel")
 spawn_point = NodePath("SubViewportContainer/SubViewport/SpawnPoint")
 tile_sub_logic = NodePath("TileBasics")
 sub_viewport = NodePath("SubViewportContainer/SubViewport")
@@ -49,7 +49,7 @@ offset_bottom = 200.0
 grow_horizontal = 1
 grow_vertical = 1
 
+[connection signal="selection_button_pressed" from="TileBasics" to="." method="_on_selection_checkbox_pressed"]
 [connection signal="pressed" from="TileBasics/AssetClickedButton" to="." method="_on_asset_clicked_button_pressed"]
-[connection signal="pressed" from="TileBasics/TileStatusBar/SelectionCheckbox" to="." method="_on_selection_checkbox_pressed"]
 
 [editable path="TileBasics"]

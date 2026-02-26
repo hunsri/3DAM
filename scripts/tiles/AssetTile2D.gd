@@ -15,6 +15,7 @@ func _ready() -> void:
 	if asset_info.asset_type == AssetInfo.AssetType.MODEL_3D:
 		display_model_preview()
 		tile_sub_logic.set_is_package(false)
+		tile_sub_logic.is_local = true
 		tile_sub_logic.set_file_extension(asset_info.asset_file_name.get_extension())
 	if asset_info.asset_type == AssetInfo.AssetType.ASSET_PACKAGE:
 		display_package_preview()

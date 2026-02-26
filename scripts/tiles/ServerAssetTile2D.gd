@@ -26,6 +26,7 @@ func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInf
 	
 	# all assets on a server are packages 
 	tile_sub_logic.set_is_package(true)
+	tile_sub_logic.is_local = false
 
 func on_request_completed_fetch_asset_info(_result, _response_code, _headers, body):
 	if _response_code != 200:

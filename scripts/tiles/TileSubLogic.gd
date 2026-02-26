@@ -8,9 +8,19 @@ class_name TileSubLogic extends PanelContainer
 @export var extension_indicator: Label
 @export var extension_indicator_color: ColorRect
 
+@export var fave_button: Button
+@export var fave_active_texture: TextureRect
+@export var fave_inactive_texture: TextureRect
+
+signal selection_button_pressed
+
 var _is_supported_asset = false
 var selection_disabled = false
 var _is_package = false
+
+## false if on server, true if locally stored
+var is_local = true # correct value is loaded later through parent
+var _is_faved = false
 
 var asset_file_extension_types: Dictionary[String, Color] = {
 	"GLB": Color("#437c24"), # color taken from https://www.khronos.org/gltf/
@@ -39,7 +49,8 @@ func _ready():
 
 func reload():
 	if _is_supported_asset && !selection_disabled:
-		change_status(TileStatus.DEFAULT)
+		if tile_status != TileStatus.SELECTED:
+			change_status(TileStatus.DEFAULT)
 	else:
 		change_status(TileStatus.NONE)
 	
@@ -48,8 +59,17 @@ func reload():
 	else:
 		package_indicator.visible = false
 	
+	if is_local:
+		fave_active_texture.visible = false
+		fave_inactive_texture.visible = false
+	elif _is_faved:
+		fave_active_texture.visible = true
+		fave_inactive_texture.visible = false
+	else:
+		fave_active_texture.visible = false
+		fave_inactive_texture.visible = true
 	
-
+	
 func change_status(status: TileStatus) -> void:
 	tile_status = status
 	
@@ -92,10 +112,16 @@ func set_is_package(is_package: bool) -> void:
 	reload()
 	
 func _on_check_box_pressed() -> void:
+	selection_button_pressed.emit()
+	
 	if selected.button_pressed:
 		change_status(TileStatus.SELECTED)
 	else:
 		change_status(TileStatus.DEFAULT)
+
+func _on_fave_button_pressed() -> void:
+	_is_faved = !_is_faved
+	reload()
 
 func set_file_extension(extension: String) -> void:
 	
