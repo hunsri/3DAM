@@ -84,3 +84,10 @@ func is_selected() -> bool:
 func get_asset_info() -> AssetInfo:
 	return asset_info
 	
+func _on_fave_button_pressed() -> void:
+	# For future implementation of favoriting local assets
+	if tile_sub_logic.is_faved:
+		pass
+	else:
+		pass
+		

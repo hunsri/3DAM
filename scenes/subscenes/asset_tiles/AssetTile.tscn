@@ -49,6 +49,7 @@ offset_bottom = 200.0
 grow_horizontal = 1
 grow_vertical = 1
 
+[connection signal="fave_button_pressed" from="TileBasics" to="." method="_on_fave_button_pressed"]
 [connection signal="selection_button_pressed" from="TileBasics" to="." method="_on_selection_checkbox_pressed"]
 [connection signal="pressed" from="TileBasics/AssetClickedButton" to="." method="_on_asset_clicked_button_pressed"]
 

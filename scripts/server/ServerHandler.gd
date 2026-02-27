@@ -75,8 +75,6 @@ func download_package_info_for_saving(category_name: String, package_name: Strin
 	
 	_cleanup_http_request_node(http)
 
-
-
 func fetch_asset_preview(category_name: String, package_name: String, tile: ServerAssetTile2D):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/preview"
 	var request_address = HTTP_PRE+address+sub_url
@@ -115,7 +113,6 @@ func upload_asset_info(category_name: String, asset_info: AssetInfo):
 	var http = _create_http_request_node()
 	
 	var json_body:String = JSON.stringify(asset_info.to_dict())
-	print(json_body)
 	
 	var error = http.request(
 		request_address,
@@ -191,6 +188,72 @@ func upload_asset_preview_image(category_name: String, package_name: String, ver
 	
 	http.request_completed.connect(server_exchange_manager.on_request_completed_upload_asset_preview_image)
 	
+	_cleanup_http_request_node(http)
+
+func fave_package(category_name: String, package_name: String):
+	
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"add_favorite"
+	var request_address = HTTP_PRE+address+sub_url
+	var headers = ["Content-Type: application/json"]
+	
+	var http = _create_http_request_node()
+	
+	var body := "{\"user_uuid\": \""+ Startup.load_identity_uuid()+"\"}"
+	
+	var error = http.request(
+		request_address,
+		headers,
+		HTTPClient.METHOD_PATCH,
+		body
+	)
+	
+	if error != OK:
+		print("Request error:", error)
+	
+	http.request_completed.connect(_on_request_completed_fave_package)
+	_cleanup_http_request_node(http)
+	
+func _on_request_completed_fave_package(_result, _response_code, _headers, _body):
+	pass
+
+func unfave_package(category_name: String, package_name: String):
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"remove_favorite"
+	var request_address = HTTP_PRE+address+sub_url
+	var headers = ["Content-Type: application/json"]
+	
+	var http = _create_http_request_node()
+	
+	var body := "{\"user_uuid\": \""+ Startup.load_identity_uuid()+"\"}"
+	
+	var error = http.request(
+		request_address,
+		headers,
+		HTTPClient.METHOD_PATCH,
+		body
+	)
+	
+	if error != OK:
+		print("Request error:", error)
+	
+	http.request_completed.connect(_on_request_completed_unfave_package)
+	_cleanup_http_request_node(http)
+
+func _on_request_completed_unfave_package(_result, _response_code, _headers, _body):
+	pass
+
+func fetch_package_faves(category_name: String, package_name: String, asset_tile: ServerAssetTile2D):
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"favorites"
+	var query = "?user_uuid="+Startup.load_identity_uuid()
+	var request_address = HTTP_PRE+address+sub_url+query
+	
+	var http = _create_http_request_node()
+	
+	var error = http.request(request_address)
+	
+	if error != OK:
+		print("Request error:", error)
+	
+	http.request_completed.connect(asset_tile.on_request_completed_fetch_package_faves)
 	_cleanup_http_request_node(http)
 
 func _create_http_request_node() -> HTTPRequest:

@@ -57,6 +57,34 @@ func on_request_completed_fetch_asset_preview(_result, _response_code, _headers,
 		texture = ImageTexture.create_from_image(image)
 		
 		asset_preview.texture = texture
+	
+	asset_handler.server_handler.fetch_package_faves(
+		asset_handler.category_handler.get_currently_open_category(),
+		asset_info.package_name,
+		self
+		)
+
+func on_request_completed_fetch_package_faves(_result, response_code, _headers, body):
+	if response_code != 200:
+		return
+	
+	#var body_json_string = body.get_string_from_utf8()
+	var body_json = JSON.parse_string(body.get_string_from_utf8())
+	if body_json == null:
+		return
+	
+	var has_faved: bool
+	var fave_count: int
+		
+	if body_json.has("user_has_favorited"):
+		if (typeof(body_json["user_has_favorited"]) == TYPE_BOOL):
+			has_faved = body_json["user_has_favorited"]
+	
+	if body_json.has("favorites_count"):
+		if (typeof(body_json["favorites_count"]) == TYPE_FLOAT): #numerals are float in json
+			fave_count = int(body_json["favorites_count"]) #but we can convert back to int
+	
+	tile_sub_logic.set_faved(has_faved)
 
 func _on_asset_clicked_button_pressed() -> void:
 	pass # Replace with function body.
@@ -72,3 +100,15 @@ func is_selected() -> bool:
 
 func get_asset_info() -> AssetInfo:
 	return asset_info
+
+func _on_fave_button_pressed() -> void:
+	if tile_sub_logic._is_faved:
+		asset_handler.server_handler.fave_package(
+			asset_handler.category_handler.get_currently_open_category(), 
+			asset_info.package_name
+			)
+	else:
+		asset_handler.server_handler.unfave_package(
+			asset_handler.category_handler.get_currently_open_category(), 
+			asset_info.package_name
+			)

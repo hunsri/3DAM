@@ -13,6 +13,7 @@ class_name TileSubLogic extends PanelContainer
 @export var fave_inactive_texture: TextureRect
 
 signal selection_button_pressed
+signal fave_button_pressed
 
 var _is_supported_asset = false
 var selection_disabled = false
@@ -121,6 +122,11 @@ func _on_check_box_pressed() -> void:
 
 func _on_fave_button_pressed() -> void:
 	_is_faved = !_is_faved
+	fave_button_pressed.emit()
+	reload()
+
+func set_faved(is_faved: bool):
+	_is_faved = is_faved
 	reload()
 
 func set_file_extension(extension: String) -> void:
