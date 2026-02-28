@@ -1425,7 +1425,7 @@ CheckBox/styles/pressed = SubResource("StyleBoxEmpty_kmgjm")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r4iii"]
 
-[node name="TileBasics" type="PanelContainer" node_paths=PackedStringArray("selected", "selected_status_bar", "downloaded_status_bar", "package_indicator", "extension_indicator", "extension_indicator_color", "fave_button", "fave_active_texture", "fave_inactive_texture")]
+[node name="TileBasics" type="PanelContainer" node_paths=PackedStringArray("selected", "selected_status_bar", "downloaded_status_bar", "package_indicator", "extension_indicator", "extension_indicator_color", "fave_button", "fave_active_texture", "fave_inactive_texture", "fave_counter_label")]
 custom_minimum_size = Vector2(200, 200)
 anchors_preset = -1
 anchor_right = 0.104
@@ -1446,6 +1446,7 @@ extension_indicator_color = NodePath("FootBar/TypeIndicator/type_bar/right/FileE
 fave_button = NodePath("TopBar/SocialBar/social_bar/left/FaveIcon/FaveButton")
 fave_active_texture = NodePath("TopBar/SocialBar/social_bar/left/FaveIcon/FaveActiveIcon")
 fave_inactive_texture = NodePath("TopBar/SocialBar/social_bar/left/FaveIcon/FaveInactiveIcon")
+fave_counter_label = NodePath("TopBar/SocialBar/social_bar/left/FaveCounter")
 metadata/_edit_use_anchors_ = true
 
 [node name="PackageFrame" type="PanelContainer" parent="."]
@@ -1581,7 +1582,6 @@ texture = ExtResource("4_fukmf")
 expand_mode = 2
 
 [node name="FaveInactiveIcon" type="TextureRect" parent="TopBar/SocialBar/social_bar/left/FaveIcon"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "Package"
@@ -1595,6 +1595,7 @@ flat = true
 
 [node name="FaveCounter" type="Label" parent="TopBar/SocialBar/social_bar/left"]
 layout_mode = 2
+text = "0"
 label_settings = SubResource("LabelSettings_rg3qm")
 
 [node name="CornerRight" type="PanelContainer" parent="."]

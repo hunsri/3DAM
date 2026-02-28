@@ -68,7 +68,6 @@ func on_request_completed_fetch_package_faves(_result, response_code, _headers, 
 	if response_code != 200:
 		return
 	
-	#var body_json_string = body.get_string_from_utf8()
 	var body_json = JSON.parse_string(body.get_string_from_utf8())
 	if body_json == null:
 		return
@@ -85,6 +84,18 @@ func on_request_completed_fetch_package_faves(_result, response_code, _headers, 
 			fave_count = int(body_json["favorites_count"]) #but we can convert back to int
 	
 	tile_sub_logic.set_faved(has_faved)
+	tile_sub_logic.set_fave_counter(fave_count)
+
+func on_request_completed_faving_package(_result, response_code, _headers, _body):
+	if response_code != 200:
+		return
+	
+	# could be handled through a response instead if server provides it in the future
+	asset_handler.server_handler.fetch_package_faves(
+		asset_handler.category_handler.get_currently_open_category(),
+		asset_info.package_name,
+		self
+		)
 
 func _on_asset_clicked_button_pressed() -> void:
 	pass # Replace with function body.
@@ -105,10 +116,12 @@ func _on_fave_button_pressed() -> void:
 	if tile_sub_logic._is_faved:
 		asset_handler.server_handler.fave_package(
 			asset_handler.category_handler.get_currently_open_category(), 
-			asset_info.package_name
+			asset_info.package_name,
+			self
 			)
 	else:
 		asset_handler.server_handler.unfave_package(
 			asset_handler.category_handler.get_currently_open_category(), 
-			asset_info.package_name
+			asset_info.package_name,
+			self
 			)

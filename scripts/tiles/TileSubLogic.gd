@@ -11,6 +11,7 @@ class_name TileSubLogic extends PanelContainer
 @export var fave_button: Button
 @export var fave_active_texture: TextureRect
 @export var fave_inactive_texture: TextureRect
+@export var fave_counter_label: Label
 
 signal selection_button_pressed
 signal fave_button_pressed
@@ -61,12 +62,15 @@ func reload():
 		package_indicator.visible = false
 	
 	if is_local:
+		fave_counter_label.visible = false
 		fave_active_texture.visible = false
 		fave_inactive_texture.visible = false
 	elif _is_faved:
+		fave_counter_label.visible = true
 		fave_active_texture.visible = true
 		fave_inactive_texture.visible = false
 	else:
+		fave_counter_label.visible = true
 		fave_active_texture.visible = false
 		fave_inactive_texture.visible = true
 	
@@ -128,6 +132,9 @@ func _on_fave_button_pressed() -> void:
 func set_faved(is_faved: bool):
 	_is_faved = is_faved
 	reload()
+
+func set_fave_counter(count: int) -> void:
+	fave_counter_label.text = str(count)
 
 func set_file_extension(extension: String) -> void:
 	

@@ -190,7 +190,7 @@ func upload_asset_preview_image(category_name: String, package_name: String, ver
 	
 	_cleanup_http_request_node(http)
 
-func fave_package(category_name: String, package_name: String):
+func fave_package(category_name: String, package_name: String, asset_tile: ServerAssetTile2D):
 	
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"add_favorite"
 	var request_address = HTTP_PRE+address+sub_url
@@ -210,13 +210,10 @@ func fave_package(category_name: String, package_name: String):
 	if error != OK:
 		print("Request error:", error)
 	
-	http.request_completed.connect(_on_request_completed_fave_package)
+	http.request_completed.connect(asset_tile.on_request_completed_faving_package)
 	_cleanup_http_request_node(http)
 	
-func _on_request_completed_fave_package(_result, _response_code, _headers, _body):
-	pass
-
-func unfave_package(category_name: String, package_name: String):
+func unfave_package(category_name: String, package_name: String, asset_tile: ServerAssetTile2D):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"remove_favorite"
 	var request_address = HTTP_PRE+address+sub_url
 	var headers = ["Content-Type: application/json"]
@@ -235,11 +232,8 @@ func unfave_package(category_name: String, package_name: String):
 	if error != OK:
 		print("Request error:", error)
 	
-	http.request_completed.connect(_on_request_completed_unfave_package)
+	http.request_completed.connect(asset_tile.on_request_completed_faving_package)
 	_cleanup_http_request_node(http)
-
-func _on_request_completed_unfave_package(_result, _response_code, _headers, _body):
-	pass
 
 func fetch_package_faves(category_name: String, package_name: String, asset_tile: ServerAssetTile2D):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"favorites"
