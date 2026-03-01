@@ -1,0 +1,110 @@
+[gd_scene load_steps=12 format=3 uid="uid://cd5a0p23y433v"]
+
+[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_vmxhd"]
+[ext_resource type="Script" uid="uid://bfqubijg7p3yh" path="res://scripts/AssetInfoHandler.gd" id="2_1eesc"]
+[ext_resource type="Environment" uid="uid://btn86veyhcnqh" path="res://resources/StandardEnvironment.tres" id="3_cmef0"]
+[ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/tiles/asset_spawn_point.gd" id="4_iwccm"]
+[ext_resource type="PackedScene" uid="uid://ccfv3ourt2n84" path="res://scenes/subscenes/asset_info_sidebar/AssetMetaInfo.tscn" id="5_0c1kf"]
+
+[sub_resource type="World3D" id="World3D_ik0vy"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_5565g"]
+
+[sub_resource type="Compositor" id="Compositor_ik0vy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ik0vy"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_5565g"]
+material = SubResource("StandardMaterial3D_ik0vy")
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_feb4m"]
+
+[node name="AssetInfoSidebar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="separator" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 4.0
+grow_vertical = 2
+theme = ExtResource("1_vmxhd")
+theme_type_variation = &"SeparatorBar"
+
+[node name="AssetInfoHandler" type="Node" parent="."]
+script = ExtResource("2_1eesc")
+metadata/_custom_type_script = "uid://bfqubijg7p3yh"
+
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+theme_override_constants/minimum_grab_thickness = 0
+split_offset = 500
+
+[node name="Panel" type="Panel" parent="VSplitContainer"]
+layout_mode = 2
+theme = ExtResource("1_vmxhd")
+theme_type_variation = &"AssetInfoSidebar"
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VSplitContainer/Panel"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VSplitContainer/Panel/SubViewportContainer"]
+own_world_3d = true
+world_3d = SubResource("World3D_ik0vy")
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1910, 500)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport"]
+environment = ExtResource("3_cmef0")
+camera_attributes = SubResource("CameraAttributesPractical_5565g")
+compositor = SubResource("Compositor_ik0vy")
+
+[node name="SpawnPoint" type="Node3D" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport" node_paths=PackedStringArray("spring_arm_3d")]
+unique_name_in_owner = true
+script = ExtResource("4_iwccm")
+spring_arm_3d = NodePath("../SpringArm3D")
+
+[node name="DemoObject" type="MeshInstance3D" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpawnPoint"]
+visible = false
+mesh = SubResource("PrismMesh_5565g")
+skeleton = NodePath("../../SpringArm3D/Camera3D")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+shape = SubResource("SeparationRayShape3D_feb4m")
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpringArm3D"]
+current = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VSplitContainer"]
+layout_mode = 2
+
+[node name="AssetMetaInfo" parent="VSplitContainer/ScrollContainer" instance=ExtResource("5_0c1kf")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="mouse_entered" from="VSplitContainer/Panel/SubViewportContainer" to="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_entered"]
+[connection signal="mouse_exited" from="VSplitContainer/Panel/SubViewportContainer" to="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_exited"]
