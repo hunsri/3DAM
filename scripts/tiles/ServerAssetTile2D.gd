@@ -98,7 +98,7 @@ func on_request_completed_faving_package(_result, response_code, _headers, _body
 		)
 
 func _on_asset_clicked_button_pressed() -> void:
-	pass # Replace with function body.
+	asset_handler.asset_clicked(self)
 
 func _on_selection_checkbox_pressed() -> void:
 	if is_selected():

@@ -1,15 +1,15 @@
 [gd_scene load_steps=14 format=3 uid="uid://6105aqmty783"]
 
-[ext_resource type="Script" uid="uid://cgj5l2rao6e22" path="res://scripts/explorers/AssetExplorerHandler.gd" id="1_p8e36"]
-[ext_resource type="Script" uid="uid://8ty66il4fyso" path="res://scripts/server/ServerHandler.gd" id="1_uw5gw"]
-[ext_resource type="Script" uid="uid://e2mtpotnr8x3" path="res://scripts/explorers/ServerExplorerHandler.gd" id="2_6xg4d"]
-[ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="2_c23qk"]
-[ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/asset_info_sidebar/AssetInfoSidebar.tscn" id="2_idkyg"]
-[ext_resource type="PackedScene" uid="uid://dvb1345451o5v" path="res://scenes/subscenes/CategorySelector.tscn" id="2_uw5gw"]
-[ext_resource type="Script" uid="uid://bjjgsb0e668fs" path="res://scripts/server/ServerExchangeManager.gd" id="3_xf5sg"]
-[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="4_4r40v"]
-[ext_resource type="PackedScene" uid="uid://djmadqb6fsp38" path="res://scenes/subscenes/exchange_bar/ServerExchangeBar.tscn" id="5_mgk7m"]
-[ext_resource type="PackedScene" uid="uid://csxkrfjg0nwe4" path="res://scenes/subscenes/overlays/ExplorerStatusOverlay.tscn" id="8_qq5yn"]
+[ext_resource type="Script" uid="uid://8ty66il4fyso" path="res://scripts/server/ServerHandler.gd" id="1_7a6l4"]
+[ext_resource type="Script" uid="uid://e2mtpotnr8x3" path="res://scripts/explorers/ServerExplorerHandler.gd" id="2_q8qvv"]
+[ext_resource type="Script" uid="uid://bjjgsb0e668fs" path="res://scripts/server/ServerExchangeManager.gd" id="3_53hih"]
+[ext_resource type="Script" uid="uid://cgj5l2rao6e22" path="res://scripts/explorers/AssetExplorerHandler.gd" id="4_p5evc"]
+[ext_resource type="PackedScene" uid="uid://csxkrfjg0nwe4" path="res://scenes/subscenes/overlays/ExplorerStatusOverlay.tscn" id="5_lx8f4"]
+[ext_resource type="PackedScene" uid="uid://dvb1345451o5v" path="res://scenes/subscenes/CategorySelector.tscn" id="6_5whm3"]
+[ext_resource type="PackedScene" uid="uid://djmadqb6fsp38" path="res://scenes/subscenes/exchange_bar/ServerExchangeBar.tscn" id="7_g7lgg"]
+[ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="8_vlo1l"]
+[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="9_k3g27"]
+[ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/asset_info_sidebar/AssetInfoSidebar.tscn" id="10_7csbd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq5yn"]
 bg_color = Color(0, 0, 0, 1)
@@ -29,31 +29,33 @@ size_flags_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="ServerHandler" type="Node" parent="." node_paths=PackedStringArray("server_exchange_manager")]
-script = ExtResource("1_uw5gw")
+script = ExtResource("1_7a6l4")
 server_exchange_manager = NodePath("../ServerExchangeManager")
 metadata/_custom_type_script = "uid://8ty66il4fyso"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="ServerHandler"]
 use_threads = true
 
-[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler", "category_handler", "status_overlay", "selector_overlay")]
-script = ExtResource("2_6xg4d")
+[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler", "category_handler", "asset_info_handler", "status_overlay", "selector_overlay")]
+script = ExtResource("2_q8qvv")
 server_handler = NodePath("../ServerHandler")
 category_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategoryHandler")
+asset_info_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetInfoHandler")
 status_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/ServerExplorerStatusOverlay")
 selector_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategorySidePanel/CategorySelectorStatusOverlay")
 metadata/_custom_type_script = "uid://e2mtpotnr8x3"
 
 [node name="ServerExchangeManager" type="Node" parent="." node_paths=PackedStringArray("server_exchange_bar", "server_explorer_handler", "asset_explorer_handler")]
-script = ExtResource("3_xf5sg")
+script = ExtResource("3_53hih")
 server_exchange_bar = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/ServerExchangeBar")
 server_explorer_handler = NodePath("../ServerExplorerHandler")
 asset_explorer_handler = NodePath("../AssetExplorerHandler")
 metadata/_custom_type_script = "uid://bjjgsb0e668fs"
 
-[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("directory_handler", "server_handler", "status_overlay", "selector_overlay")]
-script = ExtResource("1_p8e36")
+[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("directory_handler", "asset_info_handler", "server_handler", "status_overlay", "selector_overlay")]
+script = ExtResource("4_p5evc")
 directory_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector/DirectoryHandler")
+asset_info_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetInfoHandler")
 server_handler = NodePath("../ServerHandler")
 status_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/LocalExplorerContainer/LocalExplorerStatusOverlay")
 selector_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector/DirectorySidePanel/CategorySelectorStatusOverlay")
@@ -102,12 +104,12 @@ draw_focus_border = true
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ServerExplorerStatusOverlay" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server" instance=ExtResource("8_qq5yn")]
+[node name="ServerExplorerStatusOverlay" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server" instance=ExtResource("5_lx8f4")]
 layout_mode = 1
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="CategorySelector" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server" instance=ExtResource("2_uw5gw")]
+[node name="CategorySelector" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server" instance=ExtResource("6_5whm3")]
 layout_mode = 1
 offset_left = -500.0
 offset_right = 0.0
@@ -121,10 +123,10 @@ category_selector = NodePath("../CategorySidePanel/CategorySelectorTree")
 [node name="Local" type="Control" parent="HSplitContainer/ExplorerArea/VSplitContainer"]
 layout_mode = 2
 
-[node name="ServerExchangeBar" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local" instance=ExtResource("5_mgk7m")]
+[node name="ServerExchangeBar" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local" instance=ExtResource("7_g7lgg")]
 layout_mode = 1
 
-[node name="DirectorySelector" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local" instance=ExtResource("2_c23qk")]
+[node name="DirectorySelector" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local" instance=ExtResource("8_vlo1l")]
 layout_mode = 1
 offset_left = -500.0
 offset_right = -500.0
@@ -150,7 +152,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="LocalExplorerStatusOverlay" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local/LocalExplorerContainer" instance=ExtResource("8_qq5yn")]
+[node name="LocalExplorerStatusOverlay" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local/LocalExplorerContainer" instance=ExtResource("5_lx8f4")]
 layout_mode = 2
 overlay_type = 1
 
@@ -160,12 +162,20 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = -4.0
 grow_vertical = 2
-theme = ExtResource("4_4r40v")
+theme = ExtResource("9_k3g27")
 theme_type_variation = &"SeparatorBar"
 
-[node name="AssetInfoSidebar" parent="HSplitContainer" instance=ExtResource("2_idkyg")]
+[node name="AssetInfoSidebar" parent="HSplitContainer" instance=ExtResource("10_7csbd")]
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="AssetInfoHandler" parent="HSplitContainer/AssetInfoSidebar" index="0" node_paths=PackedStringArray("server_handler")]
+server_handler = NodePath("../../../ServerHandler")
+
+[node name="SubViewport" parent="HSplitContainer/AssetInfoSidebar/VSplitContainer/Panel/SubViewportContainer" index="0"]
+size = Vector2i(364, 500)
+
 [editable path="HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector"]
 [editable path="HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector"]
+[editable path="HSplitContainer/AssetInfoSidebar"]
+[editable path="HSplitContainer/AssetInfoSidebar/VSplitContainer/ScrollContainer/AssetMetaInfo"]

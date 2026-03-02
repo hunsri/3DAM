@@ -250,6 +250,51 @@ func fetch_package_faves(category_name: String, package_name: String, asset_tile
 	http.request_completed.connect(asset_tile.on_request_completed_fetch_package_faves)
 	_cleanup_http_request_node(http)
 
+func fetch_package_comments(category_name: String, package_name: String, asset_info_display: AssetMetaInfoDisplay) -> void:
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"comments"
+	var query = "?user_uuid="+Startup.load_identity_uuid()
+	var request_address = HTTP_PRE+address+sub_url+query
+	
+	var http = _create_http_request_node()
+	var error = http.request(request_address)
+	
+	if error != OK:
+		print("Request error:", error)
+	
+	http.request_completed.connect(asset_info_display.on_request_completed_fetch_package_comments)
+	
+	_cleanup_http_request_node(http)
+
+func delete_package_comment(message_uuid: String) -> void:
+	# not optimal, but caller has no easy access to these information, so we have to do it
+	var explorer_handler :=  server_exchange_manager.server_explorer_handler
+	var category_name = explorer_handler.category_handler.get_currently_open_category()
+	var package_name = explorer_handler.latest_clicked_server_tile.asset_info.package_name
+	
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"remove_comment"
+	var request_address = HTTP_PRE+address+sub_url
+	var headers = ["Content-Type: application/json"]
+	
+	var http = _create_http_request_node()
+	
+	# ugly, but fast way for creating json payload
+	var body := "{\"user_uuid\": \""+ Startup.load_identity_uuid()+"\","
+	body += "\"message_uuid\": \""+ message_uuid+"\"}"
+	
+	var error = http.request(
+		request_address,
+		headers,
+		HTTPClient.METHOD_PATCH,
+		body
+	)
+	
+	http.request_completed.connect(explorer_handler.asset_info_handler.asset_meta_info_display.on_request_completed_delete_package_comment)
+	
+	if error != OK:
+		print("Request error:", error)
+	
+	_cleanup_http_request_node(http)
+
 func _create_http_request_node() -> HTTPRequest:
 	var http_request = HTTPRequest.new()
 	

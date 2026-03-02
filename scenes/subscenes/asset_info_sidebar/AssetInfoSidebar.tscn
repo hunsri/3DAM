@@ -27,6 +27,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="AssetInfoHandler" type="Node" parent="." node_paths=PackedStringArray("asset_meta_info_display")]
+script = ExtResource("2_1eesc")
+asset_meta_info_display = NodePath("../VSplitContainer/ScrollContainer/AssetMetaInfo/AssetMetaInfoDisplay")
+metadata/_custom_type_script = "uid://bfqubijg7p3yh"
+
 [node name="separator" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 9
@@ -35,10 +40,6 @@ offset_right = 4.0
 grow_vertical = 2
 theme = ExtResource("1_vmxhd")
 theme_type_variation = &"SeparatorBar"
-
-[node name="AssetInfoHandler" type="Node" parent="."]
-script = ExtResource("2_1eesc")
-metadata/_custom_type_script = "uid://bfqubijg7p3yh"
 
 [node name="VSplitContainer" type="VSplitContainer" parent="."]
 layout_mode = 1
@@ -108,3 +109,5 @@ size_flags_vertical = 3
 
 [connection signal="mouse_entered" from="VSplitContainer/Panel/SubViewportContainer" to="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_entered"]
 [connection signal="mouse_exited" from="VSplitContainer/Panel/SubViewportContainer" to="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_exited"]
+
+[editable path="VSplitContainer/ScrollContainer/AssetMetaInfo"]

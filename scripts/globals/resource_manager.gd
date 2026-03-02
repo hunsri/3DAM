@@ -8,8 +8,8 @@ func create_tile_line():
 	var tile_line = ASSET_VIEW_2D_LINE.instantiate()
 	return tile_line
 
-func create_comment(comment_author: String, comment_text: String) -> Control:
+func create_comment(comment_data: Comment.CommentData, asset_info_handler: AssetInfoHandler) -> Control:
 	var comment: Control = COMMENT.instantiate()
 	var ret: Comment = comment
-	ret.setup(comment_author, comment_text)
+	ret.setup(comment_data, asset_info_handler)
 	return ret

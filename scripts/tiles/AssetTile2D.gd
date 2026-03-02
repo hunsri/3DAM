@@ -90,4 +90,3 @@ func _on_fave_button_pressed() -> void:
 		pass
 	else:
 		pass
-		

@@ -12,9 +12,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_8sihi")
 
-[node name="AssetMetaInfoDisplay" type="Node" parent="." node_paths=PackedStringArray("comment_spawner")]
+[node name="AssetMetaInfoDisplay" type="Node" parent="." node_paths=PackedStringArray("comment_spawner", "comment_section")]
 script = ExtResource("1_a4nop")
 comment_spawner = NodePath("../CommentSection/CommentSpawner")
+comment_section = NodePath("../CommentSection")
 metadata/_custom_type_script = "uid://ck3y24uf0kygi"
 
 [node name="CommentSection" type="FoldableContainer" parent="."]
@@ -22,5 +23,7 @@ layout_mode = 2
 title = "Comments"
 
 [node name="CommentSpawner" type="VBoxContainer" parent="CommentSection"]
+editor_description = "spawns Comment scene elements"
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0

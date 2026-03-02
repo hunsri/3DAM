@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2no27480sc8"]
 
 [ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="2_skpw3"]
-[ext_resource type="PackedScene" uid="uid://xa2j6v56168e" path="res://scenes/subscenes/AssetView2D.tscn" id="3_j4ict"]
+[ext_resource type="PackedScene" uid="uid://xa2j6v56168e" path="res://scenes/subscenes/asset_views/AssetView2D.tscn" id="3_j4ict"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guh61"]
 bg_color = Color(1, 1, 1, 1)
@@ -32,15 +32,15 @@ layout_mode = 1
 directory_handler = NodePath("../../DirectorySelector/DirectoryHandler")
 asset_info_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetInfoHandler")
 
-[node name="SubViewport" parent="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/Panel/SubViewportContainer" index="0"]
-size = Vector2i(368, 1080)
+[node name="SubViewport" parent="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/VSplitContainer/Panel/SubViewportContainer" index="0"]
+size = Vector2i(2, 2)
 
 [node name="DirectorySelector" parent="Background" instance=ExtResource("2_skpw3")]
 layout_mode = 1
 offset_right = 0.0
 grow_horizontal = 1
 
-[node name="DirectoryHandler" parent="Background/DirectorySelector" index="0" node_paths=PackedStringArray("explorer_handler")]
+[node name="DirectoryHandler" parent="Background/DirectorySelector" index="1" node_paths=PackedStringArray("explorer_handler")]
 explorer_handler = NodePath("../../AssetExplorer2d/AssetExplorerHandler")
 
 [editable path="Background/AssetExplorer2d"]

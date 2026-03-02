@@ -2,6 +2,7 @@ class_name ServerExplorerHandler extends AbstractExplorerHandler
 
 @export var server_handler: ServerHandler
 @export var category_handler: CategoryHandler
+@export var asset_info_handler: AssetInfoHandler
 
 @onready var v_box_container: VBoxContainer = %VBoxContainerServer
 
@@ -9,6 +10,8 @@ class_name ServerExplorerHandler extends AbstractExplorerHandler
 @export var selector_overlay: SelectorStatusOverlay
 
 var asset_infos: Array[AssetInfo] = []
+
+var latest_clicked_server_tile: ServerAssetTile2D
 
 func _ready() -> void:
 	reload_explorer()
@@ -51,3 +54,12 @@ func add_tile_line(assets: Array[AssetInfo]) -> void:
 func remove_all_tiles():
 	for child in v_box_container.get_children():
 		child.queue_free()
+
+func asset_clicked(server_asset_tile: ServerAssetTile2D) -> void:
+	latest_clicked_server_tile = server_asset_tile
+	
+	server_handler.fetch_package_comments(
+		category_handler.get_currently_open_category(),
+		server_asset_tile.asset_info.package_name,
+		asset_info_handler.asset_meta_info_display
+	)
