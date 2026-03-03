@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://cd5a0p23y433v"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_vmxhd"]
-[ext_resource type="Script" uid="uid://bfqubijg7p3yh" path="res://scripts/AssetInfoHandler.gd" id="2_1eesc"]
+[ext_resource type="Script" uid="uid://bfqubijg7p3yh" path="res://scripts/AssetSidebarHandler.gd" id="2_1eesc"]
 [ext_resource type="Environment" uid="uid://btn86veyhcnqh" path="res://resources/StandardEnvironment.tres" id="3_cmef0"]
 [ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/tiles/asset_spawn_point.gd" id="4_iwccm"]
 [ext_resource type="PackedScene" uid="uid://ccfv3ourt2n84" path="res://scenes/subscenes/asset_info_sidebar/AssetMetaInfo.tscn" id="5_0c1kf"]
@@ -27,7 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AssetInfoHandler" type="Node" parent="." node_paths=PackedStringArray("asset_meta_info_display")]
+[node name="AssetSidebarHandler" type="Node" parent="." node_paths=PackedStringArray("asset_meta_info_display")]
 script = ExtResource("2_1eesc")
 asset_meta_info_display = NodePath("../VSplitContainer/ScrollContainer/AssetMetaInfo/AssetMetaInfoDisplay")
 metadata/_custom_type_script = "uid://bfqubijg7p3yh"

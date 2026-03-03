@@ -288,7 +288,7 @@ func delete_package_comment(message_uuid: String) -> void:
 		body
 	)
 	
-	http.request_completed.connect(explorer_handler.asset_info_handler.asset_meta_info_display.on_request_completed_delete_package_comment)
+	http.request_completed.connect(explorer_handler.asset_sidebar_handler.asset_meta_info_display.on_request_completed_delete_package_comment)
 	
 	if error != OK:
 		print("Request error:", error)

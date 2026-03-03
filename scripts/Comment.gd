@@ -6,7 +6,7 @@ class_name Comment extends HFlowContainer
 @export var activate_delete_button: CheckButton
 @export var delete_button: Button
 
-var _asset_info_handler: AssetInfoHandler
+var _asset_sidebar_handler: AssetSidebarHandler
 
 ## data container for comments
 class CommentData:
@@ -23,9 +23,9 @@ class CommentData:
 		
 var comment_data: CommentData
 
-func setup(p_comment_data: CommentData, p_asset_info_handler: AssetInfoHandler) -> void:
+func setup(p_comment_data: CommentData, p_asset_sidebar_handler: AssetSidebarHandler) -> void:
 	comment_data = p_comment_data
-	_asset_info_handler = p_asset_info_handler
+	_asset_sidebar_handler = p_asset_sidebar_handler
 	
 	comment_text_label.text = comment_data.comment_text
 	
@@ -46,5 +46,5 @@ func _on_activate_delete_button_toggled(toggled_on: bool) -> void:
 		delete_button.disabled = true
 
 func _on_delete_button_pressed() -> void:
-	_asset_info_handler.server_handler.delete_package_comment(comment_data.message_uuid)
+	_asset_sidebar_handler.server_handler.delete_package_comment(comment_data.message_uuid)
 	

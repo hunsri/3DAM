@@ -36,11 +36,11 @@ metadata/_custom_type_script = "uid://8ty66il4fyso"
 [node name="HTTPRequest" type="HTTPRequest" parent="ServerHandler"]
 use_threads = true
 
-[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler", "category_handler", "asset_info_handler", "status_overlay", "selector_overlay")]
+[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler", "category_handler", "asset_sidebar_handler", "status_overlay", "selector_overlay")]
 script = ExtResource("2_q8qvv")
 server_handler = NodePath("../ServerHandler")
 category_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategoryHandler")
-asset_info_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetInfoHandler")
+asset_sidebar_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetSidebarHandler")
 status_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/ServerExplorerStatusOverlay")
 selector_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategorySidePanel/CategorySelectorStatusOverlay")
 metadata/_custom_type_script = "uid://e2mtpotnr8x3"
@@ -52,10 +52,10 @@ server_explorer_handler = NodePath("../ServerExplorerHandler")
 asset_explorer_handler = NodePath("../AssetExplorerHandler")
 metadata/_custom_type_script = "uid://bjjgsb0e668fs"
 
-[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("directory_handler", "asset_info_handler", "server_handler", "status_overlay", "selector_overlay")]
+[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("directory_handler", "asset_sidebar_handler", "server_handler", "status_overlay", "selector_overlay")]
 script = ExtResource("4_p5evc")
 directory_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector/DirectoryHandler")
-asset_info_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetInfoHandler")
+asset_sidebar_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetSidebarHandler")
 server_handler = NodePath("../ServerHandler")
 status_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/LocalExplorerContainer/LocalExplorerStatusOverlay")
 selector_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector/DirectorySidePanel/CategorySelectorStatusOverlay")
@@ -168,9 +168,6 @@ theme_type_variation = &"SeparatorBar"
 [node name="AssetInfoSidebar" parent="HSplitContainer" instance=ExtResource("10_7csbd")]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="AssetInfoHandler" parent="HSplitContainer/AssetInfoSidebar" index="0" node_paths=PackedStringArray("server_handler")]
-server_handler = NodePath("../../../ServerHandler")
 
 [node name="SubViewport" parent="HSplitContainer/AssetInfoSidebar/VSplitContainer/Panel/SubViewportContainer" index="0"]
 size = Vector2i(364, 500)

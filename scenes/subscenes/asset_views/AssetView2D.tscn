@@ -16,8 +16,9 @@ grow_vertical = 2
 size_flags_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="AssetExplorerHandler" type="Node" parent="."]
+[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("asset_sidebar_handler")]
 script = ExtResource("1_3nbno")
+asset_sidebar_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetSidebarHandler")
 metadata/_custom_type_script = "uid://cgj5l2rao6e22"
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
