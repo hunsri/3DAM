@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://xa2j6v56168e"]
 
 [ext_resource type="Script" uid="uid://cgj5l2rao6e22" path="res://scripts/explorers/AssetExplorerHandler.gd" id="1_3nbno"]
-[ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/asset_info_sidebar/AssetInfoSidebar.tscn" id="2_i58tk"]
+[ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/asset_info_sidebar/AssetSidebar.tscn" id="2_i58tk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_emvth"]
 bg_color = Color(0, 0, 0, 1)
@@ -47,10 +47,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="SubViewport" parent="HSplitContainer/AssetInfoSidebar/VSplitContainer/Panel/SubViewportContainer" index="0"]
-size = Vector2i(364, 500)
-
-[node name="AssetMetaInfoDisplay" parent="HSplitContainer/AssetInfoSidebar/VSplitContainer/ScrollContainer/AssetMetaInfo" index="0"]
-_is_local = true
+size = Vector2i(2, 2)
 
 [editable path="HSplitContainer/AssetInfoSidebar"]
 [editable path="HSplitContainer/AssetInfoSidebar/VSplitContainer/ScrollContainer/AssetMetaInfo"]

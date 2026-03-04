@@ -269,7 +269,7 @@ func delete_package_comment(message_uuid: String) -> void:
 	# not optimal, but caller has no easy access to these information, so we have to do it
 	var explorer_handler :=  server_exchange_manager.server_explorer_handler
 	var category_name = explorer_handler.category_handler.get_currently_open_category()
-	var package_name = explorer_handler.latest_clicked_server_tile.asset_info.package_name
+	var package_name = explorer_handler.get_latest_clicked_server_tile().asset_info.package_name
 	
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"remove_comment"
 	var request_address = HTTP_PRE+address+sub_url
@@ -289,6 +289,36 @@ func delete_package_comment(message_uuid: String) -> void:
 	)
 	
 	http.request_completed.connect(explorer_handler.asset_sidebar_handler.asset_meta_info_display.on_request_completed_delete_package_comment)
+	
+	if error != OK:
+		print("Request error:", error)
+	
+	_cleanup_http_request_node(http)
+
+func post_package_comment(text_message: String) -> void:
+	# not optimal, but caller has no easy access to these information, so we have to do it
+	var explorer_handler :=  server_exchange_manager.server_explorer_handler
+	var category_name = explorer_handler.category_handler.get_currently_open_category()
+	var package_name = explorer_handler.get_latest_clicked_server_tile().asset_info.package_name
+	
+	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"add_comment"
+	var request_address = HTTP_PRE+address+sub_url
+	var headers = ["Content-Type: application/json"]
+	
+	var http = _create_http_request_node()
+	
+	# ugly, but fast way for creating json payload
+	var body := "{\"user_uuid\": \""+ Startup.load_identity_uuid()+"\","
+	body += "\"comment_text\": \""+ text_message +"\"}"
+	
+	var error = http.request(
+		request_address,
+		headers,
+		HTTPClient.METHOD_PATCH,
+		body
+	)
+	
+	http.request_completed.connect(explorer_handler.asset_sidebar_handler.asset_meta_info_display.on_request_completed_post_package_comment)
 	
 	if error != OK:
 		print("Request error:", error)

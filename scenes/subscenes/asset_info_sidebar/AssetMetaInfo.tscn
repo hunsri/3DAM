@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccfv3ourt2n84"]
+[gd_scene load_steps=4 format=3 uid="uid://ccfv3ourt2n84"]
 
 [ext_resource type="Script" uid="uid://ck3y24uf0kygi" path="res://scripts/AssetMetaInfoDisplay.gd" id="1_a4nop"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8sihi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdvw1"]
 
 [node name="AssetMetaInfo" type="PanelContainer"]
 anchors_preset = 15
@@ -10,20 +12,44 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_8sihi")
 
-[node name="AssetMetaInfoDisplay" type="Node" parent="." node_paths=PackedStringArray("comment_spawner", "comment_section")]
+[node name="AssetMetaInfoDisplay" type="Node" parent="." node_paths=PackedStringArray("comment_spawner", "comment_section", "comment_text_edit")]
 script = ExtResource("1_a4nop")
-comment_spawner = NodePath("../CommentSection/CommentSpawner")
+comment_spawner = NodePath("../CommentSection/Splitter/CommentSpawner")
 comment_section = NodePath("../CommentSection")
+comment_text_edit = NodePath("../CommentSection/Splitter/VBoxContainer/TextEdit")
 metadata/_custom_type_script = "uid://ck3y24uf0kygi"
 
 [node name="CommentSection" type="FoldableContainer" parent="."]
 layout_mode = 2
 title = "Comments"
 
-[node name="CommentSpawner" type="VBoxContainer" parent="CommentSection"]
+[node name="Splitter" type="VBoxContainer" parent="CommentSection"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CommentSection/Splitter"]
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="CommentSection/Splitter/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gdvw1")
+placeholder_text = "Leave a comment here!"
+scroll_fit_content_height = true
+
+[node name="SendButton" type="Button" parent="CommentSection/Splitter/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Send"
+
+[node name="CommentSpawner" type="VBoxContainer" parent="CommentSection/Splitter"]
 editor_description = "spawns Comment scene elements"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
+
+[connection signal="pressed" from="CommentSection/Splitter/VBoxContainer/SendButton" to="AssetMetaInfoDisplay" method="_on_send_button_pressed"]

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://djmadqb6fsp38" path="res://scenes/subscenes/exchange_bar/ServerExchangeBar.tscn" id="7_g7lgg"]
 [ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="8_vlo1l"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="9_k3g27"]
-[ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/asset_info_sidebar/AssetInfoSidebar.tscn" id="10_7csbd"]
+[ext_resource type="PackedScene" uid="uid://cd5a0p23y433v" path="res://scenes/subscenes/asset_info_sidebar/AssetSidebar.tscn" id="10_7csbd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq5yn"]
 bg_color = Color(0, 0, 0, 1)

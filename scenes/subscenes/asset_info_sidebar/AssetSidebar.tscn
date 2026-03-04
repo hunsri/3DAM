@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://cd5a0p23y433v"]
 
-[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_vmxhd"]
-[ext_resource type="Script" uid="uid://bfqubijg7p3yh" path="res://scripts/AssetSidebarHandler.gd" id="2_1eesc"]
-[ext_resource type="Environment" uid="uid://btn86veyhcnqh" path="res://resources/StandardEnvironment.tres" id="3_cmef0"]
-[ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/tiles/asset_spawn_point.gd" id="4_iwccm"]
-[ext_resource type="PackedScene" uid="uid://ccfv3ourt2n84" path="res://scenes/subscenes/asset_info_sidebar/AssetMetaInfo.tscn" id="5_0c1kf"]
+[ext_resource type="Script" uid="uid://bfqubijg7p3yh" path="res://scripts/AssetSidebarHandler.gd" id="1_tg8p5"]
+[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="2_iqbsj"]
+[ext_resource type="Environment" uid="uid://btn86veyhcnqh" path="res://resources/StandardEnvironment.tres" id="3_ia7ne"]
+[ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/tiles/asset_spawn_point.gd" id="4_ossag"]
+[ext_resource type="PackedScene" uid="uid://ccfv3ourt2n84" path="res://scenes/subscenes/asset_info_sidebar/AssetMetaInfo.tscn" id="5_68iah"]
 
 [sub_resource type="World3D" id="World3D_ik0vy"]
 
@@ -19,7 +19,7 @@ material = SubResource("StandardMaterial3D_ik0vy")
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_feb4m"]
 
-[node name="AssetInfoSidebar" type="Control"]
+[node name="AssetSidebar" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AssetSidebarHandler" type="Node" parent="." node_paths=PackedStringArray("asset_meta_info_display")]
-script = ExtResource("2_1eesc")
+script = ExtResource("1_tg8p5")
 asset_meta_info_display = NodePath("../VSplitContainer/ScrollContainer/AssetMetaInfo/AssetMetaInfoDisplay")
 metadata/_custom_type_script = "uid://bfqubijg7p3yh"
 
@@ -38,7 +38,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 4.0
 grow_vertical = 2
-theme = ExtResource("1_vmxhd")
+theme = ExtResource("2_iqbsj")
 theme_type_variation = &"SeparatorBar"
 
 [node name="VSplitContainer" type="VSplitContainer" parent="."]
@@ -55,7 +55,7 @@ split_offset = 500
 
 [node name="Panel" type="Panel" parent="VSplitContainer"]
 layout_mode = 2
-theme = ExtResource("1_vmxhd")
+theme = ExtResource("2_iqbsj")
 theme_type_variation = &"AssetInfoSidebar"
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="VSplitContainer/Panel"]
@@ -77,13 +77,13 @@ size = Vector2i(1910, 500)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport"]
-environment = ExtResource("3_cmef0")
+environment = ExtResource("3_ia7ne")
 camera_attributes = SubResource("CameraAttributesPractical_5565g")
 compositor = SubResource("Compositor_ik0vy")
 
 [node name="SpawnPoint" type="Node3D" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport" node_paths=PackedStringArray("spring_arm_3d")]
 unique_name_in_owner = true
-script = ExtResource("4_iwccm")
+script = ExtResource("4_ossag")
 spring_arm_3d = NodePath("../SpringArm3D")
 
 [node name="DemoObject" type="MeshInstance3D" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpawnPoint"]
@@ -102,7 +102,7 @@ current = true
 [node name="ScrollContainer" type="ScrollContainer" parent="VSplitContainer"]
 layout_mode = 2
 
-[node name="AssetMetaInfo" parent="VSplitContainer/ScrollContainer" instance=ExtResource("5_0c1kf")]
+[node name="AssetMetaInfo" parent="VSplitContainer/ScrollContainer" instance=ExtResource("5_68iah")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
