@@ -1,5 +1,6 @@
 class_name ServerHandler extends Node
 
+@export var server_info: ServerInfo
 @export var server_exchange_manager: ServerExchangeManager
 
 signal has_fetched_from_server
@@ -9,7 +10,8 @@ var ws: WebSocketPeer = WebSocketPeer.new()
 const WS_PRE = "ws://"
 const HTTP_PRE = "http://"
 
-var address = "127.0.0.1:8000"
+#var address = "127.0.0.1:8000"
+#var address = server
 var server_name: String
 var server_version: String
 var asset_categories: Array
@@ -21,7 +23,7 @@ func _ready():
 	server_exchange_manager.set_server_handler(self)
 
 func _fetch_server_info():
-	var request_address = HTTP_PRE+address+"/info"
+	var request_address = HTTP_PRE+server_info.address+"/info"
 	var http = _create_http_request_node()
 	
 	http.request(request_address)
@@ -42,7 +44,7 @@ func _on_request_completed_server_info(_result, _response_code, _headers, body):
 func fetch_package_names_in_category(category_name: String):
 	
 	var sub_url = "/assets/categories/"+category_name+"/package_list"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	
 	var http = _create_http_request_node()
 	
@@ -57,7 +59,7 @@ func _on_request_completed_package_names_in_category(_result, _response_code, _h
 
 func fetch_asset_info(category_name: String, package_name: String, tile: ServerAssetTile2D):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/asset_info"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	
 	var http = _create_http_request_node()
 	http.request(request_address)
@@ -67,7 +69,7 @@ func fetch_asset_info(category_name: String, package_name: String, tile: ServerA
 
 func download_package_info_for_saving(category_name: String, package_name: String):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/package_info"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	
 	var http = _create_http_request_node()
 	http.request(request_address)
@@ -77,7 +79,7 @@ func download_package_info_for_saving(category_name: String, package_name: Strin
 
 func fetch_asset_preview(category_name: String, package_name: String, tile: ServerAssetTile2D):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/preview"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	
 	var http = _create_http_request_node()
 	
@@ -88,7 +90,7 @@ func fetch_asset_preview(category_name: String, package_name: String, tile: Serv
 
 func download_asset_from_server(category_name: String, package_name: String):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/download"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	
 	var http = _create_http_request_node()
 	
@@ -107,7 +109,7 @@ func get_server_name() -> String:
 func upload_asset_info(category_name: String, asset_info: AssetInfo):
 	
 	var sub_url = "/assets/categories/"+category_name+"/upload_asset_info"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	var headers = ["Content-Type: application/json"]
 	
 	var http = _create_http_request_node()
@@ -131,7 +133,7 @@ func upload_asset_info(category_name: String, asset_info: AssetInfo):
 func upload_asset_archive_to_server(category_name: String, package_name: String, version: String, asset_archive_path: String):
 	
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+version+"/upload_asset_archive"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	
 	var http = _create_http_request_node()
 	
@@ -165,7 +167,7 @@ func upload_asset_archive_to_server(category_name: String, package_name: String,
 func upload_asset_preview_image(category_name: String, package_name: String, version: String, image: Image):
 	
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+version+"/upload_asset_preview"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	
 	var http = _create_http_request_node()
 	
@@ -193,7 +195,7 @@ func upload_asset_preview_image(category_name: String, package_name: String, ver
 func fave_package(category_name: String, package_name: String, asset_tile: ServerAssetTile2D):
 	
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"add_favorite"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	var headers = ["Content-Type: application/json"]
 	
 	var http = _create_http_request_node()
@@ -215,7 +217,7 @@ func fave_package(category_name: String, package_name: String, asset_tile: Serve
 	
 func unfave_package(category_name: String, package_name: String, asset_tile: ServerAssetTile2D):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"remove_favorite"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	var headers = ["Content-Type: application/json"]
 	
 	var http = _create_http_request_node()
@@ -238,7 +240,7 @@ func unfave_package(category_name: String, package_name: String, asset_tile: Ser
 func fetch_package_faves(category_name: String, package_name: String, asset_tile: ServerAssetTile2D):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"favorites"
 	var query = "?user_uuid="+Startup.load_identity_uuid()
-	var request_address = HTTP_PRE+address+sub_url+query
+	var request_address = HTTP_PRE+server_info.address+sub_url+query
 	
 	var http = _create_http_request_node()
 	
@@ -253,7 +255,7 @@ func fetch_package_faves(category_name: String, package_name: String, asset_tile
 func fetch_package_comments(category_name: String, package_name: String, asset_info_display: AssetMetaInfoDisplay) -> void:
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"comments"
 	var query = "?user_uuid="+Startup.load_identity_uuid()
-	var request_address = HTTP_PRE+address+sub_url+query
+	var request_address = HTTP_PRE+server_info.address+sub_url+query
 	
 	var http = _create_http_request_node()
 	var error = http.request(request_address)
@@ -272,7 +274,7 @@ func delete_package_comment(message_uuid: String) -> void:
 	var package_name = explorer_handler.get_latest_clicked_server_tile().asset_info.package_name
 	
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"remove_comment"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	var headers = ["Content-Type: application/json"]
 	
 	var http = _create_http_request_node()
@@ -302,7 +304,7 @@ func post_package_comment(text_message: String) -> void:
 	var package_name = explorer_handler.get_latest_clicked_server_tile().asset_info.package_name
 	
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"add_comment"
-	var request_address = HTTP_PRE+address+sub_url
+	var request_address = HTTP_PRE+server_info.address+sub_url
 	var headers = ["Content-Type: application/json"]
 	
 	var http = _create_http_request_node()

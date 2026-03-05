@@ -1,14 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://kfomt2xswri8"]
+[gd_scene load_steps=4 format=3 uid="uid://kfomt2xswri8"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_h5pmh"]
+[ext_resource type="Script" uid="uid://tq3q4xsnc0il" path="res://scripts/LocationSelector.gd" id="1_k01r3"]
 [ext_resource type="PackedScene" uid="uid://cbkbgf8jlopto" path="res://scenes/subscenes/LocationButton.tscn" id="2_sw0j3"]
 
-[node name="LocationSelector" type="Control"]
+[node name="LocationSelector" type="Control" node_paths=PackedStringArray("location_spawner")]
 layout_mode = 3
 anchor_right = 0.052083332
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_k01r3")
+location_spawner = NodePath("LeftSidePanel/LocationSpawner")
 metadata/_edit_use_anchors_ = true
 
 [node name="LeftSidePanel" type="Panel" parent="."]
@@ -20,7 +23,7 @@ grow_vertical = 2
 theme = ExtResource("1_h5pmh")
 theme_type_variation = &"LocationSidebar"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LeftSidePanel"]
+[node name="LocationSpawner" type="VBoxContainer" parent="LeftSidePanel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.021000002
@@ -32,19 +35,23 @@ offset_bottom = -858.0
 pivot_offset = Vector2(40, 0)
 theme = ExtResource("1_h5pmh")
 
-[node name="MyPC" parent="LeftSidePanel/VBoxContainer" instance=ExtResource("2_sw0j3")]
+[node name="MyPC" parent="LeftSidePanel/LocationSpawner" node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
 layout_mode = 2
 size_flags_horizontal = 0
+location_selector = NodePath("../../..")
 
-[node name="LocationButton" parent="LeftSidePanel/VBoxContainer/MyPC" index="0"]
+[node name="LocationButton" parent="LeftSidePanel/LocationSpawner/MyPC" index="0"]
 button_pressed = true
 
-[node name="Server1" parent="LeftSidePanel/VBoxContainer" instance=ExtResource("2_sw0j3")]
+[node name="Server1" parent="LeftSidePanel/LocationSpawner" node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
+visible = false
 layout_mode = 2
 scene_type = 1
+location_selector = NodePath("../../..")
 
-[node name="AddServer" parent="LeftSidePanel/VBoxContainer" instance=ExtResource("2_sw0j3")]
+[node name="AddServer" parent="LeftSidePanel/LocationSpawner" node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
 layout_mode = 2
 scene_type = 2
+location_selector = NodePath("../../..")
 
-[editable path="LeftSidePanel/VBoxContainer/MyPC"]
+[editable path="LeftSidePanel/LocationSpawner/MyPC"]

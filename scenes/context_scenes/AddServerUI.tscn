@@ -1,0 +1,144 @@
+[gd_scene load_steps=12 format=3 uid="uid://vopv1427n8vl"]
+
+[ext_resource type="Script" uid="uid://ccrd8busdgko2" path="res://scripts/AddServerManager.gd" id="1_irbey"]
+[ext_resource type="Texture2D" uid="uid://cy37ce6sj3qyk" path="res://icons/plus-circle.png" id="1_w54n6"]
+[ext_resource type="Script" uid="uid://dtsmmncsk4e38" path="res://scripts/server/ServerConnectionChecker.gd" id="2_ax17f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ch5jg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w54n6"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w54n6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w54n6"]
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_ch5jg"]
+font_size = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_irbey"]
+
+[sub_resource type="FontVariation" id="FontVariation_w54n6"]
+spacing_glyph = 2
+spacing_top = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irbey"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[node name="AddServerUi" type="PanelContainer" node_paths=PackedStringArray("server_connection_checker", "address_field", "status_field")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ch5jg")
+script = ExtResource("1_irbey")
+server_connection_checker = NodePath("ServerConnectionChecker")
+address_field = NodePath("HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer/AddressField/AddressTextEdit")
+status_field = NodePath("HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer/StatusInfoField")
+
+[node name="ServerConnectionChecker" type="Node" parent="."]
+script = ExtResource("2_ax17f")
+metadata/_custom_type_script = "uid://dtsmmncsk4e38"
+
+[node name="Background" type="Panel" parent="."]
+self_modulate = Color(1, 0.81094825, 0.41276187, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w54n6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="placeholder_location_select" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w54n6")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 100
+
+[node name="Form" type="PanelContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/Form"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer/Form/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+
+[node name="Header" type="VBoxContainer" parent="HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HeaderLabel" type="Label" parent="HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer/Header"]
+layout_mode = 2
+text = "Adding a new server"
+label_settings = SubResource("LabelSettings_w54n6")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer/Header"]
+layout_mode = 2
+
+[node name="AddressField" type="VBoxContainer" parent="HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer/AddressField"]
+layout_mode = 2
+text = "IP Address"
+label_settings = SubResource("LabelSettings_ch5jg")
+horizontal_alignment = 1
+
+[node name="AddressTextEdit" type="TextEdit" parent="HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer/AddressField"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_irbey")
+placeholder_text = "Server IP and port"
+emoji_menu_enabled = false
+scroll_fit_content_height = true
+
+[node name="StatusInfoField" type="TextEdit" parent="HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 0
+theme_override_colors/font_readonly_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_placeholder_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_fonts/font = SubResource("FontVariation_w54n6")
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxFlat_irbey")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_irbey")
+placeholder_text = "Please enter the servers IP-address with a port
+For example:  127.0.0.1:11300"
+editable = false
+highlight_all_occurrences = true
+
+[node name="AddServerButton" type="Button" parent="HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Add Server"
+icon = ExtResource("1_w54n6")
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/MarginContainer/Form/MarginContainer/VBoxContainer/AddServerButton" to="." method="_on_add_server_button_pressed"]

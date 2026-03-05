@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bo8w8k6tnqxov"]
+[gd_scene load_steps=4 format=3 uid="uid://bo8w8k6tnqxov"]
 
+[ext_resource type="Script" uid="uid://o4pqkx1biahe" path="res://scripts/infos/ServerInfo.gd" id="1_eeh8r"]
 [ext_resource type="PackedScene" uid="uid://6105aqmty783" path="res://scenes/subscenes/asset_views/ServerAssetView2D.tscn" id="1_g1f48"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guh61"]
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_eeh8r")
 
 [node name="Background" type="Panel" parent="."]
 self_modulate = Color(1, 0.81094825, 0.41276187, 1)
@@ -26,6 +28,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_guh61")
 
 [node name="ServerAssetView2D" parent="Background" instance=ExtResource("1_g1f48")]
 layout_mode = 1
+
+[node name="ServerHandler" parent="Background/ServerAssetView2D" index="0" node_paths=PackedStringArray("server_info")]
+server_info = NodePath("../../..")
 
 [node name="DirectoryHandler" parent="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector" index="1" node_paths=PackedStringArray("explorer_handler")]
 explorer_handler = NodePath("../../../../../../AssetExplorerHandler")
