@@ -50,7 +50,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qrm20")
 
 [node name="Label" type="Label" parent="ServerAssetSelectionDisabled"]
 layout_mode = 2
-text = "Selecting Server-Assets is disabled in Upload Mode"
+text = "Selecting Server-Assets is disabled in Upload Mode
+
+Uploaded Assets will be placed here"
 label_settings = SubResource("LabelSettings_gvwuj")
 horizontal_alignment = 1
 clip_text = true
@@ -67,7 +69,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jqdhl")
 
 [node name="Label" type="Label" parent="LocalAssetSelectionDisabled"]
 layout_mode = 2
-text = "Selecting Local-Assets is disabled in Download Mode"
+text = "Selecting Local-Assets is disabled in Download Mode
+
+Downloaded Assets will be placed here"
 label_settings = SubResource("LabelSettings_gvwuj")
 horizontal_alignment = 1
 clip_text = true

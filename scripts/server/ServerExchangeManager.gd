@@ -27,7 +27,7 @@ func set_exchange_mode(exchange_mode: ExchangeMode) -> void:
 	
 	current_exchange_mode = exchange_mode
 	server_explorer_handler.set_overlay_status(current_exchange_mode)
-	asset_explorer_handler.set_overlay_status(current_exchange_mode)	
+	asset_explorer_handler.set_overlay_status(current_exchange_mode)
 
 func add_to_selection(asset_tile: AbstractAssetTile) -> void:
 	var added_asset: ExchangeBarAddedAsset = ServerExchangeBar.create_exchange_bar_asset(asset_tile)

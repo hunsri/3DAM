@@ -6,6 +6,7 @@ class_name ServerAssetTile2D extends AbstractAssetTile
 
 var asset_handler: ServerExplorerHandler
 var asset_info: AssetInfo
+var preview_image: Image
 
 func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInfo):
 	asset_handler = p_asset_handler
@@ -56,6 +57,7 @@ func on_request_completed_fetch_asset_preview(_result, _response_code, _headers,
 		var texture := ImageTexture.new()
 		texture = ImageTexture.create_from_image(image)
 		
+		preview_image = image
 		asset_preview.texture = texture
 	
 	asset_handler.server_handler.fetch_package_faves(
@@ -125,3 +127,6 @@ func _on_fave_button_pressed() -> void:
 			asset_info.package_name,
 			self
 			)
+
+func get_preview_image() -> Image:
+	return preview_image

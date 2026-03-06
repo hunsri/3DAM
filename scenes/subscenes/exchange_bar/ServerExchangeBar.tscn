@@ -1,14 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://djmadqb6fsp38"]
+[gd_scene load_steps=8 format=3 uid="uid://djmadqb6fsp38"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_hm4ou"]
 [ext_resource type="Script" uid="uid://dehaxai5w18o8" path="res://scripts/exchange_bar/ServerExchangeBar.gd" id="2_m5n62"]
 [ext_resource type="Texture2D" uid="uid://o5aigvrls7c2" path="res://icons/load-arrow.png" id="4_02vhf"]
+[ext_resource type="Texture2D" uid="uid://ccayuoqdvd463" path="res://icons/download-arrow.png" id="4_hm4ou"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_goqtp"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m5n62"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_laos8"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhuqo"]
 
-[node name="ServerExchangeBar" type="Panel" node_paths=PackedStringArray("added_assets_container")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hm4ou"]
+
+[node name="ServerExchangeBar" type="Panel" node_paths=PackedStringArray("upload_button_container", "download_button_container", "help_panel", "added_assets_container")]
 clip_contents = true
 anchors_preset = 10
 anchor_right = 1.0
@@ -17,6 +20,9 @@ grow_horizontal = 2
 theme = ExtResource("1_hm4ou")
 theme_type_variation = &"ServerExchangeBar"
 script = ExtResource("2_m5n62")
+upload_button_container = NodePath("HBoxContainer/LoadSelect/Upload")
+download_button_container = NodePath("HBoxContainer/LoadSelect/Download")
+help_panel = NodePath("HBoxContainer/HelpPanel")
 added_assets_container = NodePath("HBoxContainer/SelectedAssetsContainer/ScrollContainer/AddedAssetsContainer")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -29,100 +35,95 @@ offset_right = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="HelpPanel" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Help" type="Label" parent="HBoxContainer/HelpPanel"]
+layout_mode = 2
+text = "Click the checkbox of an asset ("
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/HelpPanel"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_m5n62")
+
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer/HelpPanel/PanelContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+
+[node name="Help2" type="Label" parent="HBoxContainer/HelpPanel"]
+layout_mode = 2
+text = ") to select it for upload / download"
+
 [node name="LoadSelect" type="VBoxContainer" parent="HBoxContainer"]
 z_index = 1
 layout_mode = 2
 alignment = 1
 
 [node name="Upload" type="PanelContainer" parent="HBoxContainer/LoadSelect"]
+visible = false
 layout_mode = 2
-size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yhuqo")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/LoadSelect/Upload"]
+[node name="Control" type="Control" parent="HBoxContainer/LoadSelect/Upload"]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/LoadSelect/Upload/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("4_02vhf")
-expand_mode = 2
-
-[node name="UploadLabel" type="Label" parent="HBoxContainer/LoadSelect/Upload/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 16
-text = "Upload"
-vertical_alignment = 1
-
-[node name="Spacer" type="PanelContainer" parent="HBoxContainer/LoadSelect/Upload/HBoxContainer"]
-custom_minimum_size = Vector2(10, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_goqtp")
+[node name="Upload-Mode-Connector" type="ColorRect" parent="HBoxContainer/LoadSelect/Upload/Control"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 0
+offset_right = 6.0
+offset_bottom = 2.0
+size_flags_vertical = 6
+size_flags_stretch_ratio = 9.94
 
 [node name="UploadButton" type="Button" parent="HBoxContainer/LoadSelect/Upload"]
 layout_mode = 2
-flat = true
+theme = ExtResource("1_hm4ou")
+theme_type_variation = &"ActionButton"
+text = "Upload"
+icon = ExtResource("4_02vhf")
 
 [node name="Download" type="PanelContainer" parent="HBoxContainer/LoadSelect"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hm4ou")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/LoadSelect/Download"]
+[node name="Control" type="Control" parent="HBoxContainer/LoadSelect/Download"]
+z_index = -1
 layout_mode = 2
+size_flags_horizontal = 8
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/LoadSelect/Download/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("4_02vhf")
-expand_mode = 2
-flip_v = true
-
-[node name="DownloadLabel" type="Label" parent="HBoxContainer/LoadSelect/Download/HBoxContainer"]
-layout_mode = 2
-text = "Download"
-vertical_alignment = 1
-
-[node name="Spacer" type="PanelContainer" parent="HBoxContainer/LoadSelect/Download/HBoxContainer"]
-custom_minimum_size = Vector2(10, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_goqtp")
+[node name="Download-Mode-Connector" type="ColorRect" parent="HBoxContainer/LoadSelect/Download/Control"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -1.0
+offset_right = 6.0
+offset_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 9.94
 
 [node name="DownloadButton" type="Button" parent="HBoxContainer/LoadSelect/Download"]
 layout_mode = 2
-flat = true
+theme = ExtResource("1_hm4ou")
+theme_type_variation = &"ActionButton"
+text = "Dowload"
+icon = ExtResource("4_hm4ou")
 
-[node name="Mode-Upload-Connectors" type="Control" parent="HBoxContainer"]
-z_as_relative = false
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Mode-Upload-Connectors"]
-visible = false
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -5.0
-offset_right = 5.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(50, 0)
-
-[node name="Upload-Mode-Connector" type="ColorRect" parent="HBoxContainer/Mode-Upload-Connectors/VBoxContainer"]
-custom_minimum_size = Vector2(0, 2)
-layout_mode = 2
-size_flags_vertical = 6
-size_flags_stretch_ratio = 9.94
-
-[node name="Download-Mode-Connector" type="ColorRect" parent="HBoxContainer/Mode-Upload-Connectors/VBoxContainer"]
-custom_minimum_size = Vector2(0, 2)
-layout_mode = 2
-size_flags_vertical = 6
-size_flags_stretch_ratio = 9.94
-
-[node name="SelectedAssetsContainer" type="PanelContainer" parent="HBoxContainer"]
+[node name="SelectedAssetsContainer" type="MarginContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_laos8")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/SelectedAssetsContainer"]
 layout_mode = 2

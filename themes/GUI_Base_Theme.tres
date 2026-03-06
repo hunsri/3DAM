@@ -1,4 +1,39 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://koi0noce4p5b"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://koi0noce4p5b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wv13x"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.17850693, 0.3275688, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csgoj"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.32156864, 0.5686275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jv0yt"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.5647059, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6xor"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.38972932, 0.6875, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2vd4"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.47058824, 0.83137256, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80ok1"]
 bg_color = Color(0.69411767, 0.69803923, 0.70980394, 1)
@@ -50,6 +85,12 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
 
 [resource]
+ActionButton/base_type = &"Button"
+ActionButton/styles/disabled = SubResource("StyleBoxFlat_wv13x")
+ActionButton/styles/hover = SubResource("StyleBoxFlat_csgoj")
+ActionButton/styles/hover_pressed = SubResource("StyleBoxFlat_jv0yt")
+ActionButton/styles/normal = SubResource("StyleBoxFlat_o6xor")
+ActionButton/styles/pressed = SubResource("StyleBoxFlat_e2vd4")
 AssetExplorer2d/base_type = &"Panel"
 AssetExplorer2d/styles/panel = SubResource("StyleBoxFlat_80ok1")
 AssetInfoSidebar/base_type = &"Panel"
@@ -58,7 +99,7 @@ DirLocHeader/base_type = &"Panel"
 DirLocHeader/styles/panel = SubResource("StyleBoxFlat_36jfa")
 DirectorySidebar/base_type = &"Tree"
 DirectorySidebar/styles/panel = SubResource("StyleBoxFlat_icbql")
-LocationButton/base_type = &"Button"
+LocationButton/base_type = &"ActionButton"
 LocationButton/styles/focus = null
 LocationButton/styles/hover = SubResource("StyleBoxFlat_jnq2o")
 LocationButton/styles/hover_pressed = SubResource("StyleBoxFlat_tt36u")

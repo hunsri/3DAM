@@ -2,12 +2,20 @@ class_name ServerExchangeBar extends Panel
 
 const EXCHANGE_BAR_ADDED_ASSET = preload("uid://lmanvmaaobvi")
 
+@export var upload_button_container: PanelContainer
+@export var download_button_container: PanelContainer
+@export var help_panel: HBoxContainer
+
 @export var added_assets_container: HBoxContainer
 var _exchange_manager: ServerExchangeManager
 
 static func create_exchange_bar_asset(p_asset_tile: AbstractAssetTile) -> ExchangeBarAddedAsset:
 	var ret : ExchangeBarAddedAsset = EXCHANGE_BAR_ADDED_ASSET.instantiate()
 	ret.asset_tile = p_asset_tile
+	
+	var image: Image = p_asset_tile.get_preview_image()
+	if image != null:
+		ret.set_asset_image(ImageTexture.create_from_image(image))
 	return ret
 
 func add_to_bar(added_asset: ExchangeBarAddedAsset) -> void:
@@ -19,9 +27,15 @@ func add_to_bar(added_asset: ExchangeBarAddedAsset) -> void:
 	
 	if added_asset.asset_tile is ServerAssetTile2D:
 		_exchange_manager.set_exchange_mode(ServerExchangeManager.ExchangeMode.DOWNLOAD)
+		help_panel.visible = false
+		upload_button_container.visible = false
+		download_button_container.visible = true
 	elif added_asset.asset_tile is AssetTile2D:
 		_exchange_manager.set_exchange_mode(ServerExchangeManager.ExchangeMode.UPLOAD)
-
+		help_panel.visible = false
+		upload_button_container.visible = true
+		download_button_container.visible = false
+		
 func remove_from_bar(added_asset: ExchangeBarAddedAsset) -> void:
 	var tile: AbstractAssetTile = added_asset.asset_tile
 	var sub_logic: TileSubLogic = tile.tile_sub_logic
@@ -31,6 +45,9 @@ func remove_from_bar(added_asset: ExchangeBarAddedAsset) -> void:
 	added_assets_container.remove_child(added_asset)
 	if added_assets_container.get_children().size() == 0:
 		_exchange_manager.set_exchange_mode(ServerExchangeManager.ExchangeMode.NONE)
+		help_panel.visible = true
+		upload_button_container.visible = false
+		download_button_container.visible = false
 	
 func clear_bar() -> void:
 	for child in added_assets_container.get_children():

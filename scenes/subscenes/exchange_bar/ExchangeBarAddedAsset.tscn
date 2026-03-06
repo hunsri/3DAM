@@ -1,26 +1,60 @@
-[gd_scene load_steps=2 format=3 uid="uid://lmanvmaaobvi"]
+[gd_scene load_steps=5 format=3 uid="uid://lmanvmaaobvi"]
 
 [ext_resource type="Script" uid="uid://dh6a3s5lqrmql" path="res://scripts/exchange_bar/ExchangeBarAddedAsset.gd" id="1_0uxll"]
+[ext_resource type="Texture2D" uid="uid://cy37ce6sj3qyk" path="res://icons/plus-circle.png" id="2_larc0"]
 
-[node name="ExchangeBarAddedAsset" type="PanelContainer" node_paths=PackedStringArray("_asset_name")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_larc0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_right = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3bapm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[node name="ExchangeBarAddedAsset" type="PanelContainer" node_paths=PackedStringArray("_asset_name", "_asset_texture")]
 custom_minimum_size = Vector2(200, 60)
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.055555556
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_larc0")
 script = ExtResource("1_0uxll")
-_asset_name = NodePath("MarginContainer/AssetNameLabel")
+_asset_name = NodePath("MarginContainer/HBoxContainer/AssetNameLabel")
+_asset_texture = NodePath("MarginContainer/HBoxContainer/PanelContainer/AssetImage")
 metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
 
-[node name="AssetNameLabel" type="Label" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3bapm")
+
+[node name="AssetImage" type="TextureRect" parent="MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("2_larc0")
+expand_mode = 3
+
+[node name="AssetNameLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "text"
 
 [node name="AddedAssetClickedButton" type="Button" parent="."]
 layout_mode = 2
+flat = true
