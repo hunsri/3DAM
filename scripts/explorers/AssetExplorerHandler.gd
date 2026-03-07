@@ -18,7 +18,7 @@ func _ready() -> void:
 func reload_explorer() -> void:
 	remove_all_tiles()
 	asset_infos = []
-	asset_infos = fetch_assets_info(directory_handler.get_currently_open_directory())
+	asset_infos = _fetch_assets_info(directory_handler.get_currently_open_directory())
 	populate(asset_infos)
 
 func asset_clicked(file_name: String) -> void:
@@ -38,7 +38,8 @@ func set_overlay_status(exchange_mode: ServerExchangeManager.ExchangeMode) -> vo
 	if selector_overlay != null:
 		selector_overlay.set_overlay(exchange_mode)
 
-func fetch_assets_info(directory: String) -> Array[AssetInfo]:
+func _fetch_assets_info(directory: String) -> Array[AssetInfo]:
+	
 	var ret: Array[AssetInfo] = []
 	
 	var dir_access = DirAccess.open(directory)

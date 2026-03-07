@@ -27,9 +27,15 @@ func _ready() -> void:
 		
 		if asset_info_of_current_package_version != null:
 			tile_sub_logic.set_file_extension(asset_info_of_current_package_version.asset_file_name.get_extension())
+			asset_info = asset_info_of_current_package_version
 		
 func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInfo):
-	asset_info = p_asset_info
+	
+	# not super clean, but
+	# in case we already found and loaded asset_info from a package in _ready
+	# we discard the given asset_info
+	if asset_info == null:
+		asset_info = p_asset_info
 	
 	set_handler(p_asset_handler)
 	set_asset_label(p_asset_info.asset_file_name)
@@ -38,6 +44,7 @@ func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInf
 		package_info = PackageUtils.load_package_info_from_root(asset_info.get_path_to_local_asset())
 	
 	var is_supported = AssetUtils.is_file_name_supported(p_asset_info.asset_file_name)
+	is_supported = is_supported || PackageUtils.is_target_package(asset_info.get_path_to_local_asset())
 	tile_sub_logic.set_is_supported_asset(is_supported)
 	
 	# disable selection for exchange if no server is present in the view
