@@ -27,15 +27,10 @@ func _ready() -> void:
 		
 		if asset_info_of_current_package_version != null:
 			tile_sub_logic.set_file_extension(asset_info_of_current_package_version.asset_file_name.get_extension())
-			asset_info = asset_info_of_current_package_version
 		
 func setup_tile(p_asset_handler: AbstractExplorerHandler, p_asset_info: AssetInfo):
 	
-	# not super clean, but
-	# in case we already found and loaded asset_info from a package in _ready
-	# we discard the given asset_info
-	if asset_info == null:
-		asset_info = p_asset_info
+	asset_info = p_asset_info
 	
 	set_handler(p_asset_handler)
 	set_asset_label(p_asset_info.asset_file_name)
@@ -62,7 +57,8 @@ func set_asset_label(asset_name: String):
 	asset_name_label.text = asset_name
 
 func _on_asset_clicked_button_pressed() -> void:
-	asset_handler.asset_clicked(asset_name_label.text)
+	asset_handler.asset_clicked(self)
+	tile_sub_logic.set_highlighted(true)
 
 func display_model_preview() -> void:
 	var full_path = asset_handler.directory_handler.get_currently_open_directory() + "/" + asset_name_label.text
@@ -87,6 +83,9 @@ func _on_selection_checkbox_pressed() -> void:
 
 func is_selected() -> bool:
 	return tile_sub_logic.selected.button_pressed
+
+func get_tile_sublogic() -> TileSubLogic:
+	return tile_sub_logic
 
 func get_asset_info() -> AssetInfo:
 	return asset_info

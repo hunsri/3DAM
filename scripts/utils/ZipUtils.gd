@@ -47,12 +47,13 @@ static func extract_all_from_zip(path_to_archive: String, path_to_destination: S
 		file.store_buffer(buffer)
 
 ## Creates a zip-archive of a given asset to be used to upload it to an asset-server [br]
-## The zip-archive is placed under [constant ZipUtils.TEMP_ZIP_DIR]
+## The zip-archive is placed under [constant ZipUtils.TEMP_ZIP_DIR] [br]
+## 
+## If asset is part of a package, the asset_info of the respective package_version must be provided
 ## Returns the path to the created zip-archive
-static func create_zip_from_asset_info(currently_open_directory: String, asset_info: AssetInfo) -> String:
-	var target := ProjectSettings.globalize_path(currently_open_directory +"/"+ asset_info.asset_file_name)
+static func create_zip_from_asset_info(asset_info: AssetInfo) -> String:
+	var target = asset_info.get_path_to_local_asset()
 	
-	#TODO check if target is a package
 	#TODO delete cache entry after upload
 	
 	# This could create a potential collision if we aren't careful, best to delete the cache after upload

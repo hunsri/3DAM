@@ -82,11 +82,18 @@ func upload_selected_assets() -> void:
 		
 func upload_single_asset(asset: AssetTile2D) -> void:
 	
-	asset_info_of_current_upload = asset.asset_info
+	var asset_info_upload: AssetInfo
+	if asset.asset_info_of_current_package_version != null:
+		# in case the asset is a package, we want to send the asset info of the current version
+		asset_info_upload = asset.asset_info_of_current_package_version
+	else:
+		asset_info_upload = asset.asset_info
+	
+	asset_info_of_current_upload = asset_info_upload
 	var category_name := server_explorer_handler.category_handler.get_currently_open_category()
 	
 	# uploads the zip archive as part of the response handling in on_request_completed_upload_asset_info
-	_server_handler.upload_asset_info(category_name, asset.asset_info)
+	_server_handler.upload_asset_info(category_name, asset_info_upload)
 
 func on_request_completed_upload_asset_info(_result, response_code, _headers, body):
 	#print("Response code:", response_code)
@@ -101,8 +108,8 @@ func on_request_completed_upload_asset_info(_result, response_code, _headers, bo
 			version = res.version
 			
 		var category_name := server_explorer_handler.category_handler.get_currently_open_category()
-		var directory_name := asset_explorer_handler.directory_handler.get_currently_open_directory()
-		var archive_location = ZipUtils.create_zip_from_asset_info(directory_name, asset_info_of_current_upload)
+		#var directory_name := asset_explorer_handler.directory_handler.get_currently_open_directory()
+		var archive_location = ZipUtils.create_zip_from_asset_info(asset_info_of_current_upload)
 		
 		_server_handler.upload_asset_archive_to_server(category_name, asset_info_of_current_upload.package_name, version, archive_location)
 

@@ -5,6 +5,7 @@ class_name AssetExplorerHandler extends AbstractExplorerHandler
 @export var directory_handler: DirectoryHandler
 @export var asset_sidebar_handler: AssetSidebarHandler
 
+## left empty when in local view
 @export var server_handler: ServerHandler
 
 @export var status_overlay: ExplorerStatusOverlay
@@ -21,16 +22,8 @@ func reload_explorer() -> void:
 	asset_infos = _fetch_assets_info(directory_handler.get_currently_open_directory())
 	populate(asset_infos)
 
-func asset_clicked(file_name: String) -> void:
-	var asset_path = directory_handler.get_currently_open_directory()+"/"+file_name
-	
-	asset_sidebar_handler.set_sidebebar_mode(AssetSidebarHandler.SidebarMode.LOCAL)
-	
-	if PackageUtils.is_target_package(asset_path):
-		var version_path = PackageUtils.get_latest_available_package_version(asset_path, true)
-		asset_sidebar_handler.load_model(PackageUtils.get_path_to_model_asset(version_path))
-	else:
-		asset_sidebar_handler.load_model(asset_path)
+func asset_clicked(p_asset_tile: AbstractAssetTile) -> void:
+	asset_sidebar_handler.set_latest_clicked_asset(p_asset_tile)
 
 func set_overlay_status(exchange_mode: ServerExchangeManager.ExchangeMode) -> void:
 	if status_overlay != null:

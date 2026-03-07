@@ -66,7 +66,9 @@ func check_asset_type(file_path: String) -> AssetType:
 		
 	return AssetType.NONE
 
-static func from_json_string(json_string: String, asset_path: String) -> AssetInfo:
+## For extracting the AssetInfo from a packages asset_info.json [/br]
+## Assumes that the given json stems from a package [/br]
+static func from_json_string(json_string: String, package_asset_version_directory: String) -> AssetInfo:
 	var parsed_json:Dictionary = JSON.parse_string(json_string)
 	
 	if parsed_json == null:
@@ -76,6 +78,7 @@ static func from_json_string(json_string: String, asset_path: String) -> AssetIn
 	if !_is_json_valid(parsed_json):
 		return null
 	
+	var asset_path = package_asset_version_directory + "/" + PackageUtils.ASSET_DIR_NAME+ "/" + parsed_json.asset_file_name
 	var ret := AssetInfo.new(parsed_json.package_name, asset_path)
 	
 	ret.version = parsed_json.version

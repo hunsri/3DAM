@@ -11,8 +11,6 @@ class_name ServerExplorerHandler extends AbstractExplorerHandler
 
 var asset_infos: Array[AssetInfo] = []
 
-var _latest_clicked_server_tile: ServerAssetTile2D
-
 func _ready() -> void:
 	reload_explorer()
 	
@@ -55,15 +53,12 @@ func remove_all_tiles():
 	for child in v_box_container.get_children():
 		child.queue_free()
 
-func asset_clicked(server_asset_tile: ServerAssetTile2D) -> void:
-	_latest_clicked_server_tile = server_asset_tile
-	asset_sidebar_handler.set_sidebebar_mode(AssetSidebarHandler.SidebarMode.SERVER)
+func asset_clicked(p_server_asset_tile: AbstractAssetTile) -> void:
+	var server_asset_tile: ServerAssetTile2D = p_server_asset_tile
+	asset_sidebar_handler.set_latest_clicked_asset(server_asset_tile)
 	
 	server_handler.fetch_package_comments(
 		category_handler.get_currently_open_category(),
 		server_asset_tile.asset_info.package_name,
 		asset_sidebar_handler.asset_meta_info_display
 	)
-
-func get_latest_clicked_server_tile() -> ServerAssetTile2D:
-	return _latest_clicked_server_tile

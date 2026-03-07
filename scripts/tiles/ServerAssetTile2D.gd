@@ -100,6 +100,7 @@ func on_request_completed_faving_package(_result, response_code, _headers, _body
 		)
 
 func _on_asset_clicked_button_pressed() -> void:
+	tile_sub_logic.set_highlighted(true)
 	asset_handler.asset_clicked(self)
 
 func _on_selection_checkbox_pressed() -> void:
@@ -107,9 +108,15 @@ func _on_selection_checkbox_pressed() -> void:
 		asset_handler.server_handler.server_exchange_manager.add_to_selection(self)
 	else:
 		asset_handler.server_handler.server_exchange_manager.remove_from_selection(self)
-	
+
+func remove_is_clicked_highlight() -> void:
+	tile_sub_logic.set_higlighted(false)
+
 func is_selected() -> bool:
 	return tile_sub_logic.selected.button_pressed
+
+func get_tile_sublogic() -> TileSubLogic:
+	return tile_sub_logic
 
 func get_asset_info() -> AssetInfo:
 	return asset_info

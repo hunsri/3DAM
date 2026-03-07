@@ -271,7 +271,7 @@ func delete_package_comment(message_uuid: String) -> void:
 	# not optimal, but caller has no easy access to these information, so we have to do it
 	var explorer_handler :=  server_exchange_manager.server_explorer_handler
 	var category_name = explorer_handler.category_handler.get_currently_open_category()
-	var package_name = explorer_handler.get_latest_clicked_server_tile().asset_info.package_name
+	var package_name = explorer_handler.asset_sidebar_handler.get_latest_clicked_asset().asset_info.package_name
 	
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"remove_comment"
 	var request_address = HTTP_PRE+server_info.address+sub_url
@@ -301,7 +301,7 @@ func post_package_comment(text_message: String) -> void:
 	# not optimal, but caller has no easy access to these information, so we have to do it
 	var explorer_handler :=  server_exchange_manager.server_explorer_handler
 	var category_name = explorer_handler.category_handler.get_currently_open_category()
-	var package_name = explorer_handler.get_latest_clicked_server_tile().asset_info.package_name
+	var package_name = explorer_handler.asset_sidebar_handler.get_latest_clicked_asset().asset_info.package_name
 	
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/"+"add_comment"
 	var request_address = HTTP_PRE+server_info.address+sub_url

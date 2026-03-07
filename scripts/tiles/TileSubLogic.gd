@@ -13,6 +13,8 @@ class_name TileSubLogic extends PanelContainer
 @export var fave_inactive_texture: TextureRect
 @export var fave_counter_label: Label
 
+@export var highlighting: PanelContainer
+
 signal selection_button_pressed
 signal fave_button_pressed
 
@@ -103,6 +105,9 @@ func change_status(status: TileStatus) -> void:
 			selected_status_bar.visible = false
 			downloaded_status_bar.visible = true
 			
+
+func set_highlighted(is_highlighted: bool) -> void:
+	highlighting.visible = is_highlighted
 
 func set_selection_disabled(p_selection_disabled: bool) -> void:
 	selection_disabled = p_selection_disabled

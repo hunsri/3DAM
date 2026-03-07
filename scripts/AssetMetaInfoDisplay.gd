@@ -62,7 +62,7 @@ func on_request_completed_delete_package_comment(_result, _response_code, _heade
 	# not ideal, but requesting a new comment list makes it easy to see if the comment was deleted
 	var explorer_handler :=  asset_sidebar_handler.server_handler.server_exchange_manager.server_explorer_handler
 	var category_name = explorer_handler.category_handler.get_currently_open_category()
-	var package_name = explorer_handler.get_latest_clicked_server_tile().asset_info.package_name
+	var package_name = explorer_handler.asset_sidebar_handler.get_latest_clicked_asset().asset_info.package_name
 	asset_sidebar_handler.server_handler.fetch_package_comments(category_name, package_name, self)
 
 func _on_send_button_pressed() -> void:
@@ -76,5 +76,5 @@ func on_request_completed_post_package_comment(_result, _response_code, _headers
 	
 	var explorer_handler :=  asset_sidebar_handler.server_handler.server_exchange_manager.server_explorer_handler
 	var category_name = explorer_handler.category_handler.get_currently_open_category()
-	var package_name = explorer_handler.get_latest_clicked_server_tile().asset_info.package_name
+	var package_name = explorer_handler.asset_sidebar_handler.get_latest_clicked_asset().asset_info.package_name
 	asset_sidebar_handler.server_handler.fetch_package_comments(category_name, package_name, self)

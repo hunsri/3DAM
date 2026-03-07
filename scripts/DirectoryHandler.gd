@@ -16,19 +16,22 @@ func _ready() -> void:
 	if not is_instance_valid(explorer_handler):
 		push_error("No AssetExplorerHandler connected! Please connect one.")
 
-func _open_dir_in_explorer() -> void:
+func _open_dir_in_file_explorer() -> void:
 	var abs_path: String = ProjectSettings.globalize_path(default_asset_path)
 	if abs_path != "":
 		OS.shell_open(abs_path)
 
+## For clicking the head of the directory, to open the file explorer of the OS
 func _on_directory_name_pressed() -> void:
-	_open_dir_in_explorer()
+	_open_dir_in_file_explorer()
 
 ## Returns the currently open path in globalized form
 func get_currently_open_directory() -> String:
 	return ProjectSettings.globalize_path(_currently_open_directory)
 
 func _on_tree_item_selected() -> void:
+	explorer_handler.asset_sidebar_handler.reset_sidebar()
+	
 	var sub_path = directory_tree.get_selected().get_text(0)
 	
 	var parent = directory_tree.get_selected().get_parent()

@@ -28,12 +28,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_guh61")
 [node name="AssetExplorer2d" parent="Background" instance=ExtResource("3_j4ict")]
 layout_mode = 1
 
-[node name="AssetExplorerHandler" parent="Background/AssetExplorer2d" index="0" node_paths=PackedStringArray("directory_handler", "asset_info_handler")]
+[node name="AssetExplorerHandler" parent="Background/AssetExplorer2d" index="0" node_paths=PackedStringArray("directory_handler")]
 directory_handler = NodePath("../../DirectorySelector/DirectoryHandler")
-asset_info_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetInfoHandler")
-
-[node name="SubViewport" parent="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/VSplitContainer/Panel/SubViewportContainer" index="0"]
-size = Vector2i(2, 2)
 
 [node name="DirectorySelector" parent="Background" instance=ExtResource("2_skpw3")]
 layout_mode = 1
@@ -45,4 +41,5 @@ explorer_handler = NodePath("../../AssetExplorer2d/AssetExplorerHandler")
 
 [editable path="Background/AssetExplorer2d"]
 [editable path="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar"]
+[editable path="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/VSplitContainer/ScrollContainer/AssetMetaInfo"]
 [editable path="Background/DirectorySelector"]
