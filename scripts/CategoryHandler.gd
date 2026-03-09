@@ -9,13 +9,13 @@ var server_categories: Array
 var _currently_selected_category: String
 
 func _ready() -> void:
-	#server_handler.waiting_for_data()
 	await server_handler.has_fetched_from_server
 	
 	server_name.text = server_handler.get_server_name()
 	server_categories = server_handler.get_asset_category()
 	
 	category_selector.draw_tree(server_categories)
+	category_selector.force_selection_of_first_child()
 	
 func get_currently_open_category() -> String:
 	return _currently_selected_category
