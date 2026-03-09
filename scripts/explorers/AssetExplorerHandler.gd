@@ -1,6 +1,6 @@
 class_name AssetExplorerHandler extends AbstractExplorerHandler
 
-@onready var v_box_container: VBoxContainer = %VBoxContainer
+@export var local_asset_container: MarginContainer
 
 @export var directory_handler: DirectoryHandler
 @export var asset_sidebar_handler: AssetSidebarHandler
@@ -55,8 +55,8 @@ func add_tile_line(assets: Array[AssetInfo]) -> void:
 	var tile_line = ResourceManager.create_tile_line()
 	tile_line.set_explorer_handler(self)
 	tile_line.populate(assets)
-	v_box_container.add_child(tile_line)
+	local_asset_container.add_child(tile_line)
 
 func remove_all_tiles():
-	for child in v_box_container.get_children():
+	for child in local_asset_container.get_children():
 		child.queue_free()

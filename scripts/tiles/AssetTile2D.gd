@@ -56,6 +56,9 @@ func set_handler(p_asset_handler: AssetExplorerHandler) -> void:
 func set_asset_label(asset_name: String):
 	asset_name_label.text = asset_name
 
+func set_highlighted(is_highlighted: bool) -> void:
+	tile_sub_logic.set_highlighted(is_highlighted)
+	
 func _on_asset_clicked_button_pressed() -> void:
 	asset_handler.asset_clicked(self)
 	tile_sub_logic.set_highlighted(true)

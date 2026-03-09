@@ -27,6 +27,9 @@ func reset_sidebar() -> void:
 	reset_model()
 	reset_preview_image()
 	_set_sidebebar_mode(SidebarMode.LOCAL)
+	
+	if _latest_clicked_asset != null:
+		_latest_clicked_asset.set_highlighted(false)
 
 func load_model(path_to_model: String):
 	

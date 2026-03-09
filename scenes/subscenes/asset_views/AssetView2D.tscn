@@ -16,8 +16,9 @@ grow_vertical = 2
 size_flags_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("asset_sidebar_handler")]
+[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("local_asset_container", "asset_sidebar_handler")]
 script = ExtResource("1_3nbno")
+local_asset_container = NodePath("../HSplitContainer/LocalAssetContainer/PanelContainer")
 asset_sidebar_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetSidebarHandler")
 metadata/_custom_type_script = "uid://cgj5l2rao6e22"
 
@@ -33,14 +34,15 @@ theme_override_styles/split_bar_background = SubResource("StyleBoxFlat_emvth")
 split_offset = 1040
 touch_dragger_enabled = true
 
-[node name="LocalContainer" type="ScrollContainer" parent="HSplitContainer"]
+[node name="LocalAssetContainer" type="ScrollContainer" parent="HSplitContainer"]
 layout_mode = 2
-follow_focus = true
-draw_focus_border = true
+horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/LocalContainer"]
-unique_name_in_owner = true
+[node name="PanelContainer" type="MarginContainer" parent="HSplitContainer/LocalAssetContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
 
 [node name="AssetInfoSidebar" parent="HSplitContainer" instance=ExtResource("2_i58tk")]
 layout_mode = 2

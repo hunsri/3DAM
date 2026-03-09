@@ -1,4 +1,4 @@
-class_name Asset_View_2D_Line extends HBoxContainer
+class_name Asset_View_2D_Line extends Control
 
 const ASSET_TILE = preload("uid://dbn3bs55ug33l")
 const SERVER_ASSET_TILE = preload("uid://b0vnhbbsnmqva")

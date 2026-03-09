@@ -36,11 +36,12 @@ metadata/_custom_type_script = "uid://8ty66il4fyso"
 [node name="HTTPRequest" type="HTTPRequest" parent="ServerHandler"]
 use_threads = true
 
-[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler", "category_handler", "asset_sidebar_handler", "status_overlay", "selector_overlay")]
+[node name="ServerExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("server_handler", "category_handler", "asset_sidebar_handler", "server_asset_container", "status_overlay", "selector_overlay")]
 script = ExtResource("2_q8qvv")
 server_handler = NodePath("../ServerHandler")
 category_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategoryHandler")
 asset_sidebar_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetSidebarHandler")
+server_asset_container = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/ScrollContainerServer/ServerAssetContainer")
 status_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/ServerExplorerStatusOverlay")
 selector_overlay = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector/CategorySidePanel/CategorySelectorStatusOverlay")
 metadata/_custom_type_script = "uid://e2mtpotnr8x3"
@@ -52,8 +53,9 @@ server_explorer_handler = NodePath("../ServerExplorerHandler")
 asset_explorer_handler = NodePath("../AssetExplorerHandler")
 metadata/_custom_type_script = "uid://bjjgsb0e668fs"
 
-[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("directory_handler", "asset_sidebar_handler", "server_handler", "status_overlay", "selector_overlay")]
+[node name="AssetExplorerHandler" type="Node" parent="." node_paths=PackedStringArray("local_asset_container", "directory_handler", "asset_sidebar_handler", "server_handler", "status_overlay", "selector_overlay")]
 script = ExtResource("4_p5evc")
+local_asset_container = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/LocalExplorerContainer/ScrollContainerLocal/LocalAssetContainer")
 directory_handler = NodePath("../HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector/DirectoryHandler")
 asset_sidebar_handler = NodePath("../HSplitContainer/AssetInfoSidebar/AssetSidebarHandler")
 server_handler = NodePath("../ServerHandler")
@@ -100,9 +102,11 @@ grow_vertical = 2
 follow_focus = true
 draw_focus_border = true
 
-[node name="VBoxContainerServer" type="VBoxContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server/ScrollContainerServer"]
-unique_name_in_owner = true
+[node name="ServerAssetContainer" type="MarginContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server/ScrollContainerServer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
 
 [node name="ServerExplorerStatusOverlay" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server" instance=ExtResource("5_lx8f4")]
 layout_mode = 1
@@ -148,9 +152,11 @@ follow_focus = true
 draw_focus_border = true
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local/LocalExplorerContainer/ScrollContainerLocal"]
-unique_name_in_owner = true
+[node name="LocalAssetContainer" type="MarginContainer" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local/LocalExplorerContainer/ScrollContainerLocal"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
 
 [node name="LocalExplorerStatusOverlay" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local/LocalExplorerContainer" instance=ExtResource("5_lx8f4")]
 layout_mode = 2

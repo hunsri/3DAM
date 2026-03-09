@@ -4,7 +4,7 @@ class_name ServerExplorerHandler extends AbstractExplorerHandler
 @export var category_handler: CategoryHandler
 @export var asset_sidebar_handler: AssetSidebarHandler
 
-@onready var v_box_container: VBoxContainer = %VBoxContainerServer
+@export var server_asset_container: MarginContainer
 
 @export var status_overlay: ExplorerStatusOverlay
 @export var selector_overlay: SelectorStatusOverlay
@@ -47,10 +47,10 @@ func add_tile_line(assets: Array[AssetInfo]) -> void:
 	var tile_line = ResourceManager.create_tile_line()
 	tile_line.set_explorer_handler(self)
 	tile_line.populate(assets)
-	v_box_container.add_child(tile_line)
+	server_asset_container.add_child(tile_line)
 
 func remove_all_tiles():
-	for child in v_box_container.get_children():
+	for child in server_asset_container.get_children():
 		child.queue_free()
 
 func asset_clicked(p_server_asset_tile: AbstractAssetTile) -> void:

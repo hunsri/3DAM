@@ -2,5 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cf0vko6moj5j1" path="res://scripts/AssetView2DLine.gd" id="1_cih8u"]
 
-[node name="AssetView2DLine" type="HBoxContainer"]
+[node name="AssetView2DLine" type="HFlowContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_cih8u")
+metadata/_edit_use_anchors_ = true

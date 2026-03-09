@@ -99,6 +99,9 @@ func on_request_completed_faving_package(_result, response_code, _headers, _body
 		self
 		)
 
+func set_highlighted(is_highlighted: bool) -> void:
+	tile_sub_logic.set_highlighted(is_highlighted)
+
 func _on_asset_clicked_button_pressed() -> void:
 	tile_sub_logic.set_highlighted(true)
 	asset_handler.asset_clicked(self)

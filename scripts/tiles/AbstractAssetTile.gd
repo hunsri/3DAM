@@ -2,6 +2,8 @@
 
 # For implementing different asset tiles for Server and Local view
 
+@abstract func set_highlighted(is_highlighted: bool) -> void
+
 @abstract func get_tile_sublogic() -> TileSubLogic
 
 @abstract func get_asset_info() -> AssetInfo
