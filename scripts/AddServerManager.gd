@@ -25,8 +25,14 @@ func _on_add_server_button_pressed() -> void:
 		return
 	
 	if server_connection_checker.is_response_data_valid(result):
-		status_field.text = "Server connection established!\n\nThe new server was added."
-		location_selector.add_server(address_field.text)
+		
+		var server_name = ""
+		
+		if result.has("server_name"):
+			server_name = result["server_name"]
+		
+		status_field.text = "Server connection established!\n\nAdded new server:\n"+server_name
+		location_selector.add_server(address_field.text, server_name, true)
 
 func _display_error() -> void:
 	status_field.add_theme_color_override("font_readonly_color", WARN_FONT_COLOR) 

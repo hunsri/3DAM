@@ -59,6 +59,7 @@ offset_right = 195.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+tooltip_text = "Name of the remote server"
 theme_override_styles/normal = SubResource("StyleBoxEmpty_u6ws4")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ko0af")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_ffvq7")

@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k01r3")
-location_spawner = NodePath("LeftSidePanel/LocationSpawner")
+location_spawner = NodePath("LeftSidePanel/ScrollContainer/LocationSpawner")
 metadata/_edit_use_anchors_ = true
 
 [node name="LeftSidePanel" type="Panel" parent="."]
@@ -23,35 +23,40 @@ grow_vertical = 2
 theme = ExtResource("1_h5pmh")
 theme_type_variation = &"LocationSidebar"
 
-[node name="LocationSpawner" type="VBoxContainer" parent="LeftSidePanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="LeftSidePanel"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.021000002
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 87.9
-offset_bottom = -858.0
-pivot_offset = Vector2(40, 0)
+offset_left = -40.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="LocationSpawner" type="VBoxContainer" parent="LeftSidePanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("1_h5pmh")
 
-[node name="MyPC" parent="LeftSidePanel/LocationSpawner" node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
+[node name="MyPC" parent="LeftSidePanel/ScrollContainer/LocationSpawner" node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
 layout_mode = 2
 size_flags_horizontal = 0
-location_selector = NodePath("../../..")
+location_selector = NodePath("../../../..")
 
-[node name="LocationButton" parent="LeftSidePanel/LocationSpawner/MyPC" index="0"]
+[node name="LocationButton" parent="LeftSidePanel/ScrollContainer/LocationSpawner/MyPC" index="0"]
 button_pressed = true
 
-[node name="Server1" parent="LeftSidePanel/LocationSpawner" node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
+[node name="Server1" parent="LeftSidePanel/ScrollContainer/LocationSpawner" node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
 visible = false
 layout_mode = 2
 scene_type = 1
-location_selector = NodePath("../../..")
+location_selector = NodePath("../../../..")
 
-[node name="AddServer" parent="LeftSidePanel/LocationSpawner" node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
+[node name="AddServer" parent="LeftSidePanel/ScrollContainer/LocationSpawner" node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
 layout_mode = 2
 scene_type = 2
-location_selector = NodePath("../../..")
+location_selector = NodePath("../../../..")
 
-[editable path="LeftSidePanel/LocationSpawner/MyPC"]
+[editable path="LeftSidePanel/ScrollContainer/LocationSpawner/MyPC"]

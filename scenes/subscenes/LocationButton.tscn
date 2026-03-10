@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbkbgf8jlopto"]
+[gd_scene load_steps=9 format=3 uid="uid://cbkbgf8jlopto"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_jf60t"]
 [ext_resource type="Script" uid="uid://dx4t35kw6s1mm" path="res://scripts/LocationHandler.gd" id="1_tu3rn"]
@@ -9,7 +9,14 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jf60t"]
 
-[node name="LocationButton" type="PanelContainer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecbgw"]
+bg_color = Color(0, 0.5647059, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="LocationButton" type="PanelContainer" node_paths=PackedStringArray("location_button", "newly_added_indicator")]
 anchors_preset = -1
 anchor_bottom = 0.074
 offset_right = 80.0
@@ -19,6 +26,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_jf60t")
 script = ExtResource("1_tu3rn")
+location_button = NodePath("LocationButton")
+newly_added_indicator = NodePath("NewlyAddedIndicator")
 metadata/_edit_use_anchors_ = true
 
 [node name="LocationButton" type="Button" parent="."]
@@ -77,5 +86,26 @@ size_flags_vertical = 4
 texture = ExtResource("6_1dtc7")
 expand_mode = 2
 stretch_mode = 3
+
+[node name="NewlyAddedIndicator" type="Control" parent="."]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="NewlyAddedIndicator"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
+tooltip_text = "Newly added server!"
+theme_override_styles/panel = SubResource("StyleBoxFlat_ecbgw")
+
+[node name="TextureRect" type="TextureRect" parent="NewlyAddedIndicator/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("6_1dtc7")
+expand_mode = 3
 
 [connection signal="pressed" from="LocationButton" to="." method="_on_location_button_pressed"]

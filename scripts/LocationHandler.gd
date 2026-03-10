@@ -5,7 +5,7 @@ const SERVER_VIEW_UI = preload("uid://bo8w8k6tnqxov")
 const ADD_SERVER_UI = preload("uid://vopv1427n8vl")
 const CATEGORY_SELECTOR = preload("uid://dvb1345451o5v")
 
-@onready var SCENE_NODE = $"../../../../ContextScene"
+@onready var SCENE_NODE = $"../../../../../ContextScene"
 @export var scene_type: SceneType
 @export var location_selector: LocationSelector
 
@@ -13,7 +13,10 @@ const CATEGORY_SELECTOR = preload("uid://dvb1345451o5v")
 @onready var server_icon: TextureRect = $LocationButton/ServerIcon
 @onready var connection_issue_icon: TextureRect = $LocationButton/ConnectionIssueIcon
 @onready var add_server_icon: TextureRect = $LocationButton/AddServerIcon
-@onready var location_button: Button = $LocationButton
+
+@export var location_button: Button
+
+@export var newly_added_indicator: Control
 
 var current_icon: TextureRect
 
@@ -26,25 +29,34 @@ enum SceneType {
 	AddServer
 }
 
-func setup(type: SceneType, p_server_address: String = "") -> void:
+func setup(type: SceneType, p_server_address: String = "", server_name = "", is_newly_added = false) -> void:
 	scene_type = type
 	
 	server_address = p_server_address
+	
+	location_button.tooltip_text = server_name
+	
+	if is_newly_added:
+		newly_added_indicator.visible = true
 
 func _ready():
 	location_button.button_group = ResourceManager.LOCATION_BUTTON_GROUP
 	
 	match scene_type:
 		SceneType.Local:
+			location_button.tooltip_text = "My Computer"
 			current_icon = local_icon
 		SceneType.Server:
 			current_icon = server_icon
 		SceneType.AddServer:
+			location_button.tooltip_text = "Add a new server connection!"
 			current_icon = add_server_icon
 	
 	current_icon.visible = true
 
 func _on_location_button_pressed() -> void:
+	
+	newly_added_indicator.visible = false
 	
 	var group_buttons :=  location_button.button_group.get_buttons()
 	

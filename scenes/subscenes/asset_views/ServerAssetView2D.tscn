@@ -107,6 +107,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
 
 [node name="ServerExplorerStatusOverlay" parent="HSplitContainer/ExplorerArea/VSplitContainer/Server" instance=ExtResource("5_lx8f4")]
 layout_mode = 1
@@ -157,6 +158,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
 
 [node name="LocalExplorerStatusOverlay" parent="HSplitContainer/ExplorerArea/VSplitContainer/Local/LocalExplorerContainer" instance=ExtResource("5_lx8f4")]
 layout_mode = 2

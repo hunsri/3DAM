@@ -15,8 +15,8 @@ func create_comment(comment_data: Comment.CommentData, asset_sidebar_handler: As
 	ret.setup(comment_data, asset_sidebar_handler)
 	return ret
 
-func create_server_button(server_address: String) -> Control:
+func create_server_button(server_address: String, server_name: String, newly_added: bool = false) -> Control:
 	var location_button: Control = LOCATION_BUTTON.instantiate()
 	var ret: Location_Handler = location_button
-	ret.setup(Location_Handler.SceneType.Server, server_address)
+	ret.setup(Location_Handler.SceneType.Server, server_address, server_name, newly_added)
 	return ret

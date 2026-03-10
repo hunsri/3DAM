@@ -32,6 +32,9 @@ layout_mode = 1
 [node name="ServerHandler" parent="Background/ServerAssetView2D" index="0" node_paths=PackedStringArray("server_info")]
 server_info = NodePath("../../..")
 
+[node name="VSplitContainer" parent="Background/ServerAssetView2D/HSplitContainer/ExplorerArea" index="0"]
+touch_dragger_enabled = true
+
 [node name="DirectoryHandler" parent="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector" index="1" node_paths=PackedStringArray("explorer_handler")]
 explorer_handler = NodePath("../../../../../../AssetExplorerHandler")
 

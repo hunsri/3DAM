@@ -1,15 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://16s375yxtc82"]
+[gd_scene load_steps=7 format=3 uid="uid://16s375yxtc82"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_7uuti"]
 [ext_resource type="Script" uid="uid://x7716fdxafas" path="res://scripts/DirectoryHandler.gd" id="1_ko0af"]
 [ext_resource type="Script" uid="uid://c0jypb3xxy451" path="res://scripts/DirectorySelector.gd" id="1_qcwdl"]
 [ext_resource type="PackedScene" uid="uid://cb2g5aviktllm" path="res://scenes/subscenes/overlays/SelectorStatusOverlay.tscn" id="4_qcwdl"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6ws4"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ko0af"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ffvq7"]
+[ext_resource type="Texture2D" uid="uid://fe78vbnwcixt" path="res://icons/folder.png" id="4_tcxjl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nae47"]
 
@@ -65,12 +60,12 @@ offset_right = 195.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_u6ws4")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_ko0af")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_ffvq7")
+tooltip_text = "Open the asset folder"
 theme_override_styles/focus = SubResource("StyleBoxEmpty_nae47")
+icon = ExtResource("4_tcxjl")
 text_overrun_behavior = 3
 clip_text = true
+expand_icon = true
 
 [node name="DirectoryTree" type="Tree" parent="DirectorySidePanel"]
 layout_mode = 1
