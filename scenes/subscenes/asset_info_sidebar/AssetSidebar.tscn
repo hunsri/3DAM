@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cd5a0p23y433v"]
+[gd_scene load_steps=23 format=3 uid="uid://cd5a0p23y433v"]
 
 [ext_resource type="Script" uid="uid://bfqubijg7p3yh" path="res://scripts/AssetSidebarHandler.gd" id="1_tg8p5"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="2_iqbsj"]
@@ -6,6 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://crft068yt3nnh" path="res://icons/package.png" id="3_iqbsj"]
 [ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/tiles/asset_spawn_point.gd" id="4_ossag"]
 [ext_resource type="PackedScene" uid="uid://ccfv3ourt2n84" path="res://scenes/subscenes/asset_info_sidebar/AssetMetaInfo.tscn" id="5_68iah"]
+[ext_resource type="Texture2D" uid="uid://bgbja2uaad2h6" path="res://icons/help-circle-solid-small.png" id="6_ad17x"]
+[ext_resource type="Texture2D" uid="uid://fgxkqwgfk03d" path="res://icons/help-circle-small.png" id="6_ia7ne"]
+[ext_resource type="Texture2D" uid="uid://dwj1b6cr4jqpp" path="res://icons/mouse-button-left.png" id="7_00f2x"]
+[ext_resource type="Texture2D" uid="uid://dxjadq0a8p57j" path="res://icons/mouse-button-right.png" id="8_ad17x"]
+[ext_resource type="Texture2D" uid="uid://bo7u7pvym4shv" path="res://icons/pc-mouse.png" id="9_c3bnq"]
+[ext_resource type="Texture2D" uid="uid://cxeokfbeii2x" path="res://icons/mouse-scroll-wheel.png" id="10_op4ja"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iqbsj"]
 
@@ -23,6 +29,8 @@ font_size = 21
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ia7ne"]
+
 [sub_resource type="World3D" id="World3D_ik0vy"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_5565g"]
@@ -37,6 +45,7 @@ material = SubResource("StandardMaterial3D_ik0vy")
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_feb4m"]
 
 [node name="AssetSidebar" type="Control"]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,12 +53,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AssetSidebarHandler" type="Node" parent="." node_paths=PackedStringArray("model_preview_texture", "preview_texture_container", "preview_model_container", "asset_meta_info_display")]
+[node name="AssetSidebarHandler" type="Node" parent="." node_paths=PackedStringArray("model_preview_texture", "preview_texture_container", "preview_model_container", "asset_meta_info_display", "sidebar_split")]
 script = ExtResource("1_tg8p5")
-model_preview_texture = NodePath("../VSplitContainer/Panel/TexturePreviewContainer/ModelPreviewTexture")
-preview_texture_container = NodePath("../VSplitContainer/Panel/TexturePreviewContainer")
-preview_model_container = NodePath("../VSplitContainer/Panel/SubViewportContainer")
-asset_meta_info_display = NodePath("../VSplitContainer/ScrollContainer/AssetMetaInfo/AssetMetaInfoDisplay")
+model_preview_texture = NodePath("../SidebarSplit/Panel/TexturePreviewContainer/ModelPreviewTexture")
+preview_texture_container = NodePath("../SidebarSplit/Panel/TexturePreviewContainer")
+preview_model_container = NodePath("../SidebarSplit/Panel/ModelPreviewContainer")
+asset_meta_info_display = NodePath("../SidebarSplit/ScrollContainer/AssetMetaInfo/AssetMetaInfoDisplay")
+sidebar_split = NodePath("../SidebarSplit")
 metadata/_custom_type_script = "uid://bfqubijg7p3yh"
 
 [node name="separator" type="Panel" parent="."]
@@ -61,7 +71,7 @@ grow_vertical = 2
 theme = ExtResource("2_iqbsj")
 theme_type_variation = &"SeparatorBar"
 
-[node name="VSplitContainer" type="VSplitContainer" parent="."]
+[node name="SidebarSplit" type="VSplitContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,14 +82,15 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 theme_override_constants/minimum_grab_thickness = 0
 split_offset = 500
+touch_dragger_enabled = true
 
-[node name="Panel" type="Panel" parent="VSplitContainer"]
+[node name="Panel" type="Panel" parent="SidebarSplit"]
 clip_contents = true
 layout_mode = 2
 theme = ExtResource("2_iqbsj")
 theme_type_variation = &"AssetInfoSidebar"
 
-[node name="TexturePreviewContainer" type="PanelContainer" parent="VSplitContainer/Panel"]
+[node name="TexturePreviewContainer" type="PanelContainer" parent="SidebarSplit/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -88,7 +99,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_iqbsj")
 
-[node name="ModelPreviewTexture" type="TextureRect" parent="VSplitContainer/Panel/TexturePreviewContainer"]
+[node name="ModelPreviewTexture" type="TextureRect" parent="SidebarSplit/Panel/TexturePreviewContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -96,7 +107,7 @@ texture = ExtResource("3_iqbsj")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="PanelContainer" type="PanelContainer" parent="VSplitContainer/Panel/TexturePreviewContainer/ModelPreviewTexture"]
+[node name="PanelContainer" type="PanelContainer" parent="SidebarSplit/Panel/TexturePreviewContainer/ModelPreviewTexture"]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -106,24 +117,28 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ia7ne")
 
-[node name="Label" type="Label" parent="VSplitContainer/Panel/TexturePreviewContainer/ModelPreviewTexture/PanelContainer"]
+[node name="Label" type="Label" parent="SidebarSplit/Panel/TexturePreviewContainer/ModelPreviewTexture/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Static Preview"
 label_settings = SubResource("LabelSettings_iqbsj")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="VSplitContainer/Panel"]
-clip_contents = true
+[node name="ModelPreviewContainer" type="PanelContainer" parent="SidebarSplit/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ia7ne")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="SidebarSplit/Panel/ModelPreviewContainer"]
+clip_contents = true
+layout_mode = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="VSplitContainer/Panel/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer"]
 own_world_3d = true
 world_3d = SubResource("World3D_ik0vy")
 transparent_bg = true
@@ -131,38 +146,102 @@ handle_input_locally = false
 size = Vector2i(1910, 500)
 render_target_update_mode = 4
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer/SubViewport"]
 environment = ExtResource("3_ia7ne")
 camera_attributes = SubResource("CameraAttributesPractical_5565g")
 compositor = SubResource("Compositor_ik0vy")
 
-[node name="SpawnPoint" type="Node3D" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport" node_paths=PackedStringArray("spring_arm_3d")]
+[node name="SpawnPoint" type="Node3D" parent="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer/SubViewport" node_paths=PackedStringArray("spring_arm_3d")]
 unique_name_in_owner = true
 script = ExtResource("4_ossag")
 spring_arm_3d = NodePath("../SpringArm3D")
 
-[node name="DemoObject" type="MeshInstance3D" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpawnPoint"]
+[node name="DemoObject" type="MeshInstance3D" parent="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer/SubViewport/SpawnPoint"]
 visible = false
 mesh = SubResource("PrismMesh_5565g")
 skeleton = NodePath("../../SpringArm3D/Camera3D")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport"]
+[node name="SpringArm3D" type="SpringArm3D" parent="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
 shape = SubResource("SeparationRayShape3D_feb4m")
 spring_length = 3.0
 
-[node name="Camera3D" type="Camera3D" parent="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpringArm3D"]
+[node name="Camera3D" type="Camera3D" parent="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer/SubViewport/SpringArm3D"]
 current = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VSplitContainer"]
+[node name="HelpContainer" type="FoldableContainer" parent="SidebarSplit/Panel/ModelPreviewContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_mode = 0
+theme_override_icons/expanded_arrow_mirrored = ExtResource("6_ad17x")
+theme_override_icons/folded_arrow = ExtResource("6_ia7ne")
+folded = true
+title_position = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SidebarSplit/Panel/ModelPreviewContainer/HelpContainer"]
+editor_description = "Using disabled buttons because it is surprisingly the easiest way to set this up"
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MoveCamera" type="Button" parent="SidebarSplit/Panel/ModelPreviewContainer/HelpContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+disabled = true
+text = "Move Camera"
+icon = ExtResource("7_00f2x")
+flat = true
+alignment = 0
+
+[node name="MoveModel" type="Button" parent="SidebarSplit/Panel/ModelPreviewContainer/HelpContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+disabled = true
+text = "Move Model"
+icon = ExtResource("8_ad17x")
+flat = true
+alignment = 0
+
+[node name="ResetView" type="Button" parent="SidebarSplit/Panel/ModelPreviewContainer/HelpContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+disabled = true
+text = "Reset View"
+icon = ExtResource("9_c3bnq")
+flat = true
+alignment = 0
+
+[node name="Zoom" type="Button" parent="SidebarSplit/Panel/ModelPreviewContainer/HelpContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+disabled = true
+text = "Zoom"
+icon = ExtResource("10_op4ja")
+flat = true
+alignment = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SidebarSplit"]
 layout_mode = 2
 
-[node name="AssetMetaInfo" parent="VSplitContainer/ScrollContainer" instance=ExtResource("5_68iah")]
+[node name="AssetMetaInfo" parent="SidebarSplit/ScrollContainer" instance=ExtResource("5_68iah")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[connection signal="mouse_entered" from="VSplitContainer/Panel/SubViewportContainer" to="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_entered"]
-[connection signal="mouse_exited" from="VSplitContainer/Panel/SubViewportContainer" to="VSplitContainer/Panel/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_exited"]
+[connection signal="mouse_entered" from="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" to="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_entered"]
+[connection signal="mouse_exited" from="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" to="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_exited"]
 
-[editable path="VSplitContainer/ScrollContainer/AssetMetaInfo"]
+[editable path="SidebarSplit/ScrollContainer/AssetMetaInfo"]

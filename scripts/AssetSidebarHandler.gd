@@ -6,7 +6,7 @@ class_name AssetSidebarHandler extends Node
 @export var model_preview_texture: TextureRect
 
 @export var preview_texture_container: PanelContainer
-@export var preview_model_container: SubViewportContainer
+@export var preview_model_container: PanelContainer
 
 ## stays empty in local view
 @export var server_handler: ServerHandler
@@ -18,6 +18,8 @@ enum SidebarMode {LOCAL, SERVER}
 var _sidebar_mode: SidebarMode
 
 var _latest_clicked_asset: AbstractAssetTile
+
+@export var sidebar_split: VSplitContainer
 
 func _ready() -> void:
 	asset_meta_info_display.asset_sidebar_handler = self
@@ -39,7 +41,8 @@ func load_model(path_to_model: String):
 func load_preview_image(image: Image) -> void:
 	
 	reset_preview_image()
-	model_preview_texture.texture = ImageTexture.create_from_image(image)
+	if image != null:
+		model_preview_texture.texture = ImageTexture.create_from_image(image)
 	
 
 func reset_model():
@@ -86,7 +89,9 @@ func _set_sidebebar_mode(p_sidebar_mode: SidebarMode):
 			asset_meta_info_display.set_is_local_asset(true)
 			preview_texture_container.visible = false
 			preview_model_container.visible = true
+			sidebar_split.split_offset = sidebar_split.get_parent().get_size().y
 		SidebarMode.SERVER:
 			asset_meta_info_display.set_is_local_asset(false)
 			preview_texture_container.visible = true
 			preview_model_container.visible = false
+			sidebar_split.split_offset = sidebar_split.get_parent().get_size().y/2
