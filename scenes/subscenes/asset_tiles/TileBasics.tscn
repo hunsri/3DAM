@@ -10,12 +10,12 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n7ni5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmtom"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+bg_color = Color(1, 1, 1, 0)
 border_width_left = 25
 border_width_top = 25
 border_width_right = 25
 border_width_bottom = 25
-border_color = Color(1, 1, 0.98039216, 0.39215687)
+border_color = Color(1, 1, 0.98039216, 0.74509805)
 border_blend = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pmtom"]
