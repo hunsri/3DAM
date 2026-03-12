@@ -1564,6 +1564,7 @@ size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fukmf")
 
 [node name="social_bar" type="HBoxContainer" parent="TopBar/SocialBar"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 0
 

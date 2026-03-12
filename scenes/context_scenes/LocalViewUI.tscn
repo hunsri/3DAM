@@ -31,6 +31,12 @@ layout_mode = 1
 [node name="AssetExplorerHandler" parent="Background/AssetExplorer2d" index="0" node_paths=PackedStringArray("directory_handler")]
 directory_handler = NodePath("../../DirectorySelector/DirectoryHandler")
 
+[node name="AssetInfoSidebar" parent="Background/AssetExplorer2d/HSplitContainer" index="1"]
+visible = false
+
+[node name="SubViewport" parent="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" index="0"]
+size = Vector2i(2, 2)
+
 [node name="DirectorySelector" parent="Background" instance=ExtResource("2_skpw3")]
 layout_mode = 1
 offset_right = 0.0
@@ -41,5 +47,5 @@ explorer_handler = NodePath("../../AssetExplorer2d/AssetExplorerHandler")
 
 [editable path="Background/AssetExplorer2d"]
 [editable path="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar"]
-[editable path="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/VSplitContainer/ScrollContainer/AssetMetaInfo"]
+[editable path="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/SidebarSplit/ScrollContainer/AssetMetaInfo"]
 [editable path="Background/DirectorySelector"]

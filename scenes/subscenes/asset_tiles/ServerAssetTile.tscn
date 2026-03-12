@@ -11,6 +11,7 @@ asset_preview = NodePath("TextureRect")
 tile_sub_logic = NodePath("TileBasics")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

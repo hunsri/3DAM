@@ -38,11 +38,17 @@ touch_dragger_enabled = true
 [node name="DirectoryHandler" parent="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector" index="1" node_paths=PackedStringArray("explorer_handler")]
 explorer_handler = NodePath("../../../../../../AssetExplorerHandler")
 
+[node name="AssetInfoSidebar" parent="Background/ServerAssetView2D/HSplitContainer" index="1"]
+visible = false
+
 [node name="AssetSidebarHandler" parent="Background/ServerAssetView2D/HSplitContainer/AssetInfoSidebar" index="0" node_paths=PackedStringArray("server_handler")]
 server_handler = NodePath("../../../ServerHandler")
+
+[node name="SubViewport" parent="Background/ServerAssetView2D/HSplitContainer/AssetInfoSidebar/SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" index="0"]
+size = Vector2i(2, 2)
 
 [editable path="Background/ServerAssetView2D"]
 [editable path="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector"]
 [editable path="Background/ServerAssetView2D/HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector"]
 [editable path="Background/ServerAssetView2D/HSplitContainer/AssetInfoSidebar"]
-[editable path="Background/ServerAssetView2D/HSplitContainer/AssetInfoSidebar/VSplitContainer/ScrollContainer/AssetMetaInfo"]
+[editable path="Background/ServerAssetView2D/HSplitContainer/AssetInfoSidebar/SidebarSplit/ScrollContainer/AssetMetaInfo"]
