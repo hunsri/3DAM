@@ -85,6 +85,7 @@ split_offset = 500
 touch_dragger_enabled = true
 
 [node name="Panel" type="Panel" parent="SidebarSplit"]
+visible = false
 clip_contents = true
 layout_mode = 2
 theme = ExtResource("2_iqbsj")
@@ -144,7 +145,7 @@ world_3d = SubResource("World3D_ik0vy")
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1910, 500)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer/SubViewport"]
 environment = ExtResource("3_ia7ne")
