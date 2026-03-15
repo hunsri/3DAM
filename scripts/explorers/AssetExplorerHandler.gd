@@ -43,7 +43,15 @@ func _fetch_assets_info(directory: String) -> Array[AssetInfo]:
 	dir_access.list_dir_begin()
 	var asset_file_name = dir_access.get_next()
 	while asset_file_name != "":
-		ret.append(AssetInfo.new(asset_file_name, directory+"/"+asset_file_name))
+		var asset_path: String = directory+"/"+asset_file_name
+		
+		# We don't want to display folders that aren't packages
+		if dir_access.dir_exists(asset_path):
+			if not PackageUtils.is_target_package(asset_path):
+				asset_file_name = dir_access.get_next()
+				continue
+		
+		ret.append(AssetInfo.new(asset_file_name, asset_path))
 		asset_file_name = dir_access.get_next()
 	
 	return ret

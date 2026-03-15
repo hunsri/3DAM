@@ -177,10 +177,10 @@ theme_type_variation = &"SeparatorBar"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SubViewport" parent="HSplitContainer/AssetInfoSidebar/VSplitContainer/Panel/SubViewportContainer" index="0"]
+[node name="SubViewport" parent="HSplitContainer/AssetInfoSidebar/SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" index="0"]
 size = Vector2i(364, 500)
 
 [editable path="HSplitContainer/ExplorerArea/VSplitContainer/Server/CategorySelector"]
 [editable path="HSplitContainer/ExplorerArea/VSplitContainer/Local/DirectorySelector"]
 [editable path="HSplitContainer/AssetInfoSidebar"]
-[editable path="HSplitContainer/AssetInfoSidebar/VSplitContainer/ScrollContainer/AssetMetaInfo"]
+[editable path="HSplitContainer/AssetInfoSidebar/SidebarSplit/ScrollContainer/AssetMetaInfo"]

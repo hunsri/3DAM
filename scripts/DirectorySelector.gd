@@ -34,7 +34,7 @@ func _populate_tree_recursive(dir_access: DirAccess, parent_item: TreeItem, curr
 		var full_path: String = current_path + "/" + node_name
 
 		if PackageUtils.is_target_package(full_path):
-			break
+			pass
 		# Check whether this entry is a directory (uses DirAccess's current entry flag)
 		elif dir_access.current_is_dir():
 			

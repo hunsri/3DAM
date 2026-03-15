@@ -55,6 +55,9 @@ func fetch_package_names_in_category(category_name: String):
 
 func _on_request_completed_package_names_in_category(_result, _response_code, _headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
+	
+	# connects to ServerExplorerHandler on_fetch_assets_info
+	# not the cleanest connection, but it works
 	has_fetched_names_in_category.emit(json["packages"])
 
 func fetch_asset_info(category_name: String, package_name: String, tile: ServerAssetTile2D):
