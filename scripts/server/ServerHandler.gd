@@ -1,3 +1,7 @@
+## A class to initiate communication with an asset server
+##
+## Handles the communication between client and server and relays information
+## to the ServerExchangeManager, which then relays it to the correct handlers.
 class_name ServerHandler extends Node
 
 @export var server_info: ServerInfo
@@ -22,6 +26,8 @@ func _ready():
 	_fetch_server_info()
 	server_exchange_manager.set_server_handler(self)
 
+# Requests the basic information about the server, such as
+# server name, version and available asset categories.
 func _fetch_server_info():
 	var request_address = HTTP_PRE+server_info.address+"/info"
 	var http = _create_http_request_node()
@@ -41,6 +47,7 @@ func _on_request_completed_server_info(_result, _response_code, _headers, body):
 	emit_signal("has_fetched_from_server")
 	has_fetched_data = true
 
+# Requests the list of all package names in a given category from the server.
 func fetch_package_names_in_category(category_name: String):
 	
 	var sub_url = "/assets/categories/"+category_name+"/package_list"
@@ -60,6 +67,8 @@ func _on_request_completed_package_names_in_category(_result, _response_code, _h
 	# not the cleanest connection, but it works
 	has_fetched_names_in_category.emit(json["packages"])
 
+# Requests the asset info for a given package from the server.
+# The asset info is then used to fill the provided ServerAssetTile2D with the correct information.
 func fetch_asset_info(category_name: String, package_name: String, tile: ServerAssetTile2D):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/asset_info"
 	var request_address = HTTP_PRE+server_info.address+sub_url
@@ -70,6 +79,8 @@ func fetch_asset_info(category_name: String, package_name: String, tile: ServerA
 	
 	_cleanup_http_request_node(http)
 
+# Prepares the local package structure for the incoming asset by requesting the package info from the server.
+# After building the structure, the asset archive is requested through download_asset_from_server.
 func download_package_info_for_saving(category_name: String, package_name: String):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/package_info"
 	var request_address = HTTP_PRE+server_info.address+sub_url
@@ -91,6 +102,7 @@ func fetch_asset_preview(category_name: String, package_name: String, tile: Serv
 	
 	_cleanup_http_request_node(http)
 
+# Requests the asset archive for a given package from the server. The archive is then extracted and the asset is saved locally.
 func download_asset_from_server(category_name: String, package_name: String):
 	var sub_url = "/assets/categories/"+category_name+"/"+package_name+"/download"
 	var request_address = HTTP_PRE+server_info.address+sub_url

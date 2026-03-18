@@ -64,8 +64,6 @@ func remove_from_download_selection(asset_info: AssetInfo) -> bool:
 
 func remove_from_selection(asset_tile: AbstractAssetTile) -> bool:
 	
-	#TODO remove selection status from explorer as well!
-	
 	if asset_tile is ServerAssetTile2D:
 		server_exchange_bar.remove_from_bar(_selected_assets_for_download.get(asset_tile))
 		return _selected_assets_for_download.erase(asset_tile)
@@ -96,8 +94,6 @@ func upload_single_asset(asset: AssetTile2D) -> void:
 	_server_handler.upload_asset_info(category_name, asset_info_upload)
 
 func on_request_completed_upload_asset_info(_result, response_code, _headers, body):
-	#print("Response code:", response_code)
-	#print("Response body:", body.get_string_from_utf8())
 	
 	if response_code == 200:
 		var version: String = asset_info_of_current_upload.version
@@ -108,15 +104,12 @@ func on_request_completed_upload_asset_info(_result, response_code, _headers, bo
 			version = res.version
 			
 		var category_name := server_explorer_handler.category_handler.get_currently_open_category()
-		#var directory_name := asset_explorer_handler.directory_handler.get_currently_open_directory()
 		var archive_location = ZipUtils.create_zip_from_asset_info(asset_info_of_current_upload)
 		
 		_server_handler.upload_asset_archive_to_server(category_name, asset_info_of_current_upload.package_name, version, archive_location)
 
 func on_request_completed_upload_asset_archive_to_server(_result, response_code, _headers, body):
-	#print("ARCHIVE UPLOAD SERVER RESPONSE")
-	#print("Code:", response_code, "Body:", body.get_string_from_utf8())
-	
+
 	if response_code == 200:
 		var version: String = asset_info_of_current_upload.version
 		
@@ -132,8 +125,7 @@ func on_request_completed_upload_asset_archive_to_server(_result, response_code,
 		_server_handler.upload_asset_preview_image(category_name, asset_info_of_current_upload.package_name, version, image)
 
 func on_request_completed_upload_asset_preview_image(_result, _response_code, _headers, _body):
-	#print("PREVIEW UPLOAD SERVER RESPONSE")
-	#print("Code:", _response_code, "Body:", _body.get_string_from_utf8())
+
 	remove_from_upload_selection(asset_info_of_current_upload)
 	server_explorer_handler.reload_explorer_from_server()
 
@@ -155,10 +147,8 @@ func download_single_asset(server_asset: ServerAssetTile2D) -> void:
 	# First we make sure that the package structure exists
 	_server_handler.download_package_info_for_saving(category, package_name)
 
+# Prepares the local package structure for the incoming asset by requesting the package info from the server.
 func on_request_completed_download_package_info_for_saving(_result, response_code, _headers, body):
-	#print("PACKAGE_INFO REQUEST RESPONSE")
-	#print("Response code:", response_code)
-	#print("Response body:", body.get_string_from_utf8())
 	
 	if response_code == 200:
 		var json = JSON.parse_string(body.get_string_from_utf8())
@@ -177,6 +167,7 @@ func on_request_completed_download_package_info_for_saving(_result, response_cod
 			json.package_name
 			)
 
+# Handles the incoming asset archive by extracting it, saving the asset and refreshing the explorer.
 func on_request_completed_download_asset_from_server(_result, _response_code, _headers, body):
 	if _response_code != 200:
 		return
