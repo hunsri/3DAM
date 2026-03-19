@@ -1,3 +1,10 @@
+## Class for managing the exchange of assets between the local machine and the server.
+##
+## Handles the responses to the requests made by the [ServerHandler] related to: [br]
+## - Downloading assets from the server[br]
+## - Uploading assets to the server[br][br]
+## Also manages the selection of assets for upload and download and communicates with the ServerExchangeBar to display the
+## selected assets and the progress of the exchange.
 class_name ServerExchangeManager extends Node
 
 @export var server_exchange_bar: ServerExchangeBar
@@ -147,7 +154,7 @@ func download_single_asset(server_asset: ServerAssetTile2D) -> void:
 	# First we make sure that the package structure exists
 	_server_handler.download_package_info_for_saving(category, package_name)
 
-# Prepares the local package structure for the incoming asset by requesting the package info from the server.
+## Prepares the local package structure for the incoming asset by requesting the package info from the server.
 func on_request_completed_download_package_info_for_saving(_result, response_code, _headers, body):
 	
 	if response_code == 200:
@@ -167,7 +174,7 @@ func on_request_completed_download_package_info_for_saving(_result, response_cod
 			json.package_name
 			)
 
-# Handles the incoming asset archive by extracting it, saving the asset and refreshing the explorer.
+## Handles the incoming asset archive by extracting it, saving the asset and refreshing the explorer.
 func on_request_completed_download_asset_from_server(_result, _response_code, _headers, body):
 	if _response_code != 200:
 		return
