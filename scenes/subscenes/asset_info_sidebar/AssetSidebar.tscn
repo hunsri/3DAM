@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="2_iqbsj"]
 [ext_resource type="Environment" uid="uid://btn86veyhcnqh" path="res://resources/StandardEnvironment.tres" id="3_ia7ne"]
 [ext_resource type="Texture2D" uid="uid://crft068yt3nnh" path="res://icons/package.png" id="3_iqbsj"]
-[ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/tiles/asset_spawn_point.gd" id="4_ossag"]
+[ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/tiles/asset_tiles/asset_spawn_point.gd" id="4_ossag"]
 [ext_resource type="PackedScene" uid="uid://ccfv3ourt2n84" path="res://scenes/subscenes/asset_info_sidebar/AssetMetaInfo.tscn" id="5_68iah"]
 [ext_resource type="Texture2D" uid="uid://bgbja2uaad2h6" path="res://icons/help-circle-solid-small.png" id="6_ad17x"]
 [ext_resource type="Texture2D" uid="uid://fgxkqwgfk03d" path="res://icons/help-circle-small.png" id="6_ia7ne"]
@@ -143,7 +143,7 @@ own_world_3d = true
 world_3d = SubResource("World3D_ik0vy")
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1910, 500)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer/SubViewport"]

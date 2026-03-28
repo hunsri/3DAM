@@ -1,6 +1,7 @@
 class_name AssetExplorerHandler extends AbstractExplorerHandler
 
 @export var local_asset_container: MarginContainer
+@export var local_folder_container: MarginContainer
 
 @export var directory_handler: DirectoryHandler
 @export var asset_sidebar_handler: AssetSidebarHandler
@@ -12,6 +13,7 @@ class_name AssetExplorerHandler extends AbstractExplorerHandler
 @export var selector_overlay: SelectorStatusOverlay
 
 var asset_infos: Array[AssetInfo] = []
+var folder_dirs: Array[String] = []
 
 func _ready() -> void:
 	reload_explorer()
@@ -19,8 +21,9 @@ func _ready() -> void:
 func reload_explorer() -> void:
 	remove_all_tiles()
 	asset_infos = []
-	asset_infos = _fetch_assets_info(directory_handler.get_currently_open_directory())
-	populate(asset_infos)
+	folder_dirs = []
+	asset_infos = _fetch_assets_info(directory_handler.get_currently_open_directory(), folder_dirs)
+	populate(asset_infos, folder_dirs)
 
 func asset_clicked(p_asset_tile: AbstractAssetTile) -> void:
 	asset_sidebar_handler.set_latest_clicked_asset(p_asset_tile)
@@ -31,7 +34,11 @@ func set_overlay_status(exchange_mode: ServerExchangeManager.ExchangeMode) -> vo
 	if selector_overlay != null:
 		selector_overlay.set_overlay(exchange_mode)
 
-func _fetch_assets_info(directory: String) -> Array[AssetInfo]:
+## Fetches all assets in a directory, including Asset-Packages [br]
+## The folders that are found that aren't packages can be retrieved through the given
+## [param out_found_folder_dirs] [br][br]
+## Returns an array of [AssetInfo]
+func _fetch_assets_info(directory: String, out_found_folder_dirs: Array[String] = []) -> Array[AssetInfo]:
 	
 	var ret: Array[AssetInfo] = []
 	
@@ -45,9 +52,11 @@ func _fetch_assets_info(directory: String) -> Array[AssetInfo]:
 	while asset_file_name != "":
 		var asset_path: String = directory+"/"+asset_file_name
 		
-		# We don't want to display folders that aren't packages
+		# We don't want to return folders that aren't packages
 		if dir_access.dir_exists(asset_path):
 			if not PackageUtils.is_target_package(asset_path):
+				# Those get added to the out parameter instead
+				out_found_folder_dirs.append(asset_path)
 				asset_file_name = dir_access.get_next()
 				continue
 		
@@ -56,8 +65,9 @@ func _fetch_assets_info(directory: String) -> Array[AssetInfo]:
 	
 	return ret
 
-func populate(assets: Array[AssetInfo]):
+func populate(assets: Array[AssetInfo], p_folder_dirs: Array[String]):
 	add_tile_line(assets)
+	add_folder_tile_line(p_folder_dirs)
 
 func add_tile_line(assets: Array[AssetInfo]) -> void:
 	var tile_line = ResourceManager.create_tile_line()
@@ -65,6 +75,15 @@ func add_tile_line(assets: Array[AssetInfo]) -> void:
 	tile_line.populate(assets)
 	local_asset_container.add_child(tile_line)
 
+func add_folder_tile_line(p_folder_dirs: Array[String]) -> void:
+	var folder_tile_line: Asset_View_2D_Line = ResourceManager.create_tile_line()
+	folder_tile_line.set_explorer_handler(self)
+	folder_tile_line.populate_folders(p_folder_dirs)
+	local_folder_container.add_child(folder_tile_line)
+
 func remove_all_tiles():
 	for child in local_asset_container.get_children():
+		child.queue_free()
+	
+	for child in local_folder_container.get_children():
 		child.queue_free()

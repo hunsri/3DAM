@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://dr5hq7so1kcmq"]
+
+[ext_resource type="Texture2D" uid="uid://fe78vbnwcixt" path="res://icons/folder.png" id="1_kf0ud"]
+[ext_resource type="Script" uid="uid://b5btrx0w830y5" path="res://scripts/tiles/special_tiles/FolderTile.gd" id="1_x5fx2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_x5fx2"]
+font_size = 11
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x5fx2"]
+
+[node name="FolderTile" type="Panel" node_paths=PackedStringArray("folder_name_label")]
+custom_minimum_size = Vector2(200, 50)
+anchors_preset = -1
+anchor_right = 0.104166664
+anchor_bottom = 0.046296295
+offset_right = -200.0
+offset_bottom = -50.0
+script = ExtResource("1_x5fx2")
+folder_name_label = NodePath("Contents/FolderNameLabel")
+metadata/_edit_use_anchors_ = true
+
+[node name="Contents" type="HBoxContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Contents"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("1_kf0ud")
+expand_mode = 3
+
+[node name="FolderNameLabel" type="Label" parent="Contents"]
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_x5fx2")
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="FolderButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x5fx2")
+
+[connection signal="pressed" from="FolderButton" to="." method="_on_folder_button_pressed"]

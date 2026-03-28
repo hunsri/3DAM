@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dbn3bs55ug33l"]
 
-[ext_resource type="Script" uid="uid://drsci52sccyih" path="res://scripts/tiles/AssetTile2D.gd" id="1_kamay"]
+[ext_resource type="Script" uid="uid://drsci52sccyih" path="res://scripts/tiles/asset_tiles/AssetTile2D.gd" id="1_kamay"]
 [ext_resource type="PackedScene" uid="uid://dj0b3331lwrff" path="res://scenes/subscenes/asset_tiles/TileBasics.tscn" id="2_htjxr"]
 [ext_resource type="Environment" uid="uid://btn86veyhcnqh" path="res://resources/StandardEnvironment.tres" id="2_j6nw2"]
 

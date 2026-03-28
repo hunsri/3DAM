@@ -1,6 +1,6 @@
 [gd_scene load_steps=39 format=4 uid="uid://dj0b3331lwrff"]
 
-[ext_resource type="Script" uid="uid://bco6w4yj8bulf" path="res://scripts/tiles/TileSubLogic.gd" id="1_n7ni5"]
+[ext_resource type="Script" uid="uid://bco6w4yj8bulf" path="res://scripts/tiles/asset_tiles/TileSubLogic.gd" id="1_n7ni5"]
 [ext_resource type="Texture2D" uid="uid://crft068yt3nnh" path="res://icons/package.png" id="2_pmtom"]
 [ext_resource type="Texture2D" uid="uid://ba3f1o68m6cij" path="res://icons/star.png" id="3_yub0l"]
 [ext_resource type="Texture2D" uid="uid://c6pie8yd0a5lr" path="res://icons/star-solid-gold.png" id="4_fukmf"]

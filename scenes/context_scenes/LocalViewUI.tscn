@@ -41,5 +41,5 @@ explorer_handler = NodePath("../../AssetExplorer2d/AssetExplorerHandler")
 
 [editable path="Background/AssetExplorer2d"]
 [editable path="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar"]
-[editable path="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/VSplitContainer/ScrollContainer/AssetMetaInfo"]
+[editable path="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/SidebarSplit/ScrollContainer/AssetMetaInfo"]
 [editable path="Background/DirectorySelector"]

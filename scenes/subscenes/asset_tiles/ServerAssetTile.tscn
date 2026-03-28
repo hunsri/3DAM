@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0vnhbbsnmqva"]
 
-[ext_resource type="Script" uid="uid://cpmoos5rsah8" path="res://scripts/tiles/ServerAssetTile2D.gd" id="1_p2e8v"]
+[ext_resource type="Script" uid="uid://cpmoos5rsah8" path="res://scripts/tiles/asset_tiles/ServerAssetTile2D.gd" id="1_p2e8v"]
 [ext_resource type="PackedScene" uid="uid://dj0b3331lwrff" path="res://scenes/subscenes/asset_tiles/TileBasics.tscn" id="2_kheqq"]
 
 [node name="ServerAssetTile" type="Panel" node_paths=PackedStringArray("asset_name_label", "asset_preview", "tile_sub_logic")]
