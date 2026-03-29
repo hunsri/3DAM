@@ -11,6 +11,7 @@ var default_asset_path:String = default_root_dir + default_library_name
 var _currently_open_directory = default_asset_path
 
 func _ready() -> void:
+	default_root_dir = ProjectSettings.globalize_path(default_root_dir)
 	directory_name.text = default_library_name
 	
 	if not is_instance_valid(explorer_handler):
@@ -32,13 +33,63 @@ func get_currently_open_directory() -> String:
 func _on_tree_item_selected() -> void:
 	explorer_handler.asset_sidebar_handler.reset_sidebar()
 	
-	var sub_path = directory_tree.get_selected().get_text(0)
+	_currently_open_directory = _full_path_of_item(directory_tree.get_selected())
+	explorer_handler.reload_explorer()
+
+func _full_path_of_item(item: TreeItem) -> String:
 	
-	var parent = directory_tree.get_selected().get_parent()
+	var sub_path = item.get_text(0)
+	var parent = item.get_parent()
 	
+	# adding the parent of the parent until the directory path has been consumed
 	while parent != null:
 		sub_path = parent.get_text(0) + "/" + sub_path
 		parent = parent.get_parent()
 	
-	_currently_open_directory = default_root_dir + sub_path
+	return ProjectSettings.globalize_path(default_root_dir + sub_path)
+
+func _find_tree_item(global_path_of_dir: String) -> TreeItem:
+	var sub_target_dir = global_path_of_dir.trim_prefix(default_root_dir)
+	
+	var item_names := sub_target_dir.split("/", false)
+	
+	var current_item := directory_tree.get_root()
+	
+	# special case: only the root is searched
+	if item_names.size() == 1:
+		if item_names[0] == current_item.get_text(0):
+			return current_item
+	else:
+		item_names.remove_at(0) # removes the root
+		current_item.collapsed = false
+		
+	for i in range(item_names.size()):
+		current_item = _find_child_tree_item(current_item, item_names[i])
+		if current_item == null:
+			return null
+		
+		current_item.collapsed = false
+	
+	return current_item
+
+func _find_child_tree_item(parent: TreeItem, child_name: String) -> TreeItem:
+	if parent == null:
+		return
+	var child := parent.get_first_child()
+	
+	while child:
+		if child.get_text(0) == child_name:
+			return child
+		else:
+			child = child.get_next()
+	
+	return null
+	
+func open_directory(directory_path: String) -> void:
+	explorer_handler.asset_sidebar_handler.reset_sidebar()
+	_currently_open_directory = directory_path
 	explorer_handler.reload_explorer()
+	
+	var item := _find_tree_item(directory_path)
+	if item != null:
+		item.select(0)

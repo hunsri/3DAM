@@ -12,4 +12,4 @@ func setup_tile(p_asset_handler: AbstractExplorerHandler, p_folder_path: String)
 	folder_name_label.text = p_folder_path.rstrip("/").get_file()
 	
 func _on_folder_button_pressed() -> void:
-	print(folder_path)
+	asset_handler.directory_handler.open_directory(folder_path)

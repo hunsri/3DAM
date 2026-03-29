@@ -46,7 +46,6 @@ size_flags_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="PanelContainerFolders" type="MarginContainer" parent="HSplitContainer/LocalTileContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 2
