@@ -1,6 +1,7 @@
 class_name FolderTile extends Node
 
 @export var folder_name_label: Label
+@export var tile_clicked_button: Button
 
 var asset_handler: AssetExplorerHandler
 var folder_path: String
@@ -13,3 +14,9 @@ func setup_tile(p_asset_handler: AbstractExplorerHandler, p_folder_path: String)
 	
 func _on_folder_button_pressed() -> void:
 	asset_handler.directory_handler.open_directory(folder_path)
+
+func disable_tile_button() -> void:
+	tile_clicked_button.disabled = true
+
+func enable_tile_button() -> void:
+	tile_clicked_button.disabled = false

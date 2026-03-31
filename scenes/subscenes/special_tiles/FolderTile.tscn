@@ -8,7 +8,7 @@ font_size = 11
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x5fx2"]
 
-[node name="FolderTile" type="Panel" node_paths=PackedStringArray("folder_name_label")]
+[node name="FolderTile" type="Panel" node_paths=PackedStringArray("folder_name_label", "tile_clicked_button")]
 custom_minimum_size = Vector2(200, 50)
 anchors_preset = -1
 anchor_right = 0.104166664
@@ -17,6 +17,7 @@ offset_right = -200.0
 offset_bottom = -50.0
 script = ExtResource("1_x5fx2")
 folder_name_label = NodePath("Contents/FolderNameLabel")
+tile_clicked_button = NodePath("FolderButton")
 metadata/_edit_use_anchors_ = true
 
 [node name="Contents" type="HBoxContainer" parent="."]

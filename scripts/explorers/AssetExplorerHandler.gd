@@ -2,6 +2,7 @@ class_name AssetExplorerHandler extends AbstractExplorerHandler
 
 @export var local_asset_container: MarginContainer
 @export var local_folder_container: MarginContainer
+var _folder_tiles: Asset_View_2D_Line
 
 @export var directory_handler: DirectoryHandler
 @export var asset_sidebar_handler: AssetSidebarHandler
@@ -33,6 +34,14 @@ func set_overlay_status(exchange_mode: ServerExchangeManager.ExchangeMode) -> vo
 		status_overlay.set_overlay(exchange_mode)
 	if selector_overlay != null:
 		selector_overlay.set_overlay(exchange_mode)
+	
+	match exchange_mode:
+		ServerExchangeManager.ExchangeMode.UPLOAD:
+			_folder_tiles.disable_folder_tiles()
+		ServerExchangeManager.ExchangeMode.DOWNLOAD:
+			_folder_tiles.enable_folder_tiles()
+		ServerExchangeManager.ExchangeMode.NONE:
+			_folder_tiles.enable_folder_tiles()
 
 ## Fetches all assets in a directory, including Asset-Packages [br]
 ## The folders that are found that aren't packages can be retrieved through the given
@@ -67,7 +76,7 @@ func _fetch_assets_info(directory: String, out_found_folder_dirs: Array[String] 
 
 func populate(assets: Array[AssetInfo], p_folder_dirs: Array[String]):
 	add_tile_line(assets)
-	add_folder_tile_line(p_folder_dirs)
+	_folder_tiles = add_folder_tile_line(p_folder_dirs)
 
 func add_tile_line(assets: Array[AssetInfo]) -> void:
 	var tile_line = ResourceManager.create_tile_line()
@@ -75,11 +84,12 @@ func add_tile_line(assets: Array[AssetInfo]) -> void:
 	tile_line.populate(assets)
 	local_asset_container.add_child(tile_line)
 
-func add_folder_tile_line(p_folder_dirs: Array[String]) -> void:
+func add_folder_tile_line(p_folder_dirs: Array[String]) -> Asset_View_2D_Line:
 	var folder_tile_line: Asset_View_2D_Line = ResourceManager.create_tile_line()
 	folder_tile_line.set_explorer_handler(self)
 	folder_tile_line.populate_folders(p_folder_dirs)
 	local_folder_container.add_child(folder_tile_line)
+	return folder_tile_line
 
 func remove_all_tiles():
 	for child in local_asset_container.get_children():

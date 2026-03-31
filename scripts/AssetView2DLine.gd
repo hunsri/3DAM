@@ -39,3 +39,13 @@ func add_folder_tile(folder_dir: String) -> void:
 	folder_tile = FOLDER_TILE.instantiate()
 	add_child(folder_tile)
 	folder_tile.setup_tile(_explorer_handler, folder_dir)
+
+func disable_folder_tiles() -> void:
+	for tile in get_children():
+		if tile is FolderTile:
+			tile.disable_tile_button()
+
+func enable_folder_tiles() -> void:
+	for tile in get_children():
+		if tile is FolderTile:
+			tile.enable_tile_button()
