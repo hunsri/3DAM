@@ -1,6 +1,8 @@
 # 3DAM
 *A simple 3D Asset Manager made with the Godot Engine*
 
+<img width="483" height="278" alt="Screenshot of the 3D-Asset-Managers GUI" src="https://github.com/user-attachments/assets/a011130f-32b9-4477-a425-71d55d7b082a" />
+
 ## NOTICE
 This project is not yet complete. *Expect a limited feature-set.* <br>
 It can be used as a standalone software, or in combination with a custom asset server, which can be found [here](https://github.com/hunsri/3DAM-Server)
