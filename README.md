@@ -22,7 +22,7 @@ It can be used as a standalone software, or in combination with **3DAM-Server**,
 
 ## Requirements
 
-The project is on **Godot 4.5.1** <br>
+The project is on **Godot 4.6.2** <br>
 It is strongly recommended to use the same version.
 <br><br>
 The project should still be able to be run with all Godot 4.x versions.
