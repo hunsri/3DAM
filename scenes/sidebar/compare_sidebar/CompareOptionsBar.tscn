@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://yth2n50kpekh"]
+
+[ext_resource type="Texture2D" uid="uid://b3lupo6ty8agj" path="res://icons/cube.png" id="1_k34xt"]
+[ext_resource type="Texture2D" uid="uid://rttck8am45m2" path="res://icons/xray-view.png" id="2_anfai"]
+[ext_resource type="Texture2D" uid="uid://d2gnx0211h28p" path="res://icons/cell2x2.png" id="3_v6t8r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wc57"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.47058824, 0.83137256, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7hsh"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.5647059, 1, 1)
+
+[node name="CompareOptionsBar" type="MarginContainer" unique_id=1996557441]
+custom_minimum_size = Vector2(0, 34)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/margin_left = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2020446494]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=941085096]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7wc57")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_a7hsh")
+toggle_mode = true
+icon = ExtResource("1_k34xt")
+expand_icon = true
+
+[node name="Button2" type="Button" parent="HBoxContainer" unique_id=1398865998]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7wc57")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_a7hsh")
+toggle_mode = true
+icon = ExtResource("2_anfai")
+expand_icon = true
+
+[node name="Button3" type="Button" parent="HBoxContainer" unique_id=1350554472]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7wc57")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_a7hsh")
+toggle_mode = true
+icon = ExtResource("3_v6t8r")
+expand_icon = true

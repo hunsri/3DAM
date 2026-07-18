@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://djmadqb6fsp38"]
+[gd_scene format=3 uid="uid://djmadqb6fsp38"]
 
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_hm4ou"]
 [ext_resource type="Script" uid="uid://dehaxai5w18o8" path="res://scripts/exchange_bar/ServerExchangeBar.gd" id="2_m5n62"]
@@ -11,7 +11,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hm4ou"]
 
-[node name="ServerExchangeBar" type="Panel" node_paths=PackedStringArray("upload_button_container", "download_button_container", "help_panel", "added_assets_container")]
+[node name="ServerExchangeBar" type="Panel" unique_id=350290512 node_paths=PackedStringArray("upload_button_container", "download_button_container", "help_panel", "added_assets_container")]
 clip_contents = true
 anchors_preset = 10
 anchor_right = 1.0
@@ -25,7 +25,7 @@ download_button_container = NodePath("HBoxContainer/LoadSelect/Download")
 help_panel = NodePath("HBoxContainer/HelpPanel")
 added_assets_container = NodePath("HBoxContainer/SelectedAssetsContainer/ScrollContainer/AddedAssetsContainer")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2081460721]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -33,43 +33,43 @@ offset_left = 4.0
 offset_right = 942.0
 grow_vertical = 2
 
-[node name="HelpPanel" type="HBoxContainer" parent="HBoxContainer"]
+[node name="HelpPanel" type="HBoxContainer" parent="HBoxContainer" unique_id=1139323360]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Help" type="Label" parent="HBoxContainer/HelpPanel"]
+[node name="Help" type="Label" parent="HBoxContainer/HelpPanel" unique_id=1093467003]
 layout_mode = 2
 text = "Click the checkbox of an asset ("
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/HelpPanel"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/HelpPanel" unique_id=983006174]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_m5n62")
 
-[node name="CheckBox" type="CheckBox" parent="HBoxContainer/HelpPanel/PanelContainer"]
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer/HelpPanel/PanelContainer" unique_id=1568663535]
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 2
 
-[node name="Help2" type="Label" parent="HBoxContainer/HelpPanel"]
+[node name="Help2" type="Label" parent="HBoxContainer/HelpPanel" unique_id=925557418]
 layout_mode = 2
 text = ") to select it for upload / download"
 
-[node name="LoadSelect" type="VBoxContainer" parent="HBoxContainer"]
+[node name="LoadSelect" type="VBoxContainer" parent="HBoxContainer" unique_id=466795883]
 z_index = 1
 layout_mode = 2
 alignment = 1
 
-[node name="Upload" type="PanelContainer" parent="HBoxContainer/LoadSelect"]
+[node name="Upload" type="PanelContainer" parent="HBoxContainer/LoadSelect" unique_id=1857793197]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_yhuqo")
 
-[node name="Control" type="Control" parent="HBoxContainer/LoadSelect/Upload"]
+[node name="Control" type="Control" parent="HBoxContainer/LoadSelect/Upload" unique_id=2054913079]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 
-[node name="Upload-Mode-Connector" type="ColorRect" parent="HBoxContainer/LoadSelect/Upload/Control"]
+[node name="Upload-Mode-Connector" type="ColorRect" parent="HBoxContainer/LoadSelect/Upload/Control" unique_id=638680995]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 0
 offset_right = 6.0
@@ -77,25 +77,25 @@ offset_bottom = 2.0
 size_flags_vertical = 6
 size_flags_stretch_ratio = 9.94
 
-[node name="UploadButton" type="Button" parent="HBoxContainer/LoadSelect/Upload"]
+[node name="UploadButton" type="Button" parent="HBoxContainer/LoadSelect/Upload" unique_id=1072651734]
 layout_mode = 2
 theme = ExtResource("1_hm4ou")
 theme_type_variation = &"ActionButton"
 text = "Upload"
 icon = ExtResource("4_02vhf")
 
-[node name="Download" type="PanelContainer" parent="HBoxContainer/LoadSelect"]
+[node name="Download" type="PanelContainer" parent="HBoxContainer/LoadSelect" unique_id=71681341]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hm4ou")
 
-[node name="Control" type="Control" parent="HBoxContainer/LoadSelect/Download"]
+[node name="Control" type="Control" parent="HBoxContainer/LoadSelect/Download" unique_id=1998009052]
 z_index = -1
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Download-Mode-Connector" type="ColorRect" parent="HBoxContainer/LoadSelect/Download/Control"]
+[node name="Download-Mode-Connector" type="ColorRect" parent="HBoxContainer/LoadSelect/Download/Control" unique_id=1968987733]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 1
 anchors_preset = 6
@@ -111,22 +111,22 @@ grow_vertical = 2
 size_flags_vertical = 6
 size_flags_stretch_ratio = 9.94
 
-[node name="DownloadButton" type="Button" parent="HBoxContainer/LoadSelect/Download"]
+[node name="DownloadButton" type="Button" parent="HBoxContainer/LoadSelect/Download" unique_id=278966187]
 layout_mode = 2
 theme = ExtResource("1_hm4ou")
 theme_type_variation = &"ActionButton"
 text = "Dowload"
 icon = ExtResource("4_hm4ou")
 
-[node name="SelectedAssetsContainer" type="MarginContainer" parent="HBoxContainer"]
+[node name="SelectedAssetsContainer" type="MarginContainer" parent="HBoxContainer" unique_id=2134396134]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/SelectedAssetsContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/SelectedAssetsContainer" unique_id=1020374367]
 layout_mode = 2
 
-[node name="AddedAssetsContainer" type="HBoxContainer" parent="HBoxContainer/SelectedAssetsContainer/ScrollContainer"]
+[node name="AddedAssetsContainer" type="HBoxContainer" parent="HBoxContainer/SelectedAssetsContainer/ScrollContainer" unique_id=846044066]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
