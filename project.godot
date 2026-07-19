@@ -34,6 +34,7 @@ window/size/mode=2
 
 folder_colors={
 "res://scenes/": "teal",
+"res://scenes/context_scenes/": "green",
 "res://scripts/": "orange"
 }
 
