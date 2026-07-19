@@ -31,6 +31,12 @@ layout_mode = 1
 [node name="AssetExplorerHandler" parent="Background/AssetExplorer2d" index="0" unique_id=429878591 node_paths=PackedStringArray("directory_handler")]
 directory_handler = NodePath("../../DirectorySelector/DirectoryHandler")
 
+[node name="AssetInfoSidebar" parent="Background/AssetExplorer2d/HSplitContainer" parent_id_path=PackedInt32Array(2038647137, 374640779) index="1" unique_id=1284835389]
+visible = false
+
+[node name="SubViewport" parent="Background/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" index="0"]
+render_target_update_mode = 0
+
 [node name="DirectorySelector" parent="Background" unique_id=1638007671 instance=ExtResource("2_edxg6")]
 layout_mode = 1
 

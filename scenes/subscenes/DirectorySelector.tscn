@@ -3,14 +3,19 @@
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="1_7uuti"]
 [ext_resource type="Script" uid="uid://x7716fdxafas" path="res://scripts/DirectoryHandler.gd" id="1_ko0af"]
 [ext_resource type="Script" uid="uid://c0jypb3xxy451" path="res://scripts/DirectorySelector.gd" id="1_qcwdl"]
+[ext_resource type="Texture2D" uid="uid://76aavcqw45dc" path="res://icons/sidebar-collapse.png" id="3_hqjo8"]
 [ext_resource type="PackedScene" uid="uid://cb2g5aviktllm" path="res://scenes/subscenes/overlays/SelectorStatusOverlay.tscn" id="4_qcwdl"]
 [ext_resource type="Texture2D" uid="uid://fe78vbnwcixt" path="res://icons/folder.png" id="4_tcxjl"]
+[ext_resource type="Script" uid="uid://fq3ukeh0hunl" path="res://scripts/gui_helpers/unfolding_helper.gd" id="5_s8wdl"]
+[ext_resource type="Texture2D" uid="uid://lxkiv6pky6gi" path="res://icons/sidebar-expand.png" id="6_s58v0"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_hqjo8"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_s8wdl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nae47"]
 
 [node name="DirectorySelector" type="MarginContainer" unique_id=536886688]
-custom_minimum_size = Vector2(500, 0)
-custom_maximum_size = Vector2(500, -1)
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 400.0
@@ -19,18 +24,27 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/margin_left = 100
 
-[node name="DirectorySidePanel" type="PanelContainer" parent="." unique_id=1409989446]
+[node name="FoldableContainer" type="HSplitContainer" parent="." unique_id=1923588399]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_constants/minimum_grab_thickness = 0
+theme_override_icons/grabber = SubResource("ImageTexture_hqjo8")
+theme_override_icons/h_grabber = SubResource("ImageTexture_s8wdl")
+
+[node name="DirectorySidePanel" type="PanelContainer" parent="FoldableContainer" unique_id=1409989446]
+custom_minimum_size = Vector2(400, 0)
+custom_maximum_size = Vector2(400, -1)
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("1_7uuti")
 theme_type_variation = &"DirectorySidebar"
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DirectorySidePanel" unique_id=1153352319]
+[node name="VBoxContainer" type="VBoxContainer" parent="FoldableContainer/DirectorySidePanel" unique_id=1153352319]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="DirLocationHeader" type="PanelContainer" parent="DirectorySidePanel/VBoxContainer" unique_id=93487530]
+[node name="DirLocationHeader" type="PanelContainer" parent="FoldableContainer/DirectorySidePanel/VBoxContainer" unique_id=93487530]
 custom_minimum_size = Vector2(0, 60)
 custom_maximum_size = Vector2(-1, 60)
 layout_mode = 2
@@ -38,7 +52,7 @@ mouse_filter = 2
 theme = ExtResource("1_7uuti")
 theme_type_variation = &"DirLocHeader"
 
-[node name="MarginContainer" type="MarginContainer" parent="DirectorySidePanel/VBoxContainer/DirLocationHeader" unique_id=1101881004]
+[node name="MarginContainer" type="MarginContainer" parent="FoldableContainer/DirectorySidePanel/VBoxContainer/DirLocationHeader" unique_id=1101881004]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 20
@@ -46,10 +60,14 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="DirectoryName" type="Button" parent="DirectorySidePanel/VBoxContainer/DirLocationHeader/MarginContainer" unique_id=768102844]
+[node name="HBoxContainer" type="HBoxContainer" parent="FoldableContainer/DirectorySidePanel/VBoxContainer/DirLocationHeader/MarginContainer" unique_id=278152777]
+layout_mode = 2
+
+[node name="DirectoryName" type="Button" parent="FoldableContainer/DirectorySidePanel/VBoxContainer/DirLocationHeader/MarginContainer/HBoxContainer" unique_id=768102844]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 2
+size_flags_horizontal = 3
 tooltip_text = "Open the asset folder"
 theme_override_styles/focus = SubResource("StyleBoxEmpty_nae47")
 icon = ExtResource("4_tcxjl")
@@ -57,26 +75,53 @@ text_overrun_behavior = 3
 clip_text = true
 expand_icon = true
 
-[node name="DirectoryTree" type="Tree" parent="DirectorySidePanel/VBoxContainer" unique_id=1901997345]
+[node name="fold" type="Button" parent="FoldableContainer/DirectorySidePanel/VBoxContainer/DirLocationHeader/MarginContainer/HBoxContainer" unique_id=1490793059 node_paths=PackedStringArray("foldable_container")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+icon = ExtResource("3_hqjo8")
+expand_icon = true
+script = ExtResource("5_s8wdl")
+is_folding = true
+foldable_container = NodePath("../../../../../..")
+
+[node name="DirectoryTree" type="Tree" parent="FoldableContainer/DirectorySidePanel/VBoxContainer" unique_id=1901997345]
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
 theme = ExtResource("1_7uuti")
 theme_type_variation = &"DirectorySidebar"
 
-[node name="CategorySelectorStatusOverlay" parent="DirectorySidePanel/VBoxContainer/DirectoryTree" unique_id=323099537 instance=ExtResource("4_qcwdl")]
+[node name="CategorySelectorStatusOverlay" parent="FoldableContainer/DirectorySidePanel/VBoxContainer/DirectoryTree" unique_id=323099537 instance=ExtResource("4_qcwdl")]
 layout_mode = 1
 overlay_type = 1
+
+[node name="fold-placeholder" type="Control" parent="FoldableContainer" unique_id=340424180]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="unfold" type="Button" parent="FoldableContainer/fold-placeholder" unique_id=18246076 node_paths=PackedStringArray("foldable_container")]
+custom_maximum_size = Vector2(40, 40)
+layout_mode = 1
+offset_top = 10.0
+offset_right = 40.0
+offset_bottom = 50.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("6_s58v0")
+expand_icon = true
+script = ExtResource("5_s8wdl")
+foldable_container = NodePath("../..")
 
 [node name="DirectorySelector" type="Node" parent="." unique_id=638355520 node_paths=PackedStringArray("directory_handler", "directory_tree")]
 script = ExtResource("1_qcwdl")
 directory_handler = NodePath("../DirectoryHandler")
-directory_tree = NodePath("../DirectorySidePanel/VBoxContainer/DirectoryTree")
+directory_tree = NodePath("../FoldableContainer/DirectorySidePanel/VBoxContainer/DirectoryTree")
 metadata/_custom_type_script = "uid://c0jypb3xxy451"
 
 [node name="DirectoryHandler" type="Node" parent="." unique_id=134581442 node_paths=PackedStringArray("directory_tree")]
 script = ExtResource("1_ko0af")
-directory_tree = NodePath("../DirectorySidePanel/VBoxContainer/DirectoryTree")
+directory_tree = NodePath("../FoldableContainer/DirectorySidePanel/VBoxContainer/DirectoryTree")
 
-[connection signal="pressed" from="DirectorySidePanel/VBoxContainer/DirLocationHeader/MarginContainer/DirectoryName" to="DirectoryHandler" method="_on_directory_name_pressed"]
-[connection signal="item_selected" from="DirectorySidePanel/VBoxContainer/DirectoryTree" to="DirectoryHandler" method="_on_tree_item_selected"]
+[connection signal="pressed" from="FoldableContainer/DirectorySidePanel/VBoxContainer/DirLocationHeader/MarginContainer/HBoxContainer/DirectoryName" to="DirectoryHandler" method="_on_directory_name_pressed"]
+[connection signal="item_selected" from="FoldableContainer/DirectorySidePanel/VBoxContainer/DirectoryTree" to="DirectoryHandler" method="_on_tree_item_selected"]

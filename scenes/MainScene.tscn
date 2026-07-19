@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqgaslfy2x3y3"]
+[gd_scene format=3 uid="uid://dqgaslfy2x3y3"]
 
 [ext_resource type="PackedScene" uid="uid://kfomt2xswri8" path="res://scenes/subscenes/LocationSelector.tscn" id="1_echbf"]
 [ext_resource type="Script" uid="uid://16fge0gnc4lp" path="res://scripts/Startup.gd" id="1_ibiss"]
 
-[node name="MainScene" type="Control"]
+[node name="MainScene" type="Control" unique_id=1776508641]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,12 +11,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Startup" type="Node" parent="." node_paths=PackedStringArray("SCENE_NODE")]
+[node name="Startup" type="Node" parent="." unique_id=1946964600 node_paths=PackedStringArray("SCENE_NODE")]
 script = ExtResource("1_ibiss")
 SCENE_NODE = NodePath("../ContextScene")
 metadata/_custom_type_script = "uid://16fge0gnc4lp"
 
-[node name="ContextScene" type="Control" parent="."]
+[node name="ContextScene" type="Control" parent="." unique_id=497994485]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -26,5 +26,8 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="LocationSelector" parent="." instance=ExtResource("1_echbf")]
+[node name="LocationSelector" parent="." unique_id=1521843791 instance=ExtResource("1_echbf")]
 layout_mode = 1
+anchors_preset = 9
+anchor_right = 0.0
+grow_horizontal = 1
