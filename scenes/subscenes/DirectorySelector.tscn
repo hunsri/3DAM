@@ -15,6 +15,9 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nae47"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqjo8"]
+bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
+
 [node name="DirectorySelector" type="MarginContainer" unique_id=536886688]
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -95,20 +98,19 @@ theme_type_variation = &"DirectorySidebar"
 layout_mode = 1
 overlay_type = 1
 
-[node name="fold-placeholder" type="Control" parent="FoldableContainer" unique_id=340424180]
+[node name="fold-placeholder" type="PanelContainer" parent="FoldableContainer" unique_id=416436994]
 visible = false
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hqjo8")
 
 [node name="unfold" type="Button" parent="FoldableContainer/fold-placeholder" unique_id=18246076 node_paths=PackedStringArray("foldable_container")]
-custom_maximum_size = Vector2(40, 40)
-layout_mode = 1
-offset_top = 10.0
-offset_right = 40.0
-offset_bottom = 50.0
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
 icon = ExtResource("6_s58v0")
+vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("5_s8wdl")
 foldable_container = NodePath("../..")
