@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bgwvc6hkg8d2j"]
+
+[ext_resource type="Script" uid="uid://b0od3k3d040cq" path="res://scripts/gui_helpers/drop_helper.gd" id="1_uji0d"]
+[ext_resource type="Texture2D" uid="uid://dmxrvlgqdpkk3" path="res://icons/droplet.png" id="5_s0bx2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cbbd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cbbd"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_umwpy"]
+font_color = Color(0.627451, 0.627451, 0.627451, 1)
+
+[node name="DetailsElementDropReceptor" type="PanelContainer" unique_id=1026025218]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1cbbd")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1069792278]
+custom_minimum_size = Vector2(400, 0)
+custom_maximum_size = Vector2(400, -1)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DropPlaceholder" type="PanelContainer" parent="MarginContainer" unique_id=1981232818]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1cbbd")
+script = ExtResource("1_uji0d")
+
+[node name="HoverIndicator" type="ColorRect" parent="MarginContainer/DropPlaceholder" unique_id=113685426]
+visible = false
+layout_mode = 2
+color = Color(0, 0.47058824, 0.83137256, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/DropPlaceholder" unique_id=2117061405]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/DropPlaceholder/VBoxContainer" unique_id=1191315355]
+modulate = Color(0.627451, 0.627451, 0.627451, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_s0bx2")
+
+[node name="Label" type="Label" parent="MarginContainer/DropPlaceholder/VBoxContainer" unique_id=998692206]
+layout_mode = 2
+text = "Drag and drop
+assets
+to add them"
+label_settings = SubResource("LabelSettings_umwpy")
+horizontal_alignment = 1

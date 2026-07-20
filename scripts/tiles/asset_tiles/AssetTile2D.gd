@@ -14,12 +14,16 @@ var asset_info: AssetInfo				## contains information about the represented asset
 var package_info: PackageInfo = null 	## only present if asset_tile is a package
 var asset_info_of_current_package_version: AssetInfo = null ## only present if asset_tile is a package
 
+var preview_mode := false ## flag for skipping _ready() when true
 
 ## on ready, we check whether the asset is a package or a 3D model.[br][br]
 ## If it's a 3D model, we display the preview of the model.
 ## If it's a package, we display the preview of the model of the latest available package version
 ## and set the file extension of the tile to that of the model asset of the latest available package version.
 func _ready() -> void:
+	
+	if preview_mode:
+		return
 	
 	if asset_info.asset_type == AssetInfo.AssetType.MODEL_3D:
 		display_model_preview()

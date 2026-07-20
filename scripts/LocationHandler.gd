@@ -1,6 +1,6 @@
 class_name Location_Handler extends PanelContainer
 
-const LOCAL_VIEW_UI = preload("uid://d2no27480sc8")
+const LOCAL_VIEW_UI = preload("uid://dqk781tt0pryi")
 const SERVER_VIEW_UI = preload("uid://bo8w8k6tnqxov")
 const ADD_SERVER_UI = preload("uid://vopv1427n8vl")
 const CATEGORY_SELECTOR = preload("uid://dvb1345451o5v")

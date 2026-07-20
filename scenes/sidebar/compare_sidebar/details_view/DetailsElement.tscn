@@ -1,9 +1,8 @@
-[gd_scene format=3 uid="uid://dm5anrn3ajtht"]
+[gd_scene format=3 uid="uid://vbl42yegec85"]
 
 [ext_resource type="Environment" uid="uid://btn86veyhcnqh" path="res://resources/StandardEnvironment.tres" id="1_3w5qn"]
 [ext_resource type="Texture2D" uid="uid://dpyd0mvhlxhkf" path="res://icons/download.png" id="2_ss73r"]
 [ext_resource type="Texture2D" uid="uid://bb28cuhux8va6" path="res://icons/trash.png" id="3_16r55"]
-[ext_resource type="Texture2D" uid="uid://dmxrvlgqdpkk3" path="res://icons/droplet.png" id="3_ie7vy"]
 [ext_resource type="PackedScene" uid="uid://jwxjevp5g6qc" path="res://scenes/sidebar/compare_sidebar/details_view/DetailsElementEntry.tscn" id="3_sguiy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cbbd"]
@@ -81,16 +80,6 @@ content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(0.33, 0.18216002, 0.05280001, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cbbd"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-
-[sub_resource type="LabelSettings" id="LabelSettings_umwpy"]
-font_color = Color(0.627451, 0.627451, 0.627451, 1)
 
 [node name="DetailsElement" type="PanelContainer" unique_id=1026025218]
 anchors_preset = 15
@@ -204,33 +193,3 @@ layout_mode = 2
 
 [node name="DetailsElementEntry3" parent="MarginContainer/Contents/MetaInfo/VBoxContainer" unique_id=526903584 instance=ExtResource("3_sguiy")]
 layout_mode = 2
-
-[node name="DropPlaceholder" type="PanelContainer" parent="MarginContainer" unique_id=1981232818]
-visible = false
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1cbbd")
-
-[node name="HoverIndicator" type="ColorRect" parent="MarginContainer/DropPlaceholder" unique_id=113685426]
-visible = false
-layout_mode = 2
-color = Color(0, 0.47058824, 0.83137256, 1)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/DropPlaceholder" unique_id=2117061405]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/DropPlaceholder/VBoxContainer" unique_id=1191315355]
-modulate = Color(0.627451, 0.627451, 0.627451, 1)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("3_ie7vy")
-
-[node name="Label" type="Label" parent="MarginContainer/DropPlaceholder/VBoxContainer" unique_id=998692206]
-layout_mode = 2
-text = "Drag and drop
-assets
-to add them"
-label_settings = SubResource("LabelSettings_umwpy")
-horizontal_alignment = 1

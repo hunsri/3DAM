@@ -4,8 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://b8wykdqxo523l" path="res://scenes/sidebar/compare_sidebar/details_view/DetailsView.tscn" id="1_taoyf"]
 [ext_resource type="Texture2D" uid="uid://do41hjnxfa3cr" path="res://icons/redo.png" id="2_wyxuf"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cbbd"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyxuf"]
 content_margin_left = 10.0
 content_margin_top = 10.0
@@ -79,7 +77,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_1cbbd")
 
 [node name="TabContainer" type="TabContainer" parent="." unique_id=1304271021]
 layout_mode = 2

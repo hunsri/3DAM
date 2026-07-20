@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://xa2j6v56168e" path="res://scenes/subscenes/asset_views/AssetView2D.tscn" id="1_lappt"]
 [ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="2_edxg6"]
+[ext_resource type="PackedScene" uid="uid://c8bclfa75y541" path="res://scenes/sidebar/compare_sidebar/CompareView.tscn" id="3_edxg6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guh61"]
 bg_color = Color(1, 1, 1, 1)
@@ -37,23 +38,32 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="DirectoryHandler" parent="Background/HBoxContainer/DirectorySelector" index="2" unique_id=134581442 node_paths=PackedStringArray("explorer_handler")]
-explorer_handler = NodePath("../../AssetExplorer2d/AssetExplorerHandler")
+default_root_dir = "res://"
+explorer_handler = NodePath("../../HSplitContainer/AssetExplorer2d/AssetExplorerHandler")
 
-[node name="AssetExplorer2d" parent="Background/HBoxContainer" unique_id=2038647137 instance=ExtResource("1_lappt")]
+[node name="HSplitContainer" type="HSplitContainer" parent="Background/HBoxContainer" unique_id=1194475055]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AssetExplorerHandler" parent="Background/HBoxContainer/AssetExplorer2d" index="0" unique_id=429878591 node_paths=PackedStringArray("directory_handler")]
-directory_handler = NodePath("../../DirectorySelector/DirectoryHandler")
+[node name="AssetExplorer2d" parent="Background/HBoxContainer/HSplitContainer" unique_id=2038647137 instance=ExtResource("1_lappt")]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="AssetInfoSidebar" parent="Background/HBoxContainer/AssetExplorer2d/HSplitContainer" parent_id_path=PackedInt32Array(2038647137, 374640779) index="1" unique_id=1284835389]
+[node name="AssetExplorerHandler" parent="Background/HBoxContainer/HSplitContainer/AssetExplorer2d" index="0" unique_id=429878591 node_paths=PackedStringArray("directory_handler")]
+directory_handler = NodePath("../../../DirectorySelector/DirectoryHandler")
+
+[node name="AssetInfoSidebar" parent="Background/HBoxContainer/HSplitContainer/AssetExplorer2d/HSplitContainer" parent_id_path=PackedInt32Array(2038647137, 374640779) index="1" unique_id=1284835389]
 visible = false
 
-[node name="SubViewport" parent="Background/HBoxContainer/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" index="0"]
+[node name="SubViewport" parent="Background/HBoxContainer/HSplitContainer/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" index="0"]
 size = Vector2i(2, 2)
 render_target_update_mode = 0
 
+[node name="CompareView" parent="Background/HBoxContainer/HSplitContainer" unique_id=875355270 instance=ExtResource("3_edxg6")]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [editable path="Background/HBoxContainer/DirectorySelector"]
-[editable path="Background/HBoxContainer/AssetExplorer2d"]
-[editable path="Background/HBoxContainer/AssetExplorer2d/HSplitContainer/AssetInfoSidebar"]
-[editable path="Background/HBoxContainer/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/SidebarSplit/ScrollContainer/AssetMetaInfo"]
+[editable path="Background/HBoxContainer/HSplitContainer/AssetExplorer2d"]
+[editable path="Background/HBoxContainer/HSplitContainer/AssetExplorer2d/HSplitContainer/AssetInfoSidebar"]
+[editable path="Background/HBoxContainer/HSplitContainer/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/SidebarSplit/ScrollContainer/AssetMetaInfo"]
