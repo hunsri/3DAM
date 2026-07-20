@@ -70,6 +70,12 @@ func _fetch_assets_info(directory: String, out_found_folder_dirs: Array[String] 
 	dir_access.list_dir_begin()
 	var asset_file_name = dir_access.get_next()
 	while asset_file_name != "":
+		
+		# Guard against editor import files
+		if asset_file_name.get_extension() == "import":
+			asset_file_name = dir_access.get_next()
+			continue
+		
 		var asset_path: String = directory+"/"+asset_file_name
 		
 		# We don't want to return folders that aren't packages
@@ -82,7 +88,7 @@ func _fetch_assets_info(directory: String, out_found_folder_dirs: Array[String] 
 		
 		ret.append(AssetInfo.new(asset_file_name, asset_path))
 		asset_file_name = dir_access.get_next()
-	
+		
 	return ret
 
 ## For populating the explorer with tiles representing the given assets and folders [br]

@@ -2,8 +2,6 @@ extends Control
 
 @onready var asset_tile: AbstractAssetTile = $"../.."
 
-var drag_data = null
-
 func _get_drag_data(at_position):
 	
 	var root_preview := Control.new()
@@ -20,10 +18,5 @@ func _get_drag_data(at_position):
 	root_preview.custom_minimum_size = preview.get_combined_minimum_size()
 	preview.position = -root_preview.custom_minimum_size * 0.5
 	set_drag_preview(root_preview)
-	
-	
-	drag_data = asset_tile
-	
-	print(asset_tile.get_asset_info().asset_file_name)
 	
 	return {"source": self, "payload": asset_tile}

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://xa2j6v56168e" path="res://scenes/subscenes/asset_views/AssetView2D.tscn" id="1_lappt"]
 [ext_resource type="PackedScene" uid="uid://16s375yxtc82" path="res://scenes/subscenes/DirectorySelector.tscn" id="2_edxg6"]
 [ext_resource type="PackedScene" uid="uid://c8bclfa75y541" path="res://scenes/sidebar/compare_sidebar/CompareView.tscn" id="3_edxg6"]
+[ext_resource type="Script" uid="uid://bd26f4yhu56h" path="res://scripts/debug/file_display.gd" id="4_pbece"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guh61"]
 bg_color = Color(1, 1, 1, 1)
@@ -38,7 +39,6 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="DirectoryHandler" parent="Background/HBoxContainer/DirectorySelector" index="2" unique_id=134581442 node_paths=PackedStringArray("explorer_handler")]
-default_root_dir = "res://"
 explorer_handler = NodePath("../../HSplitContainer/AssetExplorer2d/AssetExplorerHandler")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Background/HBoxContainer" unique_id=1194475055]
@@ -56,12 +56,28 @@ directory_handler = NodePath("../../../DirectorySelector/DirectoryHandler")
 visible = false
 
 [node name="SubViewport" parent="Background/HBoxContainer/HSplitContainer/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" index="0"]
-size = Vector2i(2, 2)
+size = Vector2i(40, 500)
 render_target_update_mode = 0
 
 [node name="CompareView" parent="Background/HBoxContainer/HSplitContainer" unique_id=875355270 instance=ExtResource("3_edxg6")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="DebugFileLabel" type="Label" parent="." unique_id=599171567]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_pbece")
 
 [editable path="Background/HBoxContainer/DirectorySelector"]
 [editable path="Background/HBoxContainer/HSplitContainer/AssetExplorer2d"]

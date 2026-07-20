@@ -1,6 +1,7 @@
 class_name DirectoryHandler extends Node
 
-@export var default_root_dir:String = "user://"
+#@export var default_root_dir:String = "user://"
+var default_root_dir:String = "res://" # change to res for web build tests; TODO NEEDS TO BE CHANGED BACK LATER
 @export var default_library_name:String = "Assets"
 var default_asset_path:String = default_root_dir + default_library_name
 @export var explorer_handler: AssetExplorerHandler
@@ -28,7 +29,16 @@ func _on_directory_name_pressed() -> void:
 
 ## Returns the currently open path in globalized form
 func get_currently_open_directory() -> String:
-	return ProjectSettings.globalize_path(_currently_open_directory)
+	
+	if OS.has_feature("editor"):
+		return ProjectSettings.globalize_path(_currently_open_directory)
+	else:
+		# Running from an exported project.
+		# This is *not* identical to using `ProjectSettings.globalize_path()` with a `res://` path,
+		# but is close enough in spirit.
+		return OS.get_executable_path().get_base_dir().path_join(_currently_open_directory)
+	
+	#return ProjectSettings.globalize_path(_currently_open_directory)
 
 func _on_tree_item_selected() -> void:
 	explorer_handler.asset_sidebar_handler.reset_sidebar()
