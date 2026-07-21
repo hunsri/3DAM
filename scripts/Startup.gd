@@ -16,6 +16,9 @@ const ID_FILE_PATH := "user://identity.ini"
 func _ready() -> void:
 	_create_identity_if_not_exist()
 	
+	# necessary for wireframes to render in compatibility mode
+	RenderingServer.set_debug_generate_wireframes(true)
+	
 	SCENE_NODE.add_child(Location_Handler.LOCAL_VIEW_UI.instantiate())
 
 ## Static function to load the identity of the user from the file specified in [constant ID_FILE_PATH] [br]

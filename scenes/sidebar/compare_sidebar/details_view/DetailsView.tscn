@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://b8wykdqxo523l"]
 
-[ext_resource type="PackedScene" uid="uid://yth2n50kpekh" path="res://scenes/sidebar/compare_sidebar/CompareOptionsBar.tscn" id="1_5fqwg"]
+[ext_resource type="PackedScene" uid="uid://yth2n50kpekh" path="res://scenes/sidebar/compare_sidebar/DisplayOptionsBar.tscn" id="1_5fqwg"]
 [ext_resource type="Script" uid="uid://du7tkjwiyyseb" path="res://scripts/compare_view/details_view/DetailsViewManager.gd" id="1_l0g1e"]
-[ext_resource type="PackedScene" uid="uid://vbl42yegec85" path="res://scenes/sidebar/compare_sidebar/details_view/DetailsElement.tscn" id="1_pmmdn"]
 [ext_resource type="Script" uid="uid://bwgxl6gi1maoi" path="res://scripts/gui_helpers/scroll_helper.gd" id="2_h81ah"]
 [ext_resource type="PackedScene" uid="uid://bgwvc6hkg8d2j" path="res://scenes/sidebar/compare_sidebar/details_view/DetailsElementDropReceptor.tscn" id="3_ei6j4"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ei6j4"]
 
 [node name="DetailsView" type="PanelContainer" unique_id=687878988]
 anchors_preset = 15
@@ -20,6 +21,15 @@ theme_override_constants/separation = 0
 
 [node name="DisplayModeBar" parent="VBoxContainer" unique_id=464007258 instance=ExtResource("1_5fqwg")]
 layout_mode = 2
+
+[node name="Default" parent="VBoxContainer/DisplayModeBar/DisplayOptionsContainer" parent_id_path=PackedInt32Array(464007258, 2020446494) index="0" unique_id=941085096]
+button_group = SubResource("ButtonGroup_ei6j4")
+
+[node name="Wireframe" parent="VBoxContainer/DisplayModeBar/DisplayOptionsContainer" parent_id_path=PackedInt32Array(464007258, 2020446494) index="1" unique_id=1398865998]
+button_group = SubResource("ButtonGroup_ei6j4")
+
+[node name="UV" parent="VBoxContainer/DisplayModeBar/DisplayOptionsContainer" parent_id_path=PackedInt32Array(464007258, 2020446494) index="2" unique_id=1350554472]
+button_group = SubResource("ButtonGroup_ei6j4")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=110479194]
 layout_mode = 2
@@ -45,14 +55,4 @@ metadata/_tab_index = 0
 [node name="DetailsElementDropReceptor" parent="VBoxContainer/ScrollContainer/DetailsRoot" unique_id=1026025218 instance=ExtResource("3_ei6j4")]
 layout_mode = 2
 
-[node name="DetailsElement" parent="VBoxContainer/ScrollContainer/DetailsRoot" unique_id=2059509396 instance=ExtResource("1_pmmdn")]
-visible = false
-layout_mode = 2
-
-[node name="DetailsElement2" parent="VBoxContainer/ScrollContainer/DetailsRoot" unique_id=1588195988 instance=ExtResource("1_pmmdn")]
-visible = false
-layout_mode = 2
-
-[node name="DetailsElement3" parent="VBoxContainer/ScrollContainer/DetailsRoot" unique_id=905824653 instance=ExtResource("1_pmmdn")]
-visible = false
-layout_mode = 2
+[editable path="VBoxContainer/DisplayModeBar"]

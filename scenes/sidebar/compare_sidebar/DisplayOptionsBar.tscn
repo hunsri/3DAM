@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://yth2n50kpekh"]
 
-[ext_resource type="Texture2D" uid="uid://b3lupo6ty8agj" path="res://icons/cube.png" id="1_k34xt"]
-[ext_resource type="Texture2D" uid="uid://rttck8am45m2" path="res://icons/xray-view.png" id="2_anfai"]
-[ext_resource type="Texture2D" uid="uid://d2gnx0211h28p" path="res://icons/cell2x2.png" id="3_v6t8r"]
+[ext_resource type="Texture2D" uid="uid://b3lupo6ty8agj" path="res://icons/cube.png" id="1_xas8e"]
+[ext_resource type="Texture2D" uid="uid://rttck8am45m2" path="res://icons/xray-view.png" id="2_4q4rf"]
+[ext_resource type="Script" uid="uid://b0lpph64hnc0f" path="res://scripts/compare_view/DisplayOptionsButton.gd" id="2_b1yu5"]
+[ext_resource type="Texture2D" uid="uid://d2gnx0211h28p" path="res://icons/cell2x2.png" id="3_b1yu5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wc57"]
 content_margin_left = 2.0
@@ -18,7 +19,9 @@ content_margin_right = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(0, 0.5647059, 1, 1)
 
-[node name="CompareOptionsBar" type="MarginContainer" unique_id=1996557441]
+[sub_resource type="ButtonGroup" id="ButtonGroup_7wc57"]
+
+[node name="DisplayOptionsBar" type="MarginContainer" unique_id=1996557441]
 custom_minimum_size = Vector2(0, 34)
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,36 +32,45 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/margin_left = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2020446494]
+[node name="DisplayOptionsContainer" type="HBoxContainer" parent="." unique_id=2020446494]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Button" type="Button" parent="HBoxContainer" unique_id=941085096]
+[node name="Default" type="Button" parent="DisplayOptionsContainer" unique_id=941085096]
 custom_minimum_size = Vector2(32, 32)
 custom_maximum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/pressed = SubResource("StyleBoxFlat_7wc57")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_a7hsh")
 toggle_mode = true
-icon = ExtResource("1_k34xt")
+button_pressed = true
+button_group = SubResource("ButtonGroup_7wc57")
+icon = ExtResource("1_xas8e")
 expand_icon = true
+script = ExtResource("2_b1yu5")
 
-[node name="Button2" type="Button" parent="HBoxContainer" unique_id=1398865998]
+[node name="Wireframe" type="Button" parent="DisplayOptionsContainer" unique_id=1398865998]
 custom_minimum_size = Vector2(32, 32)
 custom_maximum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/pressed = SubResource("StyleBoxFlat_7wc57")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_a7hsh")
 toggle_mode = true
-icon = ExtResource("2_anfai")
+button_group = SubResource("ButtonGroup_7wc57")
+icon = ExtResource("2_4q4rf")
 expand_icon = true
+script = ExtResource("2_b1yu5")
+display_mode = 1
 
-[node name="Button3" type="Button" parent="HBoxContainer" unique_id=1350554472]
+[node name="UV" type="Button" parent="DisplayOptionsContainer" unique_id=1350554472]
 custom_minimum_size = Vector2(32, 32)
 custom_maximum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/pressed = SubResource("StyleBoxFlat_7wc57")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_a7hsh")
 toggle_mode = true
-icon = ExtResource("3_v6t8r")
+button_group = SubResource("ButtonGroup_7wc57")
+icon = ExtResource("3_b1yu5")
 expand_icon = true
+script = ExtResource("2_b1yu5")
+display_mode = 2

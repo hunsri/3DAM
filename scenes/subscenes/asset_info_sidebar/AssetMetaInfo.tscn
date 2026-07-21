@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccfv3ourt2n84"]
+[gd_scene format=3 uid="uid://ccfv3ourt2n84"]
 
 [ext_resource type="Script" uid="uid://ck3y24uf0kygi" path="res://scripts/AssetMetaInfoDisplay.gd" id="1_a4nop"]
 
@@ -6,7 +6,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdvw1"]
 
-[node name="AssetMetaInfo" type="PanelContainer"]
+[node name="AssetMetaInfo" type="PanelContainer" unique_id=180463548]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,25 +15,25 @@ grow_vertical = 2
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_8sihi")
 
-[node name="AssetMetaInfoDisplay" type="Node" parent="." node_paths=PackedStringArray("comment_spawner", "comment_section", "comment_text_edit")]
+[node name="AssetMetaInfoDisplay" type="Node" parent="." unique_id=438182760 node_paths=PackedStringArray("comment_spawner", "comment_section", "comment_text_edit")]
 script = ExtResource("1_a4nop")
 comment_spawner = NodePath("../CommentSection/Splitter/CommentSpawner")
 comment_section = NodePath("../CommentSection")
 comment_text_edit = NodePath("../CommentSection/Splitter/VBoxContainer/TextEdit")
 metadata/_custom_type_script = "uid://ck3y24uf0kygi"
 
-[node name="CommentSection" type="FoldableContainer" parent="."]
+[node name="CommentSection" type="FoldableContainer" parent="." unique_id=244418369]
 layout_mode = 2
 title = "Comments"
 
-[node name="Splitter" type="VBoxContainer" parent="CommentSection"]
+[node name="Splitter" type="VBoxContainer" parent="CommentSection" unique_id=1885093953]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CommentSection/Splitter"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CommentSection/Splitter" unique_id=1269199616]
 layout_mode = 2
 
-[node name="TextEdit" type="TextEdit" parent="CommentSection/Splitter/VBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="CommentSection/Splitter/VBoxContainer" unique_id=1346464494]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 2
@@ -41,12 +41,12 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_gdvw1")
 placeholder_text = "Leave a comment here!"
 scroll_fit_content_height = true
 
-[node name="SendButton" type="Button" parent="CommentSection/Splitter/VBoxContainer"]
+[node name="SendButton" type="Button" parent="CommentSection/Splitter/VBoxContainer" unique_id=1171718766]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Send"
 
-[node name="CommentSpawner" type="VBoxContainer" parent="CommentSection/Splitter"]
+[node name="CommentSpawner" type="VBoxContainer" parent="CommentSection/Splitter" unique_id=1602393390]
 editor_description = "spawns Comment scene elements"
 layout_mode = 2
 size_flags_horizontal = 3

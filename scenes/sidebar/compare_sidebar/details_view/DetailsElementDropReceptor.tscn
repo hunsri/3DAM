@@ -25,8 +25,8 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1cbbd")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1069792278]
-custom_minimum_size = Vector2(400, 0)
-custom_maximum_size = Vector2(400, -1)
+custom_minimum_size = Vector2(200, 0)
+custom_maximum_size = Vector2(200, -1)
 layout_mode = 2
 mouse_filter = 2
 

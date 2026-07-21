@@ -55,9 +55,11 @@ func _input(event):
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			spring_arm_3d.spring_length += zoom_speed * spring_arm_3d.spring_length
 
+## Signal expected to connect from SubViewport Container 
 func _on_sub_viewport_container_mouse_entered() -> void:
 	mouse_in_container = true
-	
+
+## Signal expected to connect from SubViewport Container 
 func _on_sub_viewport_container_mouse_exited() -> void:
 	mouse_in_container = false
 	rotating = false
