@@ -23,12 +23,17 @@ config/icon="res://icon.svg"
 
 ResourceManager="*res://scripts/globals/resource_manager.gd"
 AssetUtils="res://scripts/utils/AssetUtils.gd"
+DebugCam="*uid://c03posl762f7"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_camera/plugin.cfg")
 
 [file_customization]
 

@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c6fo6rlwf720m" path="res://icons/undo.png" id="1_apah6"]
 [ext_resource type="PackedScene" uid="uid://b8wykdqxo523l" path="res://scenes/sidebar/compare_sidebar/details_view/DetailsView.tscn" id="1_taoyf"]
+[ext_resource type="PackedScene" uid="uid://bkjrpqjxrt4hv" path="res://scenes/sidebar/compare_sidebar/3d_view/Compare3DView.tscn" id="2_7btnf"]
 [ext_resource type="Texture2D" uid="uid://do41hjnxfa3cr" path="res://icons/redo.png" id="2_wyxuf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyxuf"]
@@ -94,7 +95,7 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="3D" type="PanelContainer" parent="TabContainer" unique_id=691673770]
+[node name="3D" parent="TabContainer" unique_id=1192912955 instance=ExtResource("2_7btnf")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
