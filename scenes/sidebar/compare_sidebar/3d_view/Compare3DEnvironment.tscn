@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhr56jq0htsg2" path="res://addons/debug_camera/scripts/DebugCamera3D.gd" id="1_3nsvv"]
 [ext_resource type="Material" uid="uid://cbdv8hrvgowhd" path="res://shader_materials/grid_shader_dashed.tres" id="1_pp62v"]
+[ext_resource type="PackedScene" uid="uid://cjvvtymoclsb2" path="res://scenes/sidebar/compare_sidebar/3d_view/Compare3DViewElement.tscn" id="3_f6yrm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1igs"]
 
@@ -63,8 +64,12 @@ transform = Transform3D(1, 0, 0, 0, 0.76217455, 0.6473716, 0, -0.6473716, 0.7621
 
 [node name="FloorGrid" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=416700444]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5183892, 0)
+visible = false
 mesh = SubResource("PlaneMesh_1cbbd")
 
 [node name="refCube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=1422007288]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.044867337, 0)
 mesh = SubResource("BoxMesh_1cbbd")
+
+[node name="Compare3dViewElement" parent="SubViewportContainer/SubViewport/Environment" unique_id=1986475591 instance=ExtResource("3_f6yrm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cjvvtymoclsb2"]
+
+[ext_resource type="Script" uid="uid://btvoowxoevnxd" path="res://scripts/compare_view/compare_3d_view/Compare3DViewElement.gd" id="1_5oahw"]
+[ext_resource type="Shader" uid="uid://clamoyrfto5xd" path="res://shader_materials/grid_shader_dashed.gdshader" id="1_fcix8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5oahw"]
+render_priority = 0
+shader = ExtResource("1_fcix8")
+shader_parameter/subdivisions = 20.0
+shader_parameter/grid_width = 0.02
+shader_parameter/background_color = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/background_color_two = Color(0.1, 0.1, 0.1, 1)
+shader_parameter/grid_color = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/dashed_scale_x = 0.02
+shader_parameter/dashed_scale_y = 0.02
+shader_parameter/dashed_count_x = 1.0
+shader_parameter/dashed_count_y = 1.0
+shader_parameter/point_width = 0.021
+shader_parameter/point_color = Color(0, 0, 0, 1)
+shader_parameter/point_scale_x = 0.05
+shader_parameter/point_scale_y = 0.05
+shader_parameter/inside_width = 0.01
+shader_parameter/inside_subdivisions = 5.0
+shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/in_dashed_scale_x = 0.3
+shader_parameter/in_dashed_scale_y = 0.3
+shader_parameter/in_dashed_count_x = 6.0
+shader_parameter/in_dashed_count_y = 6.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1cbbd"]
+material = SubResource("ShaderMaterial_5oahw")
+
+[node name="Compare3dViewElement" type="Node3D" unique_id=1986475591]
+script = ExtResource("1_5oahw")
+
+[node name="Target" type="Node3D" parent="." unique_id=1105008706]
+
+[node name="FloorPlane" type="MeshInstance3D" parent="." unique_id=1143812985]
+mesh = SubResource("PlaneMesh_1cbbd")

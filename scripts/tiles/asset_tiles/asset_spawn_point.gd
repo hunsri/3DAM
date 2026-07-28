@@ -26,7 +26,7 @@ var _model_aligned = false
 func _ready() -> void:
 	
 	# if the WHOLE model is visible at start we assume it is too far away from the camera 
-	_model_too_far_on_start = is_aabb_fully_inside_camera(_get_world_aabb(self), spring_arm_3d.get_child(0))
+	_model_too_far_on_start = AABB_Utils.is_aabb_fully_inside_camera(AABB_Utils.get_world_aabb(self), spring_arm_3d.get_child(0))
 	
 	default_spring_arm_transform = spring_arm_3d.transform
 
@@ -87,7 +87,7 @@ func reset() -> void:
 	spring_arm_3d.transform = default_spring_arm_transform
 
 func _align_model(camera: Camera3D, delta: float) -> bool:
-	var too_far: bool = is_aabb_fully_inside_camera(_get_world_aabb(self), camera)
+	var too_far: bool = AABB_Utils.is_aabb_fully_inside_camera(AABB_Utils.get_world_aabb(self), camera)
 	
 	const step = 8
 	
@@ -102,58 +102,3 @@ func _align_model(camera: Camera3D, delta: float) -> bool:
 		
 	
 	return false
-
-
-###  AI assisted code below ###
-
-func _get_world_aabb(root: Node3D) -> AABB:
-	var result := AABB()
-	var has_aabb := false
-
-	for node in root.find_children("*", "MeshInstance3D", true, false):
-		var mesh_instance := node as MeshInstance3D
-
-		if mesh_instance.mesh == null:
-			continue
-
-		var local_aabb := mesh_instance.get_aabb()
-
-		for corner in _get_aabb_corners(local_aabb):
-			var world_corner := mesh_instance.global_transform * corner
-
-			if not has_aabb:
-				result = AABB(world_corner, Vector3.ZERO)
-				has_aabb = true
-			else:
-				result = result.expand(world_corner)
-
-	return result
-
-
-func _get_aabb_corners(aabb: AABB) -> Array[Vector3]:
-	var p := aabb.position
-	var e := aabb.end
-
-	return [
-		Vector3(p.x, p.y, p.z),
-		Vector3(e.x, p.y, p.z),
-		Vector3(p.x, e.y, p.z),
-		Vector3(e.x, e.y, p.z),
-
-		Vector3(p.x, p.y, e.z),
-		Vector3(e.x, p.y, e.z),
-		Vector3(p.x, e.y, e.z),
-		Vector3(e.x, e.y, e.z)
-	]
-
-
-func is_aabb_fully_inside_camera(aabb: AABB, camera: Camera3D) -> bool:
-	var frustum_planes := camera.get_frustum()
-	var corners := _get_aabb_corners(aabb)
-
-	for plane in frustum_planes:
-		for corner in corners:
-			if plane.is_point_over(corner):
-				return false
-
-	return true
