@@ -3,10 +3,11 @@ class_name DetailsViewManager extends AbstractCompareViewManager
 const DETAILS_ELEMENT = preload("uid://vbl42yegec85")
 
 @onready var details_root: HBoxContainer = $VBoxContainer/ScrollContainer/DetailsRoot
+@onready var compare_manager: CompareManager = $"../.."
 
 var current_display_mode: DisplayOptionsButton.DisplayOptions = DisplayOptionsButton.DisplayOptions.SHADED
 
-func create_details_element(tile: AbstractAssetTile) -> void:
+func create_model_compare_element(tile: AbstractAssetTile, index: int) -> void:
 	var detail_item: DetailsElement = DETAILS_ELEMENT.instantiate()
 	
 	detail_item.setup(tile)
@@ -14,7 +15,10 @@ func create_details_element(tile: AbstractAssetTile) -> void:
 	details_root.add_child(detail_item)
 	
 	details_root.move_child(detail_item, 1)
-	 
+
+func remove_model_compare_element(index: int) -> void:
+	details_root.remove_child(details_root.get_child(index+1)) #index 0 is occupied by the receptor
+
 func apply_current_display_mode_to_all() -> void:
 	for child in details_root.get_children():
 		if child is DetailsElement:
@@ -32,3 +36,6 @@ func apply_current_display_mode(details_element: DetailsElement) -> void:
 func set_display_mode(display_mode: DisplayOptionsButton.DisplayOptions) -> void:
 	current_display_mode = display_mode
 	apply_current_display_mode_to_all()
+
+func get_compare_manager() -> CompareManager:
+	return compare_manager

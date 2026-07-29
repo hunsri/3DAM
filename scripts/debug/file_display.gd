@@ -16,11 +16,11 @@ func _refresh() -> void:
 
 	dir.list_dir_begin()
 	while true:
-		var name := dir.get_next()
-		if name == "":
+		var _name := dir.get_next()
+		if _name == "":
 			break
-		if not name.begins_with("."):
-			items.append(name)
+		if not _name.begins_with("."):
+			items.append(_name)
 	dir.list_dir_end()
 
 	label.text = "\n".join(items)

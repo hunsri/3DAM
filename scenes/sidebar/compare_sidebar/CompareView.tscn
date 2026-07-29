@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c8bclfa75y541"]
 
 [ext_resource type="Texture2D" uid="uid://c6fo6rlwf720m" path="res://icons/undo.png" id="1_apah6"]
+[ext_resource type="Script" uid="uid://bweda0pgm26by" path="res://scripts/compare_view/CompareManager.gd" id="1_nmi26"]
 [ext_resource type="PackedScene" uid="uid://b8wykdqxo523l" path="res://scenes/sidebar/compare_sidebar/details_view/DetailsView.tscn" id="1_taoyf"]
 [ext_resource type="PackedScene" uid="uid://bkjrpqjxrt4hv" path="res://scenes/sidebar/compare_sidebar/3d_view/Compare3DView.tscn" id="2_7btnf"]
 [ext_resource type="Texture2D" uid="uid://do41hjnxfa3cr" path="res://icons/redo.png" id="2_wyxuf"]
@@ -79,6 +80,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_nmi26")
 
 [node name="TabContainer" type="TabContainer" parent="." unique_id=1304271021]
 layout_mode = 2

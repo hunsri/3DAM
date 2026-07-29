@@ -1,6 +1,7 @@
 class_name DetailsElement extends Node
 
 const DETAILS_ELEMENT_ENTRY_ITEM = preload("uid://jwxjevp5g6qc")
+@onready var details_view: DetailsViewManager = $"../../../.."
 
 var tile: AssetTile2D
 
@@ -26,7 +27,7 @@ func setup(asset: AbstractAssetTile) -> void:
 	populate_details_items(info)
 	
 func _on_remove_pressed() -> void:
-	queue_free()
+	details_view.compare_manager.remove_model(self.get_index()-1) #index 0 is used by the receptor, so we need to subtract 1
 
 func populate_details_items(info: Dictionary) -> void:
 
