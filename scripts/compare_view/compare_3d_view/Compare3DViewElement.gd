@@ -1,7 +1,7 @@
 class_name Compare3DViewElement extends Node3D
 
 @onready var floor_plane: MeshInstance3D = $FloorPlane
-@onready var target: Node3D = $AssetSpawnRoot
+@onready var asset_spawn_root: Node3D = $AssetSpawnRoot
 
 const DIVIDER_SIZE: float = 0.1
 
@@ -14,7 +14,7 @@ func setup(model: Node3D, index: int = 0) -> void:
 	if index < 0 && index > get_parent().get_child_count():
 		return
 	
-	target.add_child(model)
+	asset_spawn_root.add_child(model)
 	
 	var model_AABB: Vector3 = AABB_Utils.get_world_aabb(model).size
 
@@ -23,6 +23,17 @@ func setup(model: Node3D, index: int = 0) -> void:
 	recalculate_grid_size(Vector2(model_AABB.x, model_AABB.z))
 	
 	_insert_into_list(index)
+
+func display_as_shaded() -> void:
+	MaterialUtils.remove_all_material_overrides(asset_spawn_root)
+
+func display_as_wireframe() -> void:
+	const WIREFRAME_SHADER = preload("uid://c18wb3rrwflb8")
+	MaterialUtils.replace_all_material_overrides(asset_spawn_root, WIREFRAME_SHADER)
+
+func display_as_uv() -> void:
+	const UV_DISPLAY_SHADER = preload("res://shader_materials/uv_display.tres")
+	MaterialUtils.replace_all_material_overrides(asset_spawn_root, UV_DISPLAY_SHADER)
 
 func _insert_into_list(index: int) -> void:
 	
