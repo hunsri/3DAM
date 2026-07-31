@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://qxbmwhivgbxv"]
+
+[ext_resource type="Script" uid="uid://cart3l1hwkb3o" path="res://scripts/compare_view/hdri_bar/HDRI_Bar.gd" id="1_mj5ls"]
+[ext_resource type="PackedScene" uid="uid://yhtsavcsk61a" path="res://scenes/sidebar/compare_sidebar/hdri_bar/HDRI_Item.tscn" id="2_xnjox"]
+
+[sub_resource type="Gradient" id="Gradient_xnjox"]
+interpolation_mode = 2
+colors = PackedColorArray(0.2, 0.16862746, 0.13333334, 1, 0.64705884, 0.654902, 0.67058825, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pcwmj"]
+gradient = SubResource("Gradient_xnjox")
+fill_from = Vector2(1, 0.53846157)
+fill_to = Vector2(1, 0.44444445)
+
+[node name="HdriBar" type="MarginContainer" unique_id=152711352]
+custom_maximum_size = Vector2(-1, 100)
+anchors_preset = -1
+anchor_top = 0.4537037
+anchor_right = 1.0
+anchor_bottom = 0.5462963
+offset_top = -490.0
+offset_bottom = 490.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_mj5ls")
+metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=30575400]
+layout_mode = 2
+
+[node name="HDRI_item_root" type="HBoxContainer" parent="ScrollContainer" unique_id=1322732637]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HdriItem" parent="ScrollContainer/HDRI_item_root" unique_id=1857289740 instance=ExtResource("2_xnjox")]
+layout_mode = 2
+
+[node name="TextureRect" parent="ScrollContainer/HDRI_item_root/HdriItem" index="0" unique_id=1592542829]
+texture = SubResource("GradientTexture2D_pcwmj")
+
+[node name="NameLabel" parent="ScrollContainer/HDRI_item_root/HdriItem" index="1" unique_id=1365657547]
+text = "Default"
+
+[editable path="ScrollContainer/HDRI_item_root/HdriItem"]

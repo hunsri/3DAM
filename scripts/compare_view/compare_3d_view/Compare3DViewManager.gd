@@ -1,13 +1,25 @@
 class_name Compare3DViewManager extends AbstractCompareViewManager
 
 @onready var compare_manager: CompareManager = $"../.."
-const COMPARE_3D_VIEW_ELEMENT = preload("uid://cjvvtymoclsb2")
-#@onready var compare_3d_asset_array: Compare3DAssetArray = $VBoxContainer/Compare3DEnvironment/SubViewportContainer/SubViewport/Environment/Compare3DAssetArray
+
+@onready var compare_3d_world_environment: WorldEnvironment = $VBoxContainer/Compare3DEnvironment/SubViewportContainer/SubViewport/Environment/Compare3DWorldEnvironment
+
 @onready var assets_root: Node3D = $VBoxContainer/Compare3DEnvironment/SubViewportContainer/SubViewport/Environment/AssetsRoot
 
-var tile: AssetTile2D
+const COMPARE_3D_VIEW_ELEMENT = preload("uid://cjvvtymoclsb2")
 
+var tile: AssetTile2D
 var current_display_mode := DisplayOptionsButton.DisplayOptions.SHADED
+
+func set_hdri_background(hdri: Texture2D) -> void:
+	if hdri == null:
+		compare_3d_world_environment.environment.sky.sky_material = ProceduralSkyMaterial.new()
+		return
+	
+	var sky_material := PanoramaSkyMaterial.new()
+	sky_material.panorama = hdri
+	
+	compare_3d_world_environment.environment.sky.sky_material = sky_material
 
 func create_model_compare_element(asset: AbstractAssetTile, index: int) -> void:
 	

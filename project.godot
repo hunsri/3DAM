@@ -38,6 +38,7 @@ enabled=PackedStringArray("res://addons/debug_camera/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://hdris/hdri_files/": "pink",
 "res://scenes/": "teal",
 "res://scenes/context_scenes/": "green",
 "res://scripts/": "orange"

@@ -4,10 +4,10 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1igs"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_umwpy"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3nsvv"]
 
 [sub_resource type="Sky" id="Sky_1cbbd"]
-sky_material = SubResource("ProceduralSkyMaterial_umwpy")
+sky_material = SubResource("ProceduralSkyMaterial_3nsvv")
 
 [sub_resource type="Environment" id="Environment_1cbbd"]
 background_mode = 2
@@ -40,7 +40,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8678045, 2.030809)
 script = ExtResource("1_3nsvv")
 metadata/_custom_type_script = "uid://dhr56jq0htsg2"
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport/Environment" unique_id=2056526696]
+[node name="Compare3DWorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport/Environment" unique_id=2056526696]
 environment = SubResource("Environment_1cbbd")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=988914656]
