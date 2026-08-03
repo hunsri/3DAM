@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://ceqh5h74ullli"]
+
+[ext_resource type="Script" uid="uid://binr3yf1ffbew" path="res://scripts/compare_view/compare_2d_view/Compare2DEnvironment.gd" id="1_0dtae"]
+[ext_resource type="Script" uid="uid://dhr56jq0htsg2" path="res://addons/debug_camera/scripts/DebugCamera3D.gd" id="1_5q833"]
+[ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="2_f3kkp"]
+[ext_resource type="Shader" uid="uid://clamoyrfto5xd" path="res://shader_materials/grid_shader_dashed.gdshader" id="2_nkvbx"]
+[ext_resource type="Texture2D" uid="uid://cy37ce6sj3qyk" path="res://icons/plus-circle.png" id="2_p1j2j"]
+[ext_resource type="Texture2D" uid="uid://dcyphnpqkc0dx" path="res://icons/minus-circle.png" id="4_xamtl"]
+
+[sub_resource type="Environment" id="Environment_5q833"]
+background_color = Color(0, 0, 0, 0)
+ambient_light_source = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4a5nb"]
+render_priority = 0
+shader = ExtResource("2_nkvbx")
+shader_parameter/subdivisions = 1024.0
+shader_parameter/grid_width = 0.02
+shader_parameter/background_color = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/background_color_two = Color(0.1, 0.1, 0.1, 1)
+shader_parameter/grid_color = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/dashed_scale_x = 0.02
+shader_parameter/dashed_scale_y = 0.02
+shader_parameter/dashed_count_x = 1.0
+shader_parameter/dashed_count_y = 1.0
+shader_parameter/point_width = 0.021
+shader_parameter/point_color = Color(0, 0, 0, 1)
+shader_parameter/point_scale_x = 0.05
+shader_parameter/point_scale_y = 0.05
+shader_parameter/inside_width = 0.01
+shader_parameter/inside_subdivisions = 6.0
+shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/in_dashed_scale_x = 0.3
+shader_parameter/in_dashed_scale_y = 0.3
+shader_parameter/in_dashed_count_x = 6.0
+shader_parameter/in_dashed_count_y = 6.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0gt8g"]
+material = SubResource("ShaderMaterial_4a5nb")
+size = Vector2(1024, 1024)
+
+[node name="Compare2dEnvironment" type="PanelContainer" unique_id=597248507]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("1_0dtae")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1012337162]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=290324004]
+handle_input_locally = false
+size = Vector2i(64, 1080)
+render_target_update_mode = 4
+
+[node name="Environment" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=325633624]
+
+[node name="DebugCamera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=115779988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8678045, 2.030809)
+environment = SubResource("Environment_5q833")
+projection = 1
+fov = 37.849285
+script = ExtResource("1_5q833")
+disable_movement = true
+metadata/_custom_type_script = "uid://dhr56jq0htsg2"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=1557713555]
+transform = Transform3D(1, 0, 0, 0, 0.76217455, 0.6473716, 0, -0.6473716, 0.76217455, 0, 0, 5.1334767)
+
+[node name="AssetsRoot" type="Node3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=986823924]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=314458648]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 512, 512, -100)
+mesh = SubResource("PlaneMesh_0gt8g")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=290260586]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+
+[node name="scale-plus" type="Button" parent="VBoxContainer" unique_id=1189006085]
+layout_mode = 2
+theme = ExtResource("2_f3kkp")
+theme_type_variation = &"Non_Idempotent_Button_Borderless"
+icon = ExtResource("2_p1j2j")
+
+[node name="scale-indicator" type="Button" parent="VBoxContainer" unique_id=398804347]
+layout_mode = 2
+text = "100%"
+flat = true
+clip_text = true
+
+[node name="scale-minus" type="Button" parent="VBoxContainer" unique_id=932110719]
+layout_mode = 2
+theme = ExtResource("2_f3kkp")
+theme_type_variation = &"Non_Idempotent_Button_Borderless"
+icon = ExtResource("4_xamtl")

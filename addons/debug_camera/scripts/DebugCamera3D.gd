@@ -8,11 +8,11 @@ class_name DebugCamera3D
 @export_range(1, 100, 0.1) var boost_speed_multiplier : float = 3.0
 @export var max_speed : float = 1000
 @export var min_speed : float = 0.2
+@export var disable_movement: bool = false
 
 @onready var _velocity = default_velocity
 
 var main_cam : Camera3D
-
 
 func _ready() -> void:
 	main_cam = get_viewport().get_camera_3d()
@@ -20,9 +20,13 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	
 	if !current:
 		position = main_cam.global_position
 		rotation = main_cam.global_rotation
+		return
+	
+	if disable_movement:
 		return
 	
 	var direction = Vector3(
@@ -38,6 +42,10 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	
+	if disable_movement:
+		return
+	
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			rotation.y -= event.relative.x / 1000 * sensitivity

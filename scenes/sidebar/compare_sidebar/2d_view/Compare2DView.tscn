@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bvh1kj5alyjri"]
+
+[ext_resource type="PackedScene" uid="uid://yth2n50kpekh" path="res://scenes/sidebar/compare_sidebar/DisplayOptionsBar.tscn" id="1_keda2"]
+[ext_resource type="Script" uid="uid://bmgcf6ofp4pfl" path="res://scripts/compare_view/compare_2d_view/Compare2DViewManager.gd" id="1_t7qqy"]
+[ext_resource type="PackedScene" uid="uid://ceqh5h74ullli" path="res://scenes/sidebar/compare_sidebar/2d_view/Compare2DEnvironment.tscn" id="3_i18hf"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_i18hf"]
+
+[node name="Compare2dView" type="PanelContainer" unique_id=1579236263]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t7qqy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1074484837]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DisplayModeBar" parent="VBoxContainer" unique_id=1996557441 instance=ExtResource("1_keda2")]
+layout_mode = 2
+
+[node name="Default" parent="VBoxContainer/DisplayModeBar/DisplayOptionsContainer" parent_id_path=PackedInt32Array(1996557441, 2020446494) index="0" unique_id=941085096]
+button_group = SubResource("ButtonGroup_i18hf")
+
+[node name="Wireframe" parent="VBoxContainer/DisplayModeBar/DisplayOptionsContainer" parent_id_path=PackedInt32Array(1996557441, 2020446494) index="1" unique_id=1398865998]
+button_group = SubResource("ButtonGroup_i18hf")
+
+[node name="UV" parent="VBoxContainer/DisplayModeBar/DisplayOptionsContainer" parent_id_path=PackedInt32Array(1996557441, 2020446494) index="2" unique_id=1350554472]
+button_group = SubResource("ButtonGroup_i18hf")
+
+[node name="Compare2dEnvironment" parent="VBoxContainer" unique_id=597248507 instance=ExtResource("3_i18hf")]
+layout_mode = 2
+
+[editable path="VBoxContainer/DisplayModeBar"]
