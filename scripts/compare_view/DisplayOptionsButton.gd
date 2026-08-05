@@ -1,6 +1,6 @@
 class_name DisplayOptionsButton extends Button
 
-enum DisplayOptions {SHADED, WIREFRAME, UV}
+enum DisplayOptions {SHADED, UNSHADED, WIREFRAME, UV}
 
 @export var display_mode: DisplayOptions
 @onready var details_view: AbstractCompareViewManager = $"../../../.."

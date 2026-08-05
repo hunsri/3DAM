@@ -27,6 +27,9 @@ func setup(model: Node3D, index: int = 0) -> void:
 func display_as_shaded() -> void:
 	MaterialUtils.remove_all_material_overrides(asset_spawn_root)
 
+func display_as_unshaded() -> void:
+	MaterialUtils.override_all_material_unshaded(asset_spawn_root)
+
 func display_as_wireframe() -> void:
 	const WIREFRAME_SHADER = preload("uid://c18wb3rrwflb8")
 	MaterialUtils.replace_all_material_overrides(asset_spawn_root, WIREFRAME_SHADER)

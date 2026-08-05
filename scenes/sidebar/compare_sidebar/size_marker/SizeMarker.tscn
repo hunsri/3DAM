@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://nvraorl2ecp3"]
+
+[ext_resource type="Script" uid="uid://d4ilri8e84ny1" path="res://scripts/compare_view/size_marker/SizeMarker.gd" id="1_tgalc"]
+
+[node name="SizeMarker" type="Node3D" unique_id=1892519040]
+script = ExtResource("1_tgalc")

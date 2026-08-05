@@ -47,6 +47,9 @@ func populate_details_items(info: Dictionary) -> void:
 func display_as_shaded() -> void:
 	MaterialUtils.remove_all_material_overrides(asset_spawn_root)
 
+func display_as_unshaded() -> void:
+	MaterialUtils.override_all_material_unshaded(asset_spawn_root)
+
 func display_as_wireframe() -> void:
 	const WIREFRAME_SHADER = preload("uid://c18wb3rrwflb8")
 	MaterialUtils.replace_all_material_overrides(asset_spawn_root, WIREFRAME_SHADER)
@@ -100,16 +103,3 @@ func _scan_node(node: Node, result: Dictionary, material_set: Dictionary):
 
 	for child in node.get_children():
 		_scan_node(child, result, material_set)
-
-
-#func replace_all_material_overrides(root: Node, new_material: Material) -> void:
-	#for child in root.get_children():
-		#if child is MeshInstance3D:
-			#child.material_override = new_material
-		#replace_all_material_overrides(child, new_material)
-#
-#func remove_all_material_overrides(root: Node) -> void:
-	#for child in root.get_children():
-		#if child is MeshInstance3D:
-			#child.material_override = null
-		#remove_all_material_overrides(child)

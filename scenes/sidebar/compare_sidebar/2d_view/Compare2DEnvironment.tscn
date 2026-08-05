@@ -3,18 +3,149 @@
 [ext_resource type="Script" uid="uid://binr3yf1ffbew" path="res://scripts/compare_view/compare_2d_view/Compare2DEnvironment.gd" id="1_0dtae"]
 [ext_resource type="Script" uid="uid://dhr56jq0htsg2" path="res://addons/debug_camera/scripts/DebugCamera3D.gd" id="1_5q833"]
 [ext_resource type="Theme" uid="uid://koi0noce4p5b" path="res://themes/GUI_Base_Theme.tres" id="2_f3kkp"]
-[ext_resource type="Shader" uid="uid://clamoyrfto5xd" path="res://shader_materials/grid_shader_dashed.gdshader" id="2_nkvbx"]
 [ext_resource type="Texture2D" uid="uid://cy37ce6sj3qyk" path="res://icons/plus-circle.png" id="2_p1j2j"]
+[ext_resource type="PackedScene" uid="uid://nvraorl2ecp3" path="res://scenes/sidebar/compare_sidebar/size_marker/SizeMarker.tscn" id="3_0dtae"]
 [ext_resource type="Texture2D" uid="uid://dcyphnpqkc0dx" path="res://icons/minus-circle.png" id="4_xamtl"]
 
-[sub_resource type="Environment" id="Environment_5q833"]
-background_color = Color(0, 0, 0, 0)
-ambient_light_source = 1
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tqa46"]
+
+[sub_resource type="Sky" id="Sky_0dtae"]
+sky_material = SubResource("ProceduralSkyMaterial_tqa46")
+
+[sub_resource type="Environment" id="Environment_nkvbx"]
+background_mode = 2
+sky = SubResource("Sky_0dtae")
+
+[sub_resource type="Shader" id="Shader_nkvbx"]
+code = "// shader obtained from:
+// https://godotshaders.com/shader/dashed-grid-the-best-darn-grid-shader-yet/
+// Many Thanks!
+
+shader_type spatial;
+
+uniform float subdivisions : hint_range(1, 1024, 1.0) = 32;
+uniform float grid_width : hint_range(0.0, 1.0, 0.01) = 0.02;
+uniform vec3 background_color : source_color = vec3(0.2, 0.2, 0.2);
+uniform vec3 background_color_two : source_color = vec3(0.1, 0.1, 0.1);
+uniform vec3 grid_color : source_color = vec3(0.5, 0.5, 0.5);
+uniform float dashed_scale_x : hint_range(0.0, 0.99, 0.01) = 0.02;
+uniform float dashed_scale_y : hint_range(0.0, 0.99, 0.01) = 0.02;
+uniform float dashed_count_x : hint_range(0.0, 16.0, 1.0) = 1.0;
+uniform float dashed_count_y : hint_range(0.0, 16.0, 1.0) = 1.0;
+
+group_uniforms Point;
+uniform float point_width : hint_range(0.0, 1.0, 0.01) = 0.021;
+uniform vec3 point_color : source_color = vec3(0.0, 0.0, 0.0);
+uniform float point_scale_x : hint_range(0.0, 1.0, 0.01) = 0.05;
+uniform float point_scale_y : hint_range(0.0, 1.0, 0.01) = 0.05;
+
+group_uniforms InsideGrid;
+uniform float inside_width : hint_range(0.0, 1.0, 0.01) = 0.01;
+uniform float inside_subdivisions : hint_range(1, 9, 1) = 6;
+uniform vec3  inside_color : source_color = vec3(0.4, 0.4, 0.4);
+uniform float in_dashed_scale_x : hint_range(0.0, 0.99, 0.01) = 0.3;
+uniform float in_dashed_scale_y : hint_range(0.0, 0.99, 0.01) = 0.3;
+uniform float in_dashed_count_x : hint_range(0.0, 18.0, 1.0) = 6.0;
+uniform float in_dashed_count_y : hint_range(0.0, 18.0, 1.0) = 6.0;
+
+
+float grid(vec2 uv, vec2 lineWidth,bool check) {
+	vec4 uvDDXY = vec4(dFdx(uv), dFdy(uv));
+	vec2 uvDeriv = vec2(length(uvDDXY.xz), length(uvDDXY.yw));
+	
+	bvec2 invertLine = bvec2(lineWidth.x > 0.5, lineWidth.y > 0.5); //RV
+	vec2 targetWidth = vec2(
+		invertLine.x ? 1.0 - lineWidth.x : lineWidth.x,
+		invertLine.y ? 1.0 - lineWidth.y : lineWidth.y
+		);
+	
+	
+	vec2 lineAA = uvDeriv * 1.5;
+	vec2 gridUV = abs((fract(uv)) * 2.0 - 1.0);
+	
+	
+	if (check == true){
+		targetWidth = vec2(1.0);
+		lineAA *= 1.5;
+		
+		float index = 0.0;
+		index += step(1.0, mod(uv.x, 2.0));
+		index += step(1.0, mod(uv.y, 2.0)) * 2.0;
+		
+		if (index == 1.0 || index == 2.0) {
+			lineAA = -lineAA;
+		}
+	} else  {
+		gridUV = vec2(
+			invertLine.x ? gridUV.x : 1.0 - gridUV.x,
+			invertLine.y ? gridUV.y : 1.0 - gridUV.y 
+		);
+	}
+	
+	vec2 drawWidth = clamp(targetWidth, uvDeriv, vec2(1.0));
+	vec2 gridBase = smoothstep(drawWidth + lineAA, drawWidth - lineAA, gridUV);
+	
+	
+	gridBase *= clamp(targetWidth / drawWidth, 0.0, 1.0);
+	gridBase = mix(gridBase , targetWidth , clamp((uvDeriv * 2.0 - 1.0) , 0.0, 1.0));
+	gridBase.x = invertLine.x ? 1.0 - gridBase.x : gridBase.x; 
+	gridBase.y = invertLine.y ? 1.0 - gridBase.y : gridBase.y; 
+	
+	
+	return mix(gridBase.x, 1.0, gridBase.y);
+}
+
+
+float dashed_grid(vec2 uv, vec2 lineWidth, vec2 dot_width, vec2 count, float add){
+	//Inverts the width values
+	lineWidth = 1.0 - lineWidth;
+	//Create two \"masks\", one for X and one for Y
+	float gridX = 1.0 - grid(vec2(uv.x * count.x, uv.y + add), vec2(dot_width.x, lineWidth.x), false);
+	float gridY = 1.0 - grid(vec2(uv.y * count.y, uv.x + add), vec2(dot_width.y, lineWidth.y), false);
+	
+	float grid = mix(gridX, 1.0, gridY);
+	return grid;
+}
+
+
+void fragment() {
+	//Subdividing uv
+	vec2 uv = UV * subdivisions;
+	
+	//CheckerBoard
+	float checkeredGrid = grid(uv , vec2(0.5), true);
+	
+	//Grid
+	float mainGrid = dashed_grid(
+			uv , vec2(grid_width), vec2(dashed_scale_x, dashed_scale_y),
+			vec2(dashed_count_x, dashed_count_y), 0.5);
+			
+	//Inside Grid
+	float insideGrid = dashed_grid(
+			uv * inside_subdivisions, vec2(inside_width),
+			vec2(in_dashed_scale_x, in_dashed_scale_y),
+			vec2(in_dashed_count_x, in_dashed_count_y), 0.5);
+
+	//Points
+	float pointGrid = dashed_grid(
+			uv + 0.5, vec2(point_width),
+			1.0 - vec2(point_scale_x , point_scale_y),
+			vec2(1.0), 0.0);
+	
+	//Add final color
+	vec3 grid = mix(background_color, background_color_two, checkeredGrid);
+	if (insideGrid != 0.0) grid = mix(grid, inside_color, insideGrid);
+	if (mainGrid != 0.0) grid = mix(grid, grid_color, mainGrid);
+	if (pointGrid != 0.0) grid = mix(grid, point_color, pointGrid);
+	
+	ALBEDO = grid;	
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4a5nb"]
 render_priority = 0
-shader = ExtResource("2_nkvbx")
-shader_parameter/subdivisions = 1024.0
+shader = SubResource("Shader_nkvbx")
+shader_parameter/subdivisions = 256.0
 shader_parameter/grid_width = 0.02
 shader_parameter/background_color = Color(0.2, 0.2, 0.2, 1)
 shader_parameter/background_color_two = Color(0.1, 0.1, 0.1, 1)
@@ -28,7 +159,7 @@ shader_parameter/point_color = Color(0, 0, 0, 1)
 shader_parameter/point_scale_x = 0.05
 shader_parameter/point_scale_y = 0.05
 shader_parameter/inside_width = 0.01
-shader_parameter/inside_subdivisions = 6.0
+shader_parameter/inside_subdivisions = 5.0
 shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 1)
 shader_parameter/in_dashed_scale_x = 0.3
 shader_parameter/in_dashed_scale_y = 0.3
@@ -37,7 +168,7 @@ shader_parameter/in_dashed_count_y = 6.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0gt8g"]
 material = SubResource("ShaderMaterial_4a5nb")
-size = Vector2(1024, 1024)
+size = Vector2(256, 256)
 
 [node name="Compare2dEnvironment" type="PanelContainer" unique_id=597248507]
 anchors_preset = 11
@@ -63,9 +194,11 @@ render_target_update_mode = 4
 
 [node name="Environment" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=325633624]
 
+[node name="SizeMarker" parent="SubViewportContainer/SubViewport/Environment" unique_id=1892519040 instance=ExtResource("3_0dtae")]
+
 [node name="DebugCamera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=115779988]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8678045, 2.030809)
-environment = SubResource("Environment_5q833")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8678045, 2.0308075)
+environment = SubResource("Environment_nkvbx")
 projection = 1
 fov = 37.849285
 script = ExtResource("1_5q833")
@@ -73,12 +206,12 @@ disable_movement = true
 metadata/_custom_type_script = "uid://dhr56jq0htsg2"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=1557713555]
-transform = Transform3D(1, 0, 0, 0, 0.76217455, 0.6473716, 0, -0.6473716, 0.76217455, 0, 0, 5.1334767)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.1334767)
 
 [node name="AssetsRoot" type="Node3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=986823924]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=314458648]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 512, 512, -100)
+[node name="SizeGridXY" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Environment" unique_id=314458648]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 128, 128, -100)
 mesh = SubResource("PlaneMesh_0gt8g")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=290260586]
@@ -94,6 +227,7 @@ icon = ExtResource("2_p1j2j")
 
 [node name="scale-indicator" type="Button" parent="VBoxContainer" unique_id=398804347]
 layout_mode = 2
+tooltip_text = "reset scale"
 text = "100%"
 flat = true
 clip_text = true

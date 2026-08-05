@@ -52,6 +52,8 @@ func apply_current_display_mode(element: Compare3DViewElement) -> void:
 	match current_display_mode:
 		DisplayOptionsButton.DisplayOptions.SHADED:
 			element.display_as_shaded()
+		DisplayOptionsButton.DisplayOptions.UNSHADED:
+			element.display_as_unshaded()
 		DisplayOptionsButton.DisplayOptions.WIREFRAME:
 			element.display_as_wireframe()
 		DisplayOptionsButton.DisplayOptions.UV:

@@ -28,6 +28,8 @@ func apply_current_display_mode(details_element: DetailsElement) -> void:
 	match current_display_mode:
 		DisplayOptionsButton.DisplayOptions.SHADED:
 			details_element.display_as_shaded()
+		DisplayOptionsButton.DisplayOptions.UNSHADED:
+			details_element.display_as_unshaded()
 		DisplayOptionsButton.DisplayOptions.WIREFRAME:
 			details_element.display_as_wireframe()
 		DisplayOptionsButton.DisplayOptions.UV:
