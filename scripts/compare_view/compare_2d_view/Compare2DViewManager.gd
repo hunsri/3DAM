@@ -2,7 +2,7 @@ class_name Compare2DViewManager extends AbstractCompareViewManager
 
 @onready var compare_manager: CompareManager = $"../.."
 
-@onready var assets_root: Node3D = $VBoxContainer/Compare2dEnvironment/SubViewportContainer/SubViewport/Environment/AssetsRoot
+@onready var compare_2d_environment: Compare2DEnvironment = $VBoxContainer/Compare2dEnvironment
 
 const COMPARE_3D_VIEW_ELEMENT = preload("uid://cjvvtymoclsb2")
 
@@ -19,7 +19,7 @@ func create_model_compare_element(asset: AbstractAssetTile, index: int) -> void:
 	var compare_2d_view_element: Compare3DViewElement = COMPARE_3D_VIEW_ELEMENT.instantiate()
 	compare_2d_view_element.name = "Compare2DViewElement_%s" % Time.get_ticks_usec()
 	
-	assets_root.add_child(compare_2d_view_element)
+	compare_2d_environment.assets_root.add_child(compare_2d_view_element)
 	
 	compare_2d_view_element.setup(model_node)
 	
@@ -27,13 +27,13 @@ func create_model_compare_element(asset: AbstractAssetTile, index: int) -> void:
 
 func remove_model_compare_element(index: int) -> void:
 	
-	assets_root.get_child(index).queue_free()
+	compare_2d_environment.assets_root.get_child(index).queue_free()
 
 func set_display_mode(display_mode: DisplayOptionsButton.DisplayOptions) -> void:
 	
 	current_display_mode = display_mode
 	
-	for child in assets_root.get_children():
+	for child in compare_2d_environment.assets_root.get_children():
 		if child is Compare3DViewElement:
 			apply_current_display_mode(child)
 

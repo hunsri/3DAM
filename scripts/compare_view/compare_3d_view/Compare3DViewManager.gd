@@ -2,9 +2,7 @@ class_name Compare3DViewManager extends AbstractCompareViewManager
 
 @onready var compare_manager: CompareManager = $"../.."
 
-@onready var compare_3d_world_environment: WorldEnvironment = $VBoxContainer/Compare3DEnvironment/SubViewportContainer/SubViewport/Environment/Compare3DWorldEnvironment
-
-@onready var assets_root: Node3D = $VBoxContainer/Compare3DEnvironment/SubViewportContainer/SubViewport/Environment/AssetsRoot
+@onready var compare_3d_environment: Compare3DEnvironment = $VBoxContainer/Compare3DEnvironment
 
 const COMPARE_3D_VIEW_ELEMENT = preload("uid://cjvvtymoclsb2")
 
@@ -13,13 +11,13 @@ var current_display_mode := DisplayOptionsButton.DisplayOptions.SHADED
 
 func set_hdri_background(hdri: Texture2D) -> void:
 	if hdri == null:
-		compare_3d_world_environment.environment.sky.sky_material = ProceduralSkyMaterial.new()
+		compare_3d_environment.compare_3d_world_environment.environment.sky.sky_material = ProceduralSkyMaterial.new()
 		return
 	
 	var sky_material := PanoramaSkyMaterial.new()
 	sky_material.panorama = hdri
 	
-	compare_3d_world_environment.environment.sky.sky_material = sky_material
+	compare_3d_environment.compare_3d_world_environment.environment.sky.sky_material = sky_material
 
 func create_model_compare_element(asset: AbstractAssetTile, index: int) -> void:
 	
@@ -30,7 +28,7 @@ func create_model_compare_element(asset: AbstractAssetTile, index: int) -> void:
 	var compare_3d_view_element: Compare3DViewElement = COMPARE_3D_VIEW_ELEMENT.instantiate()
 	compare_3d_view_element.name = "Compare3DViewElement_%s" % Time.get_ticks_usec()
 	
-	assets_root.add_child(compare_3d_view_element)
+	compare_3d_environment.assets_root.add_child(compare_3d_view_element)
 	
 	compare_3d_view_element.setup(model_node)
 	
@@ -38,13 +36,13 @@ func create_model_compare_element(asset: AbstractAssetTile, index: int) -> void:
 
 func remove_model_compare_element(index: int) -> void:
 	
-	assets_root.get_child(index).queue_free()
+	compare_3d_environment.assets_root.get_child(index).queue_free()
 
 func set_display_mode(display_mode: DisplayOptionsButton.DisplayOptions) -> void:
 	
 	current_display_mode = display_mode
 	
-	for child in assets_root.get_children():
+	for child in compare_3d_environment.assets_root.get_children():
 		if child is Compare3DViewElement:
 			apply_current_display_mode(child)
 

@@ -9,6 +9,8 @@ class_name Compare2DEnvironment extends Node
 @onready var scale_minus: Button = $"VBoxContainer/scale-minus"
 @onready var size_marker: SizeMarker = $SubViewportContainer/SubViewport/Environment/SizeMarker
 
+@onready var assets_root: Node3D = $SubViewportContainer/SubViewport/Environment/AssetsRoot
+
 var dragging := false
 var last_pos := Vector2.ZERO
 

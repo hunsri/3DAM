@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://sgpwjynuf0yu"]
+
+[ext_resource type="Texture2D" uid="uid://difyxjpkfc2u2" path="res://images/Color_Checker.png" id="1_uxnnx"]
+[ext_resource type="Material" uid="uid://cetgiekxo23bx" path="res://materials/glass_mat_1.tres" id="2_1ccy8"]
+[ext_resource type="Material" uid="uid://cj4b3lr55wcq6" path="res://materials/glass_mat_2.tres" id="3_yf6kc"]
+[ext_resource type="Material" uid="uid://oesbql2t3n6j" path="res://materials/chrome_mat.tres" id="4_cfh5y"]
+[ext_resource type="Material" uid="uid://bdc1u5arenan7" path="res://materials/white_ceramic_mat.tres" id="5_rlavm"]
+[ext_resource type="Material" uid="uid://qutmkrji5vu2" path="res://materials/blue_ceramic_mat.tres" id="6_0ff3d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f6yrm"]
+no_depth_test = true
+albedo_texture = ExtResource("1_uxnnx")
+
+[sub_resource type="QuadMesh" id="QuadMesh_1ccy8"]
+material = SubResource("StandardMaterial3D_f6yrm")
+size = Vector2(0.48, 0.333)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1cbbd"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_yf6kc"]
+radius = 0.1
+height = 0.2
+
+[node name="Lookdev" type="Node3D" unique_id=868749234]
+
+[node name="ColorCheckerLookdev" type="MeshInstance3D" parent="." unique_id=1185844724]
+mesh = SubResource("QuadMesh_1ccy8")
+skeleton = NodePath("../..")
+
+[node name="GlasOrb" type="MeshInstance3D" parent="." unique_id=833960671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+material_override = ExtResource("2_1ccy8")
+material_overlay = ExtResource("3_yf6kc")
+mesh = SubResource("SphereMesh_1cbbd")
+
+[node name="ChromeOrb" type="MeshInstance3D" parent="." unique_id=250563647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
+material_override = ExtResource("4_cfh5y")
+mesh = SubResource("SphereMesh_yf6kc")
+
+[node name="WhiteCeramicOrb" type="MeshInstance3D" parent="." unique_id=353733911]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0, 0)
+material_override = ExtResource("5_rlavm")
+mesh = SubResource("SphereMesh_yf6kc")
+
+[node name="BlueCeramicOrb" type="MeshInstance3D" parent="." unique_id=462145258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, 0)
+material_override = ExtResource("6_0ff3d")
+mesh = SubResource("SphereMesh_yf6kc")
