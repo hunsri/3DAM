@@ -147,3 +147,12 @@ text = "redo"
 icon = ExtResource("2_wyxuf")
 alignment = 0
 expand_icon = true
+
+[node name="LoadingMessage" type="PanelContainer" parent="." unique_id=1180504297]
+layout_mode = 2
+
+[node name="LoadingLabel" type="Label" parent="LoadingMessage" unique_id=909706635]
+layout_mode = 2
+text = "compiling shaders, this may take a few seconds...
+Please stand by"
+horizontal_alignment = 1

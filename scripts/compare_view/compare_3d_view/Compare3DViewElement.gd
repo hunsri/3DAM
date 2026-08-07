@@ -1,18 +1,24 @@
 class_name Compare3DViewElement extends Node3D
 
-@onready var floor_plane: MeshInstance3D = $FloorPlane
+var floor_plane: MeshInstance3D
+
+@onready var floor_plane_fallback: MeshInstance3D = $FloorPlaneFallback
 @onready var asset_spawn_root: Node3D = $AssetSpawnRoot
 
 const DIVIDER_SIZE: float = 0.1
 
 func _ready() -> void:
-	pass
+	floor_plane = floor_plane_fallback
 	
-func setup(model: Node3D, index: int = 0) -> void:
+func setup(model: Node3D, index: int = 0, p_floor_plane: MeshInstance3D = null) -> void:
 	
 	# guard against out of bounds index 
 	if index < 0 && index > get_parent().get_child_count():
 		return
+	
+	if p_floor_plane != null:
+		floor_plane = p_floor_plane
+		floor_plane.visible = true
 	
 	asset_spawn_root.add_child(model)
 	
@@ -20,8 +26,11 @@ func setup(model: Node3D, index: int = 0) -> void:
 
 	model.position.y = model_AABB.y / 2
 	
+	floor_plane.position = Vector3(0, 0, 0)
+	self.add_child(floor_plane)
+		
 	recalculate_grid_size(Vector2(model_AABB.x, model_AABB.z))
-	
+		
 	_insert_into_list(index)
 
 func display_as_shaded() -> void:
