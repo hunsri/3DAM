@@ -2,7 +2,7 @@ extends Control
 
 @onready var asset_tile: AbstractAssetTile = $"../.."
 
-func _get_drag_data(at_position):
+func _get_drag_data(_at_position):
 	
 	var root_preview := Control.new()
 	

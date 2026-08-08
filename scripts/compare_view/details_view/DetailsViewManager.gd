@@ -14,7 +14,7 @@ func create_model_compare_element(tile: AbstractAssetTile, index: int) -> void:
 	apply_current_display_mode(detail_item)
 	details_root.add_child(detail_item)
 	
-	details_root.move_child(detail_item, 1)
+	details_root.move_child(detail_item, index+1) #index 0 is occupied by the receptor
 
 func remove_model_compare_element(index: int) -> void:
 	details_root.remove_child(details_root.get_child(index+1)) #index 0 is occupied by the receptor

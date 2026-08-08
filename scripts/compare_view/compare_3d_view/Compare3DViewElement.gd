@@ -8,7 +8,7 @@ var floor_plane: MeshInstance3D
 const DIVIDER_SIZE: float = 0.1
 
 func _ready() -> void:
-	floor_plane = floor_plane_fallback
+	floor_plane = floor_plane_fallback.duplicate()
 	
 func setup(model: Node3D, index: int = 0, p_floor_plane: MeshInstance3D = null) -> void:
 	
@@ -51,28 +51,55 @@ func _insert_into_list(index: int) -> void:
 	
 	get_parent().move_child(self, index)
 	
-	_recalculate_position_following()
+	_calculate_insertion_position()
+	
+	if has_next_sibling():
+		_offset_beginning_from(get_next_sibling(), self.floor_plane.mesh.size.x + DIVIDER_SIZE)
 
-func _recalculate_position_following() -> void:
+
+func remove() -> void:
 	
-	var next_element: Compare3DViewElement = null
+	if has_next_sibling():
+		_offset_beginning_from(get_next_sibling(), -self.floor_plane.mesh.size.x - DIVIDER_SIZE)
 	
-	# check if there even is a next element 
-	if get_index() < get_parent().get_child_count()-1:
-		next_element = get_parent().get_child(get_index()+1)
-	 
-	var previous_element: Compare3DViewElement = null
+	self.queue_free()
+
+func _calculate_insertion_position(offset: Vector3 = Vector3(0, 0, 0)) -> void:
 	
-	if get_index() > 0:
+	var previous_element: Compare3DViewElement
+	
+	if get_index() == 0:
+		previous_element = null
+	else:
 		previous_element = get_parent().get_child(get_index()-1)
 	
 	if previous_element == null:
-		position = Vector3(floor_plane.mesh.size.x/2, position.y, -floor_plane.mesh.size.y/2)
+		position = Vector3(floor_plane.mesh.size.x/2, position.y, -floor_plane.mesh.size.y/2) + offset
 	else:
-		position = Vector3(previous_element.position.x+previous_element.floor_plane.mesh.size.x/2+DIVIDER_SIZE+floor_plane.mesh.size.x/2, 0, -floor_plane.mesh.size.y/2)
+		position = Vector3(previous_element.position.x+previous_element.floor_plane.mesh.size.x/2+DIVIDER_SIZE+floor_plane.mesh.size.x/2, 0, -floor_plane.mesh.size.y/2) + offset
 		
-	if next_element != null:
-		next_element._recalculate_position_following()
+
+func _offset_beginning_from(first_sibling_to_offset: Compare3DViewElement, offset_x: float) -> void:
+	
+	if first_sibling_to_offset == null:
+		return
+	
+	first_sibling_to_offset.position.x = first_sibling_to_offset.position.x + offset_x
+	
+	_offset_beginning_from(first_sibling_to_offset.get_next_sibling(), offset_x)
+
+## Returns whether there exists a sibling with a higher index
+func has_next_sibling() -> bool:
+	if get_parent().get_child_count()-1 == get_index():
+		return false
+	else:
+		return true
+		
+func get_next_sibling() -> Compare3DViewElement:
+	if self.has_next_sibling():
+		return get_parent().get_child(get_index()+1)
+	else:
+		return null
 
 func recalculate_grid_size(model_xz: Vector2) -> void:
 	

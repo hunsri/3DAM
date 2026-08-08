@@ -41,7 +41,7 @@ func _move_lookdev_to_point(target: Vector3, speed: float) -> void:
 	create_tween().tween_property(lookdev, "position", target, duration)
 
 func get_floor_plane_instance() -> MeshInstance3D:
-	var ret: MeshInstance3D = _floor_plane_reference.duplicate(DUPLICATE_INTERNAL_STATE)
+	var ret: MeshInstance3D = _floor_plane_reference.duplicate()
 	return ret
 
 func display_empty_note() -> void:

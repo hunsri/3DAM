@@ -21,13 +21,15 @@ func create_model_compare_element(asset: AbstractAssetTile, index: int) -> void:
 	
 	compare_2d_environment.assets_root.add_child(compare_2d_view_element)
 	
-	compare_2d_view_element.setup(model_node)
+	compare_2d_view_element.setup(model_node, index)
 	
 	apply_current_display_mode(compare_2d_view_element)
 
 func remove_model_compare_element(index: int) -> void:
 	
-	compare_2d_environment.assets_root.get_child(index).queue_free()
+	var element2D: Compare3DViewElement = compare_2d_environment.assets_root.get_child(index)
+	
+	element2D.remove()
 
 func set_display_mode(display_mode: DisplayOptionsButton.DisplayOptions) -> void:
 	

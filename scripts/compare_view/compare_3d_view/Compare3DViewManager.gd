@@ -30,7 +30,7 @@ func create_model_compare_element(asset: AbstractAssetTile, index: int) -> void:
 	
 	compare_3d_environment.assets_root.add_child(compare_3d_view_element)
 	
-	compare_3d_view_element.setup(model_node, 0, compare_3d_environment.get_floor_plane_instance())
+	compare_3d_view_element.setup(model_node, index, compare_3d_environment.get_floor_plane_instance())
 	
 	apply_current_display_mode(compare_3d_view_element)
 	
@@ -38,7 +38,9 @@ func create_model_compare_element(asset: AbstractAssetTile, index: int) -> void:
 
 func remove_model_compare_element(index: int) -> void:
 	
-	compare_3d_environment.assets_root.get_child(index).queue_free()
+	var element3D: Compare3DViewElement = compare_3d_environment.assets_root.get_child(index)
+	
+	element3D.remove()
 	
 	# at this point the removed asset is internally still in the tree
 	# so we expect this 1 child element still left in the tree, but it will be removed later 
