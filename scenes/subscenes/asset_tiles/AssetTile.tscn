@@ -36,11 +36,11 @@ script = ExtResource("2_cjdv8")
 spring_arm_3d = NodePath("../SpringArm3D")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport" unique_id=1833627504]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 spring_length = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D" unique_id=431130813]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.0128515)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.013)
 environment = ExtResource("2_j6nw2")
 
 [node name="TileBasics" parent="." unique_id=1288830783 instance=ExtResource("2_htjxr")]

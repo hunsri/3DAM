@@ -23,7 +23,11 @@ var default_spring_arm_transform: Transform3D
 var _model_too_far_on_start: bool
 var _model_aligned = false
 
-var _cooldown_process_skip = 20 ## Arbitrary set amount of process cycles to wait for
+const COOLDOWN_CYCLES: int = 20 ## Arbitrary set amount of process cycles to wait for
+
+var _cooldown_process_skip = COOLDOWN_CYCLES
+var _correction_pass_done = false
+
 
 func _ready() -> void:
 	if !visible:
@@ -53,7 +57,7 @@ func _process(delta: float) -> void:
 		return
 	
 	if not _model_aligned:
-		_model_aligned = _align_model(spring_arm_3d.get_child(0), delta)
+		_align_model(spring_arm_3d.get_child(0), delta)
 		default_spring_length = spring_arm_3d.spring_length
 
 func _input(event):
@@ -107,18 +111,29 @@ func reset() -> void:
 	spring_arm_3d.spring_length = default_spring_length
 	spring_arm_3d.transform = default_spring_arm_transform
 
-func _align_model(camera: Camera3D, delta: float) -> bool:
+func _align_model(camera: Camera3D, delta: float) -> void:
 	var too_far: bool = AABB_Utils.is_aabb_fully_inside_camera(AABB_Utils.get_world_aabb(self), camera)
 	
 	const step = 8
 	
 	if _model_too_far_on_start:
 		if !too_far:
-			return true
+			_model_aligned = true
+			_correction_pass() # resets the alignment flags once
 		spring_arm_3d.spring_length -= delta * step * spring_arm_3d.spring_length
 	else:
 		if too_far:
-			return true
+			_model_aligned = true
+			_correction_pass() # resets the alignment flags once
 		spring_arm_3d.spring_length += delta * step * spring_arm_3d.spring_length
-		
-	return false
+
+## Resets the alignment flags, to run alignment again, based on the first alignment result
+## Basically running the zooming test a second time, but from a better starting position 
+func _correction_pass() -> void:
+	
+	if _correction_pass_done:
+		return
+	
+	_cooldown_process_skip = COOLDOWN_CYCLES
+	_model_aligned = false
+	_correction_pass_done = true

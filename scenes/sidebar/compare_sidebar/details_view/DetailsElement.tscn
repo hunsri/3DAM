@@ -124,11 +124,11 @@ disable_zoom = true
 disable_position_change = true
 
 [node name="SpringArm3D" type="SpringArm3D" parent="MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer/SubViewport" unique_id=1632752028]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 spring_length = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer/SubViewport/SpringArm3D" unique_id=725517126]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.0128515)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.013)
 environment = ExtResource("1_3w5qn")
 
 [node name="NameBox" type="PanelContainer" parent="MarginContainer/Contents" unique_id=1624360972]
