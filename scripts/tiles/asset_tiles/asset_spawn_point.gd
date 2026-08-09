@@ -23,14 +23,35 @@ var default_spring_arm_transform: Transform3D
 var _model_too_far_on_start: bool
 var _model_aligned = false
 
+var _cooldown_process_skip = 20 ## Arbitrary set amount of process cycles to wait for
+
 func _ready() -> void:
-	
-	# if the WHOLE model is visible at start we assume it is too far away from the camera 
-	_model_too_far_on_start = AABB_Utils.is_aabb_fully_inside_camera(AABB_Utils.get_world_aabb(self), spring_arm_3d.get_child(0))
+	if !visible:
+		process_mode = Node.PROCESS_MODE_DISABLED
+		return
 	
 	default_spring_arm_transform = spring_arm_3d.transform
 
+## Forces a waiting period to give the model enough time to load
+## Basically a little hack to ensure model alignment has something to work with
+## Returns `true` while in wait cycle, `false` when wait cycle is over
+func _wait_cycle() -> bool:
+	
+	if _cooldown_process_skip > 0:
+		_cooldown_process_skip -= 1
+		if _cooldown_process_skip == 1: # setting things up on last wait cycle
+			# if the WHOLE model is visible at start we assume it is too far away from the camera 
+			_model_too_far_on_start = AABB_Utils.is_aabb_fully_inside_camera(AABB_Utils.get_world_aabb(self), spring_arm_3d.get_child(0))
+		return true
+	
+	return false
+
 func _process(delta: float) -> void:
+	
+	# guard releases once wait cycle is over
+	if _wait_cycle():
+		return
+	
 	if not _model_aligned:
 		_model_aligned = _align_model(spring_arm_3d.get_child(0), delta)
 		default_spring_length = spring_arm_3d.spring_length
@@ -92,7 +113,7 @@ func _align_model(camera: Camera3D, delta: float) -> bool:
 	const step = 8
 	
 	if _model_too_far_on_start:
-		if not too_far:
+		if !too_far:
 			return true
 		spring_arm_3d.spring_length -= delta * step * spring_arm_3d.spring_length
 	else:
@@ -100,5 +121,4 @@ func _align_model(camera: Camera3D, delta: float) -> bool:
 			return true
 		spring_arm_3d.spring_length += delta * step * spring_arm_3d.spring_length
 		
-	
 	return false

@@ -69,5 +69,8 @@ split_offsets = PackedInt32Array(500)
 [node name="SubViewport" parent="HSplitContainer/AssetInfoSidebar/SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" index="0"]
 size = Vector2i(864, 500)
 
+[node name="SpawnPoint" parent="HSplitContainer/AssetInfoSidebar/SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer/SubViewport" index="1"]
+visible = false
+
 [editable path="HSplitContainer/AssetInfoSidebar"]
 [editable path="HSplitContainer/AssetInfoSidebar/SidebarSplit/ScrollContainer/AssetMetaInfo"]

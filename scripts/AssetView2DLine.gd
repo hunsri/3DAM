@@ -49,3 +49,14 @@ func enable_folder_tiles() -> void:
 	for tile in get_children():
 		if tile is FolderTile:
 			tile.enable_tile_button()
+
+## Returns all children with the given type.
+## Type is based on script.
+func get_all_tiles_of_type(tile_type: Script) -> Array[Node]:
+	var result: Array[Node] = []
+	
+	for child in get_children():
+		if child.get_script() == tile_type:
+			result.append(child)
+
+	return result
