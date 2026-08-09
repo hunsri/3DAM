@@ -5,6 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://sgpwjynuf0yu" path="res://scenes/sidebar/compare_sidebar/lookdev/Lookdev.tscn" id="2_pp62v"]
 [ext_resource type="Texture2D" uid="uid://dugyd5llllka" path="res://icons/eye.png" id="3_7vlxa"]
 [ext_resource type="Texture2D" uid="uid://rbrlkpq7es34" path="res://icons/eye-closed.png" id="4_yyyds"]
+[ext_resource type="Texture2D" uid="uid://bgbja2uaad2h6" path="res://icons/help-circle-solid-small.png" id="6_rtdhm"]
+[ext_resource type="Texture2D" uid="uid://fgxkqwgfk03d" path="res://icons/help-circle-small.png" id="7_on67j"]
+[ext_resource type="Texture2D" uid="uid://dxjadq0a8p57j" path="res://icons/mouse-button-right.png" id="9_3qlih"]
+[ext_resource type="Texture2D" uid="uid://dui8rikqhr4k5" path="res://icons/position.png" id="10_u8ug3"]
+[ext_resource type="Texture2D" uid="uid://cxeokfbeii2x" path="res://icons/mouse-scroll-wheel.png" id="11_w723j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r1igs"]
 
@@ -203,6 +208,7 @@ render_target_update_mode = 4
 [node name="DebugCamera3D" type="Camera3D" parent="VBoxContainer/SubViewportContainer/SubViewport/Environment" unique_id=195690956]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8678045, 2.030809)
 script = ExtResource("1_3nsvv")
+max_speed = 100.0
 metadata/_custom_type_script = "uid://dhr56jq0htsg2"
 
 [node name="Lookdev" parent="VBoxContainer/SubViewportContainer/SubViewport/Environment/DebugCamera3D" unique_id=596830889 instance=ExtResource("2_pp62v")]
@@ -241,3 +247,48 @@ size_flags_vertical = 8
 text = "                               Lookdev"
 icon = ExtResource("4_yyyds")
 icon_alignment = 1
+
+[node name="HelpContainer" type="FoldableContainer" parent="." unique_id=541501884]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme_override_icons/expanded_arrow_mirrored = ExtResource("6_rtdhm")
+theme_override_icons/folded_arrow = ExtResource("7_on67j")
+title_position = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HelpContainer" unique_id=659439807]
+editor_description = "Using disabled buttons because it is surprisingly the easiest way to set this up"
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MoveCamera" type="Button" parent="HelpContainer/VBoxContainer" unique_id=1304137781]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+disabled = true
+text = "+ [W] [A] [S] [D]   Move Camera"
+icon = ExtResource("9_3qlih")
+flat = true
+alignment = 0
+
+[node name="Zoom" type="Button" parent="HelpContainer/VBoxContainer" unique_id=1957636202]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+disabled = true
+text = "Camera Movement Speed"
+icon = ExtResource("11_w723j")
+flat = true
+alignment = 0
+
+[node name="ResetCameraButton" type="Button" parent="." unique_id=2004218651]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "reset camera"
+icon = ExtResource("10_u8ug3")

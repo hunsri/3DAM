@@ -9,12 +9,20 @@ class_name Compare3DEnvironment extends PanelContainer
 @onready var _floor_plane_reference: MeshInstance3D = $VBoxContainer/SubViewportContainer/SubViewport/EmptyNoteNode/FloorPlaneReference
 @onready var _empty_note_node: Node3D = $VBoxContainer/SubViewportContainer/SubViewport/EmptyNoteNode
 
+@onready var reset_camera_button: Button = $ResetCameraButton
+@onready var debug_camera_3d: DebugCamera3D = $VBoxContainer/SubViewportContainer/SubViewport/Environment/DebugCamera3D
+var debug_camera_start_values: DebugCamera3D
+
 var lookdev_position: Vector3
 var lookdev_hide_position: Vector3
 
 const LOOKDEV_HIDE_SPEED: float = 2.5
 
 func _ready() -> void:
+	
+	debug_camera_start_values = debug_camera_3d.duplicate()
+	
+	reset_camera_button.pressed.connect(_reset_camera)
 	
 	hide_lookdev_button.pressed.connect(_hide_lookdev)
 	show_lookdev_button.pressed.connect(_show_lookdev)
@@ -49,3 +57,7 @@ func display_empty_note() -> void:
 
 func hide_empty_note() -> void:
 	_empty_note_node.visible = false
+
+func _reset_camera() -> void:
+	debug_camera_3d.transform = debug_camera_start_values.transform
+	debug_camera_3d._velocity = debug_camera_start_values.default_velocity
