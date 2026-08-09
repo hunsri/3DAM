@@ -8,6 +8,8 @@
 [ext_resource type="Material" uid="uid://qutmkrji5vu2" path="res://materials/blue_ceramic_mat.tres" id="6_0ff3d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f6yrm"]
+render_priority = 100
+transparency = 1
 no_depth_test = true
 albedo_texture = ExtResource("1_uxnnx")
 

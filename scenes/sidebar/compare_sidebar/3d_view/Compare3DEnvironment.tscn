@@ -22,7 +22,9 @@ sky_material = SubResource("ProceduralSkyMaterial_3nsvv")
 background_mode = 2
 sky = SubResource("Sky_3nsvv")
 ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
 reflected_light_source = 2
+tonemap_mode = 2
 
 [sub_resource type="Shader" id="Shader_yyyds"]
 code = "// shader obtained from:
@@ -30,6 +32,7 @@ code = "// shader obtained from:
 // Many Thanks!
 
 shader_type spatial;
+render_mode unshaded;
 
 uniform float subdivisions : hint_range(1, 1024, 1.0) = 32;
 uniform float grid_width : hint_range(0.0, 1.0, 0.01) = 0.02;
@@ -147,6 +150,7 @@ void fragment() {
 	if (pointGrid != 0.0) grid = mix(grid, point_color, pointGrid);
 	
 	ALBEDO = grid;	
+	ALPHA = 0.5;
 }
 "
 
@@ -219,6 +223,7 @@ environment = SubResource("Environment_1cbbd")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="VBoxContainer/SubViewportContainer/SubViewport/Environment" unique_id=988914656]
 transform = Transform3D(1, 0, 0, 0, 0.76217455, 0.6473716, 0, -0.6473716, 0.76217455, 0, 0, 5.1334767)
+visible = false
 
 [node name="AssetsRoot" type="Node3D" parent="VBoxContainer/SubViewportContainer/SubViewport/Environment" unique_id=1510390718]
 

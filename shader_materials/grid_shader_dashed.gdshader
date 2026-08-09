@@ -3,6 +3,7 @@
 // Many Thanks!
 
 shader_type spatial;
+render_mode unshaded;
 
 uniform float subdivisions : hint_range(1, 1024, 1.0) = 32;
 uniform float grid_width : hint_range(0.0, 1.0, 0.01) = 0.02;
