@@ -56,12 +56,17 @@ directory_handler = NodePath("../../../DirectorySelector/DirectoryHandler")
 visible = false
 
 [node name="SubViewport" parent="Background/HBoxContainer/HSplitContainer/AssetExplorer2d/HSplitContainer/AssetInfoSidebar/SidebarSplit/Panel/ModelPreviewContainer/SubViewportContainer" index="0"]
-size = Vector2i(40, 500)
+size = Vector2i(2, 2)
 render_target_update_mode = 0
 
-[node name="CompareView" parent="Background/HBoxContainer/HSplitContainer" unique_id=875355270 instance=ExtResource("3_edxg6")]
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/HBoxContainer/HSplitContainer" unique_id=904356926]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="CompareView" parent="Background/HBoxContainer/HSplitContainer/ScrollContainer" unique_id=875355270 instance=ExtResource("3_edxg6")]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="DebugFileLabel" type="Label" parent="." unique_id=599171567]
 visible = false

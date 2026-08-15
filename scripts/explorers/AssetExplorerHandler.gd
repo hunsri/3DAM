@@ -20,6 +20,8 @@ var asset_infos: Array[AssetInfo] = []
 ## holds the paths of the folders in the currently open directory, excluding asset-packages, which are handled as assets
 var folder_dirs: Array[String] = []
 
+@export var popup_on_click: bool = true # whether to show a popup of an asset on clicking it 
+
 func _ready() -> void:
 	reload_explorer()
 
@@ -37,6 +39,9 @@ func reload_explorer() -> void:
 ## [param p_asset_tile] the tile that was clicked
 func asset_clicked(p_asset_tile: AbstractAssetTile) -> void:
 	asset_sidebar_handler.set_latest_clicked_asset(p_asset_tile)
+	
+	if popup_on_click:
+		AssetPopup.create_instance().setup(p_asset_tile, self)
 
 ## Sets the overlay of the explorer to the given exchange mode
 ## Used to disable interaction with the explorer while an upload or download selection is in progress

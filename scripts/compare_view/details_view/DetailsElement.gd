@@ -1,7 +1,8 @@
-class_name DetailsElement extends Node
+class_name DetailsElement extends MarginContainer
 
 const DETAILS_ELEMENT_ENTRY_ITEM = preload("uid://jwxjevp5g6qc")
 @onready var details_view: DetailsViewManager = $"../../../.."
+@onready var sub_viewport_container: SubViewportContainer = $Contents/ModelPreviewContainer/SubViewportContainer
 
 var tile: AssetTile2D
 
@@ -9,6 +10,8 @@ var tile: AssetTile2D
 @export var asset_spawn_root: Node3D
 
 @export var details_elements_root: VBoxContainer
+
+@onready var _remove_button: Button = $Contents/ActionBar/HBoxContainer/Remove
 
 func setup(asset: AbstractAssetTile) -> void:
 	if asset is AssetTile2D:
@@ -58,6 +61,15 @@ func display_as_uv() -> void:
 	const UV_DISPLAY_SHADER = preload("res://shader_materials/uv_display.tres")
 	MaterialUtils.replace_all_material_overrides(asset_spawn_root, UV_DISPLAY_SHADER)
 
+## Used to set a better appearance in popup mode.
+## See [AssetPopup].
+## @experimental
+func set_to_single_mode() -> void:
+	self.custom_maximum_size.x = -1
+	
+	_remove_button.visible = false
+	
+
 ### beware AI referenced CODE BELOW ###
 # seems alright after necessary adjustments, but if you find a bug you know the drill
 func analyze_glb(scene: Node) -> Dictionary:
@@ -97,9 +109,9 @@ func _scan_node(node: Node, result: Dictionary, material_set: Dictionary):
 					@warning_ignore("integer_division")
 					result.triangles += vertices.size() / 3
 
-				var material = mesh.surface_get_material(surface)
-				if material:
-					material_set[material.resource_path] = material
+				var mesh_material = mesh.surface_get_material(surface)
+				if mesh_material:
+					material_set[mesh_material.resource_path] = mesh_material
 
 	for child in node.get_children():
 		_scan_node(child, result, material_set)

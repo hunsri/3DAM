@@ -7,7 +7,7 @@ const DETAILS_ELEMENT = preload("uid://vbl42yegec85")
 
 var current_display_mode: DisplayOptionsButton.DisplayOptions = DisplayOptionsButton.DisplayOptions.SHADED
 
-func create_model_compare_element(tile: AbstractAssetTile, index: int) -> void:
+func create_model_compare_element(tile: AbstractAssetTile, index: int) -> DetailsElement:
 	var detail_item: DetailsElement = DETAILS_ELEMENT.instantiate()
 	
 	detail_item.setup(tile)
@@ -15,10 +15,16 @@ func create_model_compare_element(tile: AbstractAssetTile, index: int) -> void:
 	details_root.add_child(detail_item)
 	
 	details_root.move_child(detail_item, index+1) #index 0 is occupied by the receptor
+	
+	return detail_item
 
-func remove_model_compare_element(index: int) -> void:
-	details_root.remove_child(details_root.get_child(index+1)) #index 0 is occupied by the receptor
-
+func remove_model_compare_element(index: int) -> DetailsElement:
+	var element: DetailsElement = details_root.get_child(index+1)
+	
+	details_root.remove_child(element) #index 0 is occupied by the receptor
+	
+	return element
+	
 func apply_current_display_mode_to_all() -> void:
 	for child in details_root.get_children():
 		if child is DetailsElement:

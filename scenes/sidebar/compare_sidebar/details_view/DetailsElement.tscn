@@ -6,8 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dpyd0mvhlxhkf" path="res://icons/download.png" id="2_ss73r"]
 [ext_resource type="Texture2D" uid="uid://bb28cuhux8va6" path="res://icons/trash.png" id="3_16r55"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cbbd"]
-
 [sub_resource type="LabelSettings" id="LabelSettings_1cbbd"]
 font_size = 22
 outline_size = 1
@@ -82,71 +80,72 @@ content_margin_right = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(0.33, 0.18216002, 0.05280001, 1)
 
-[node name="DetailsElement" type="PanelContainer" unique_id=1026025218 node_paths=PackedStringArray("asset_name_label", "asset_spawn_root", "details_elements_root")]
-anchors_preset = 15
-anchor_right = 1.0
+[node name="DetailsElement" type="MarginContainer" unique_id=1402478862 node_paths=PackedStringArray("asset_name_label", "asset_spawn_root", "details_elements_root")]
+custom_minimum_size = Vector2(400, 0)
+custom_maximum_size = Vector2(400, -1)
+anchors_preset = -1
+anchor_right = 0.20833333
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_1cbbd")
+size_flags_horizontal = 3
 script = ExtResource("1_ss73r")
-asset_name_label = NodePath("MarginContainer/Contents/NameBox/MarginContainer/AssetNameLabel")
-asset_spawn_root = NodePath("MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer/SubViewport/SpawnPoint")
-details_elements_root = NodePath("MarginContainer/Contents/MetaInfo/DetailsElementsRoot")
+asset_name_label = NodePath("Contents/NameBox/MarginContainer/AssetNameLabel")
+asset_spawn_root = NodePath("Contents/ModelPreviewContainer/SubViewportContainer/SubViewport/SpawnPoint")
+details_elements_root = NodePath("Contents/MetaInfo/DetailsElementsRoot")
+metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1069792278]
-custom_minimum_size = Vector2(400, 0)
-custom_maximum_size = Vector2(400, -1)
-layout_mode = 2
-
-[node name="Contents" type="VBoxContainer" parent="MarginContainer" unique_id=1789322949]
+[node name="Contents" type="VBoxContainer" parent="." unique_id=1789322949]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="ModelPreviewContainer" type="PanelContainer" parent="MarginContainer/Contents" unique_id=1330304918]
-custom_minimum_size = Vector2(0, 400)
+[node name="ModelPreviewContainer" type="PanelContainer" parent="Contents" unique_id=1330304918]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer/Contents/ModelPreviewContainer" unique_id=1715077790]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Contents/ModelPreviewContainer" unique_id=1715077790]
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
+stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer" unique_id=951114706]
+[node name="SubViewport" type="SubViewport" parent="Contents/ModelPreviewContainer/SubViewportContainer" unique_id=951114706]
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(400, 400)
+size = Vector2i(400, 470)
 render_target_update_mode = 4
 
-[node name="SpawnPoint" type="Node3D" parent="MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer/SubViewport" unique_id=668937128 node_paths=PackedStringArray("spring_arm_3d")]
+[node name="SpawnPoint" type="Node3D" parent="Contents/ModelPreviewContainer/SubViewportContainer/SubViewport" unique_id=668937128 node_paths=PackedStringArray("spring_arm_3d")]
 script = ExtResource("2_16r55")
 spring_arm_3d = NodePath("../SpringArm3D")
 disable_zoom = true
 disable_position_change = true
 
-[node name="SpringArm3D" type="SpringArm3D" parent="MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer/SubViewport" unique_id=1632752028]
+[node name="SpringArm3D" type="SpringArm3D" parent="Contents/ModelPreviewContainer/SubViewportContainer/SubViewport" unique_id=1632752028]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 spring_length = 3.0
 
-[node name="Camera3D" type="Camera3D" parent="MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer/SubViewport/SpringArm3D" unique_id=725517126]
+[node name="Camera3D" type="Camera3D" parent="Contents/ModelPreviewContainer/SubViewportContainer/SubViewport/SpringArm3D" unique_id=725517126]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.013)
 environment = ExtResource("1_3w5qn")
+current = true
 
-[node name="NameBox" type="PanelContainer" parent="MarginContainer/Contents" unique_id=1624360972]
+[node name="NameBox" type="PanelContainer" parent="Contents" unique_id=1624360972]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Contents/NameBox" unique_id=1913137839]
+[node name="MarginContainer" type="MarginContainer" parent="Contents/NameBox" unique_id=1913137839]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="AssetNameLabel" type="Label" parent="MarginContainer/Contents/NameBox/MarginContainer" unique_id=1077002397]
+[node name="AssetNameLabel" type="Label" parent="Contents/NameBox/MarginContainer" unique_id=1077002397]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "<NAME>"
 label_settings = SubResource("LabelSettings_1cbbd")
 
-[node name="ActionBar" type="MarginContainer" parent="MarginContainer/Contents" unique_id=1267198281]
+[node name="ActionBar" type="MarginContainer" parent="Contents" unique_id=1267198281]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_constants/margin_left = 4
@@ -154,10 +153,10 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Contents/ActionBar" unique_id=1650446356]
+[node name="HBoxContainer" type="HBoxContainer" parent="Contents/ActionBar" unique_id=1650446356]
 layout_mode = 2
 
-[node name="Download" type="Button" parent="MarginContainer/Contents/ActionBar/HBoxContainer" unique_id=1514181512]
+[node name="Download" type="Button" parent="Contents/ActionBar/HBoxContainer" unique_id=1514181512]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_ss73r")
@@ -169,7 +168,7 @@ text = "Download"
 icon = ExtResource("2_ss73r")
 expand_icon = true
 
-[node name="Remove" type="Button" parent="MarginContainer/Contents/ActionBar/HBoxContainer" unique_id=195820989]
+[node name="Remove" type="Button" parent="Contents/ActionBar/HBoxContainer" unique_id=195820989]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_ie7vy")
@@ -182,17 +181,18 @@ text = "Remove
 icon = ExtResource("3_16r55")
 expand_icon = true
 
-[node name="MetaInfo" type="ScrollContainer" parent="MarginContainer/Contents" unique_id=689353746]
+[node name="MetaInfo" type="ScrollContainer" parent="Contents" unique_id=689353746]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 5
 
-[node name="DetailsElementsRoot" type="VBoxContainer" parent="MarginContainer/Contents/MetaInfo" unique_id=1217020423]
+[node name="DetailsElementsRoot" type="VBoxContainer" parent="Contents/MetaInfo" unique_id=1217020423]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[connection signal="mouse_entered" from="MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer" to="MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_entered"]
-[connection signal="mouse_exited" from="MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer" to="MarginContainer/Contents/ModelPreviewContainer/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_exited"]
-[connection signal="pressed" from="MarginContainer/Contents/ActionBar/HBoxContainer/Remove" to="." method="_on_remove_pressed"]
+[connection signal="mouse_entered" from="Contents/ModelPreviewContainer/SubViewportContainer" to="Contents/ModelPreviewContainer/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_entered"]
+[connection signal="mouse_exited" from="Contents/ModelPreviewContainer/SubViewportContainer" to="Contents/ModelPreviewContainer/SubViewportContainer/SubViewport/SpawnPoint" method="_on_sub_viewport_container_mouse_exited"]
+[connection signal="pressed" from="Contents/ActionBar/HBoxContainer/Remove" to="." method="_on_remove_pressed"]

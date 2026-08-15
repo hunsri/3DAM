@@ -2,7 +2,7 @@
 
 @abstract func get_compare_manager() -> CompareManager
 
-@abstract func create_model_compare_element(tile: AbstractAssetTile, index: int) -> void
+@abstract func create_model_compare_element(tile: AbstractAssetTile, index: int)
 
 @abstract func remove_model_compare_element(index: int)
 
