@@ -19,6 +19,7 @@
 bg_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
 
 [node name="DirectorySelector" type="MarginContainer" unique_id=536886688]
+visible = false
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 400.0
@@ -33,6 +34,7 @@ theme_override_constants/separation = 0
 theme_override_constants/minimum_grab_thickness = 0
 theme_override_icons/grabber = SubResource("ImageTexture_hqjo8")
 theme_override_icons/h_grabber = SubResource("ImageTexture_s8wdl")
+collapsed = true
 
 [node name="DirectorySidePanel" type="PanelContainer" parent="FoldableContainer" unique_id=1409989446]
 custom_minimum_size = Vector2(400, 0)

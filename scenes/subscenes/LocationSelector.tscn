@@ -15,6 +15,7 @@ location_spawner = NodePath("LeftSidePanel/ScrollContainer/LocationSpawner")
 metadata/_edit_use_anchors_ = true
 
 [node name="LeftSidePanel" type="Panel" parent="." unique_id=1257866852]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 9
@@ -41,6 +42,7 @@ size_flags_horizontal = 4
 theme = ExtResource("1_h5pmh")
 
 [node name="MyPC" parent="LeftSidePanel/ScrollContainer/LocationSpawner" unique_id=418672031 node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 location_selector = NodePath("../../../..")
@@ -49,7 +51,6 @@ location_selector = NodePath("../../../..")
 button_pressed = true
 
 [node name="Server1" parent="LeftSidePanel/ScrollContainer/LocationSpawner" unique_id=548510989 node_paths=PackedStringArray("location_selector") instance=ExtResource("2_sw0j3")]
-visible = false
 layout_mode = 2
 scene_type = 1
 location_selector = NodePath("../../../..")

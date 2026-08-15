@@ -23,8 +23,9 @@ func setup(model: Node3D, index: int = 0, p_floor_plane: MeshInstance3D = null) 
 	asset_spawn_root.add_child(model)
 	
 	var model_AABB: Vector3 = AABB_Utils.get_world_aabb(model).size
-
-	model.position.y = model_AABB.y / 2
+	
+	## TODO: check against floor clipping
+	#model.position.y = model_AABB.y / 2
 	
 	floor_plane.position = Vector3(0, 0, 0)
 	self.add_child(floor_plane)
