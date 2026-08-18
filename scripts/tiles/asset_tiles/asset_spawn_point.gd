@@ -57,6 +57,14 @@ func _process(delta: float) -> void:
 		return
 	
 	if not _model_aligned:
+		
+		# we only need this once to help camera alignment by centering it on the AABB of the model
+		var aabb = AABB_Utils.get_world_aabb(self)
+		spring_arm_3d.position.y = (aabb.position.y + aabb.size.y/2)
+		default_spring_arm_transform = spring_arm_3d.transform
+		
+		_align_pivot()
+		
 		_align_model(spring_arm_3d.get_child(0), delta)
 		default_spring_length = spring_arm_3d.spring_length
 
@@ -114,7 +122,7 @@ func reset() -> void:
 func _align_model(camera: Camera3D, delta: float) -> void:
 	var too_far: bool = AABB_Utils.is_aabb_fully_inside_camera(AABB_Utils.get_world_aabb(self), camera)
 	
-	const step = 8
+	const step = 8 # arbitrary set amount that controls the step speed of the alignment
 	
 	if _model_too_far_on_start:
 		if !too_far:
@@ -126,6 +134,15 @@ func _align_model(camera: Camera3D, delta: float) -> void:
 			_model_aligned = true
 			_correction_pass() # resets the alignment flags once
 		spring_arm_3d.spring_length += delta * step * spring_arm_3d.spring_length
+
+## Ensures that when rotating the asset the pivot point is set to the center of the bounding box of the asset
+func _align_pivot() -> void:
+	if self.get_child_count() == 0:
+		return
+	
+	var y_height: float = AABB_Utils.get_world_aabb(self).size.y
+	var model: Node3D = self.get_child(0)
+	model.position.y = -y_height/2
 
 ## Resets the alignment flags, to run alignment again, based on the first alignment result
 ## Basically running the zooming test a second time, but from a better starting position 

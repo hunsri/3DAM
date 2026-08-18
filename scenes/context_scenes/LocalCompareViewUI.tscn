@@ -8,6 +8,9 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guh61"]
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbece"]
+bg_color = Color(0, 0, 0, 1)
+
 [node name="LocalCompareViewUi" type="Control" unique_id=117124250]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 3
@@ -44,6 +47,8 @@ explorer_handler = NodePath("../../HSplitContainer/AssetExplorer2d/AssetExplorer
 [node name="HSplitContainer" type="HSplitContainer" parent="Background/HBoxContainer" unique_id=1194475055]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 6
+theme_override_styles/split_bar_background = SubResource("StyleBoxFlat_pbece")
 
 [node name="AssetExplorer2d" parent="Background/HBoxContainer/HSplitContainer" unique_id=2038647137 instance=ExtResource("1_lappt")]
 layout_mode = 2

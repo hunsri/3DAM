@@ -85,6 +85,7 @@ script = ExtResource("1_nmi26")
 
 [node name="TabContainer" type="TabContainer" parent="." unique_id=1304271021]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_wyxuf")
 tab_alignment = 1
 current_tab = 0
