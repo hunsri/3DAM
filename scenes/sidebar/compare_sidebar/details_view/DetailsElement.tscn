@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://gh78gaq6h0xx" path="res://scripts/tiles/asset_tiles/asset_spawn_point.gd" id="2_16r55"]
 [ext_resource type="Texture2D" uid="uid://dpyd0mvhlxhkf" path="res://icons/download.png" id="2_ss73r"]
 [ext_resource type="Texture2D" uid="uid://bb28cuhux8va6" path="res://icons/trash.png" id="3_16r55"]
+[ext_resource type="Script" uid="uid://c2nvs0uahasfh" path="res://scripts/gui_helpers/button_animator.gd" id="5_16r55"]
+[ext_resource type="Texture2D" uid="uid://bw5dvml5qjgl3" path="res://icons/check.png" id="6_t80ld"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1cbbd"]
 font_size = 22
@@ -167,6 +169,9 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_thr0v")
 text = "Download"
 icon = ExtResource("2_ss73r")
 expand_icon = true
+script = ExtResource("5_16r55")
+button_pressed_text = "Downloaded!"
+button_pressed_icon = ExtResource("6_t80ld")
 
 [node name="Remove" type="Button" parent="Contents/ActionBar/HBoxContainer" unique_id=195820989]
 layout_mode = 2
